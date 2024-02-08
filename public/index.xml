@@ -5,15 +5,37 @@
     <link>https://NicknEma.github.io/</link>
     <description>Recent content on Answers at the End</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Thu, 08 Feb 2024 11:34:18 +0100</lastBuildDate>
-    <atom:link href="https://NicknEma.github.io/index.xml" rel="self" type="application/rss+xml" />
+      <language>en-us</language>
+      <lastBuildDate>Thu, 08 Feb 2024 11:34:18 +0100</lastBuildDate><atom:link href="https://NicknEma.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>My First.post</title>
-      <link>https://NicknEma.github.io/posts/my-first.post/</link>
+      <title>Brainfact</title>
+      <link>https://NicknEma.github.io/projects/brainfact/</link>
       <pubDate>Thu, 08 Feb 2024 11:34:18 +0100</pubDate>
-      <guid>https://NicknEma.github.io/posts/my-first.post/</guid>
-      <description>Introduction This is bold text, and this is emphasized text.&#xA;Visit the Hugo website!</description>
+
+      <guid>https://NicknEma.github.io/projects/brainfact/</guid>
+      <description>BrainfactA brainfuck interpreter and compiler written in odin.</description>
+      <content>
+&lt;h1 id=&#34;brainfact&#34;&gt;
+  Brainfact
+  &lt;a href=&#34;#brainfact&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
+&lt;/h1&gt;
+&lt;p&gt;A brainfuck interpreter and compiler written in odin.&lt;/p&gt;
+</content>
+    </item>
+    <item>
+      <title>My First Post</title>
+      <link>https://NicknEma.github.io/posts/my-first-post/</link>
+      <pubDate>Thu, 08 Feb 2024 11:34:18 +0100</pubDate>
+
+      <guid>https://NicknEma.github.io/posts/my-first-post/</guid>
+      <description>WelcomeThis website is under construction. Come back soon!</description>
+      <content>
+&lt;h1 id=&#34;welcome&#34;&gt;
+  Welcome
+  &lt;a href=&#34;#welcome&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
+&lt;/h1&gt;
+&lt;p&gt;This website is under construction. Come back soon!&lt;/p&gt;
+</content>
     </item>
   </channel>
 </rss>
