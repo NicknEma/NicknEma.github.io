@@ -1,4 +1,4 @@
 baseURL = 'https://NicknEma.github.io/'
 languageCode = 'en-us'
 title = 'Answers at the End'
-theme = 'ananke'
+theme = "hugo-xterm"
