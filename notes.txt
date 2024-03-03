@@ -1,0 +1,5 @@
+How to create a Hugo theme (4 parts):
+https://bit-101.com/blog/posts/2023-12-30/hugo-themes-part-1/
+
+How to add LaTeX math rendering:
+https://gohugo.io/content-management/mathematics/
