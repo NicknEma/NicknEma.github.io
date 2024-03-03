@@ -5,4 +5,6 @@ draft = false
 +++
 # Brainfact
 
-A brainfuck interpreter and compiler written in odin.
+A brainfuck interpreter and brainfuck-to-C transpiler written in odin.
+
+Download it here: https://github.com/NicknEma/brainfact

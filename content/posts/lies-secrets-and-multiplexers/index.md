@@ -4,7 +4,7 @@ description = "About Multiplexers, and a simple analogy that helped me understan
 date = "2024-03-02T19:26:55+01:00"
 tags = ["", ""]
 categories = ["Hardware", "Digital Logic"]
-draft = true
+draft = false
 +++
 
 You are on a street, one person coming towards you from your right, another from your left. You know that, when they will have reached you, one of them will tell the truth and one will lie. To know which one will do what, you only need the answer to one yes-or-no question; in computer terms, you need _1 bit of information_ to choose which person to trust. It doesn't matter if you ask "should I trust the person coming from the right?" or "should I trust the one coming from the left?", both questions have 1-bit answers.
