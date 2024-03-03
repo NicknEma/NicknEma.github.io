@@ -5,6 +5,22 @@
     <link>https://NicknEma.github.io/categories/</link>
     <description>Recent content in Categories on Answers at the End</description>
     <generator>Hugo -- gohugo.io</generator>
-      <language>en-us</language><atom:link href="https://NicknEma.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language>
+    <lastBuildDate>Sat, 02 Mar 2024 19:26:55 +0100</lastBuildDate>
+    <atom:link href="https://NicknEma.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Digital Logic</title>
+      <link>https://NicknEma.github.io/categories/digital-logic/</link>
+      <pubDate>Sat, 02 Mar 2024 19:26:55 +0100</pubDate>
+      <guid>https://NicknEma.github.io/categories/digital-logic/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Hardware</title>
+      <link>https://NicknEma.github.io/categories/hardware/</link>
+      <pubDate>Sat, 02 Mar 2024 19:26:55 +0100</pubDate>
+      <guid>https://NicknEma.github.io/categories/hardware/</guid>
+      <description></description>
+    </item>
   </channel>
 </rss>

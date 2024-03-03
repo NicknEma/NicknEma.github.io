@@ -5,22 +5,15 @@
     <link>https://NicknEma.github.io/posts/</link>
     <description>Recent content in Posts on Answers at the End</description>
     <generator>Hugo -- gohugo.io</generator>
-      <language>en-us</language>
-      <lastBuildDate>Thu, 08 Feb 2024 11:34:18 +0100</lastBuildDate><atom:link href="https://NicknEma.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language>
+    <lastBuildDate>Sat, 02 Mar 2024 19:26:55 +0100</lastBuildDate>
+    <atom:link href="https://NicknEma.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>My First Post</title>
-      <link>https://NicknEma.github.io/posts/my-first-post/</link>
-      <pubDate>Thu, 08 Feb 2024 11:34:18 +0100</pubDate>
-
-      <guid>https://NicknEma.github.io/posts/my-first-post/</guid>
-      <description>WelcomeThis website is under construction. Come back soon!</description>
-      <content>
-&lt;h1 id=&#34;welcome&#34;&gt;
-  Welcome
-  &lt;a href=&#34;#welcome&#34; class=&#34;hanchor&#34; ariaLabel=&#34;Anchor&#34;&gt;&lt;/a&gt;
-&lt;/h1&gt;
-&lt;p&gt;This website is under construction. Come back soon!&lt;/p&gt;
-</content>
+      <title>Lies, Secrets and Multiplexers</title>
+      <link>https://NicknEma.github.io/posts/lies-secrets-and-multiplexers/</link>
+      <pubDate>Sat, 02 Mar 2024 19:26:55 +0100</pubDate>
+      <guid>https://NicknEma.github.io/posts/lies-secrets-and-multiplexers/</guid>
+      <description>You are on a street, one person coming towards you from your right, another from your left. You know that, when they will have reached you, one of them will tell the truth and one will lie. To know which one will do what, you only need the answer to one yes-or-no question; in computer terms, you need 1 bit of information to choose which person to trust. It doesn&amp;rsquo;t matter if you ask &amp;ldquo;should I trust the person coming from the right?</description>
     </item>
   </channel>
 </rss>
