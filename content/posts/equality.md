@@ -8,15 +8,15 @@ draft = true
 +++
 We are used to think that the word "equals" means something very specific in mathematics. I can put an operation on the left side of the page, like this:
 
-2 + 2
+\[2 + 2\]
 
 And then I can _ask you what this is equal to_:
 
-2 + 2 =
+\[2 + 2 =\]
 
 That symbol, called the "equal sign", is treated like a question mark. What is on its left forms a question, and then you put your answer on the right.
 
-2 + 2 = 4
+\[2 + 2 = 4\]
 
 But this is very different than how we use the word in a conversation. We say that two things are "equal" when they are identical, or more loosely when they're very similar.
 
@@ -28,7 +28,7 @@ Answer: it didn't.
 
 Just like in natural language (english, italian, etc) equals simply indicates a property that two objects might have: that they are equivalent.
 
-In the case of 2 + 2 = 4, the objects are numbers. Since "2 + 2" and "4" are both numbers, I can talk about what the relationship is between them: they are the same number, simply expressed in two different ways.
+In the case of \(2 + 2 = 4\), the objects are numbers. Since "2 + 2" and "4" are both numbers, I can talk about what the relationship is between them: they are the same number, simply expressed in two different ways.
 
 <image, see notes>
 
@@ -40,29 +40,29 @@ I can also do the opposite: take a succint expression and expand it into a bigge
 
 <... -> ...>
 
-If this feels like it's bringing you _further away from the result_, you're still thinking about 2 + 2 and 4 as a question and an answer.
+If this feels like it's bringing you _further away from the result_, you're still thinking about "2 + 2" and "4" as a question and an answer.
 
 But why make something look more complicated than it is? Don't mathematicians like simple things?
 
 Suppose we wanted to compare these two quantities:
 
-1	sq(3)/2
+\[1 \hspace{35pt} \frac{\sqrt{3}}{2}\]
 
 I want to know which of them is bigger. One way to do it would be to "simplify" the number on the right: take out the calculator, take the square root of 3, then divide by 2. But what if you don't have a calculator? Equality to the rescue!
 
-We can rewrite 1 as 2/2 (we can because they're equal):
+We can rewrite 1 as \(\frac{2}{2}\) (we can because they're _equal_):
 
-2/2 <=> sq(3)/2
+\[\frac{2}{2} \lessgtr \frac{\sqrt{3}}{2}\]
 
 Now we have two fractions with the same denominator, which means their relationship only depends on the numerator:
 
-2 <=> sq(3)
+\[2 \lessgtr \sqrt{3}\]
 
-We also know that the square of 2 is 4, so that becomes
+We also know that the square of 2 is 4, so that becomes:
 
-sq(4) <=> sq(3)
+\[\sqrt{4} \lessgtr \sqrt{3}\]
 
-And the square root of 4 is certainly greater than that of 3. With this, we can conclude, without any calculator nor approximations, that 1 > sq(3)/2.
+And the square root of 4 is certainly greater than that of 3. With this, we can conclude, without any calculator nor approximations, that \(1 > \frac{\sqrt{3}}{2}\).
 
 When we study algebra in Middle and High School, so much focus is put on the "reunion of broken parts". So many exercises in which we're required to simplify complicated expressions, to which we're supposed to answer with a number in its "canonical" representation. After all, that's what the word "algebra" means: to put the pieces together.
 
@@ -70,7 +70,7 @@ But just as valid, and perhaps more difficult (since it requires creativity, con
 
 If you are in the mood to pause the reading and do some thinking, you can try it now:
 
-- Which is larger, 3/sq(pi) or 1?
+- Which is larger, \(\frac{3}{\sqrt{\pi}}\) or \(1\)?
 
 - Imagine a square and two circles; one of them is smaller, and touches exactly the midpoints of the square's sides; the other, larger, passes through the four corners of the square.
 
@@ -86,7 +86,7 @@ Well done, welcome back. You may keep reading now.
 
 Actually, let's do one more: which is larger?
 
-2 + 2 <=> 4
+\[2 + 2 \hspace{25pt} 4\]
 
 Interesting. We went from the equals sign being the request for an answer, to it being _the_ answer. On the other hand, "4" became part of the question itself.
 

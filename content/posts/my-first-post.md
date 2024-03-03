@@ -7,3 +7,7 @@ draft = false
 # Welcome
 
 This website is under construction. Come back soon!
+
+```
+This is some code.
+```
