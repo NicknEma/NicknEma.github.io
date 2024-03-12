@@ -1,9 +1,9 @@
 +++
 title = "Equality and the reunion of broken parts"
-description = ""
+description = "On the equals sign, the meaning of equality and the ethimology of the word 'algebra'."
 date = "2024-02-14T21:43:18+01:00"
-tags = ["", ""]
-categories = ["", ""]
+tags = ["math", "algebra"]
+categories = ["math", "essay"]
 draft = true
 +++
 We are used to think that the word "equals" means something very specific in mathematics. I can put an operation on the left side of the page, like this:
