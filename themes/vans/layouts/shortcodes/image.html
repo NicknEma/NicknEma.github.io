@@ -1,0 +1,20 @@
+<!-- Hugo shortcode definition for an image.
+     It retrieves 'src', 'alt' and 'position' parameters from the shortcode instance
+     in the markdown file, and places them in the html element accordingly.
+     'src' and 'alt' are used in the <img> element directly (with some sanification)
+     and 'position' is used as a css class. -->
+{{ if .Get "src" }}
+  <img
+    src="{{ .Get "src" | safeURL }}"
+    {{ with .Get "alt" }}alt="{{ . | plainify }}"{{ end }}
+    class="{{ with .Get "position" }}
+      {{ . }}
+    {{ else -}}
+      center
+    {{- end }}"
+    {{ with .Get "style" }}style="{{ . | safeCSS }}"{{ end }}
+  />
+{{ end }}
+
+<!-- Get 'src' from the shortcode and put it in the 'src' attribute -->
+<!-- Get 'alt' from the shortcode if it exists and put it in the 'alt' attribute -->

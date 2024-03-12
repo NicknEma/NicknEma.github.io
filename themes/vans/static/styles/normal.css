@@ -33,7 +33,10 @@ td,legend,textarea,input,fieldset{
 }
 
 img,svg,video,canvas,audio,iframe,embed,object{
-  display:block
+  display: block;
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto
 }
 
 ul,ol{

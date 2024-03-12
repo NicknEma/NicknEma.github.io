@@ -30,7 +30,7 @@ Just like in natural language (english, italian, etc) equals simply indicates a 
 
 In the case of \(2 + 2 = 4\), the objects are numbers. Since "2 + 2" and "4" are both numbers, I can talk about what the relationship is between them: they are the same number, simply expressed in two different ways.
 
-![Representation of numbers as circles. On the left, two groups of two circles; on the right, one group of four.](2+2=4.png "2+2 and 4 are the same number.")
+{{< image src="2+2=4.png" alt="Representation of numbers as circles. On the left, two groups of two circles; on the right, one group of four." position="center">}}
 
 This is powerful. Knowing two ways to write the same thing means that I can choose the one that's more convenient to the situation. I can look at this complicated expression and rewrite it more concisely by changing the "2 + 2" notation with the "4":
 
@@ -96,9 +96,9 @@ What am I trying to say?
 
 For a long time, I have been under the impression that _math_, and specifically _algebra_, is about _numbers_. I am not alone in this — in fact, many people _still believe_ that, despite being older than me. Whenever there is a question that involves numbers — like how much does each person pay if there's 4 of us and the total is $50.46 — they say _"I can't do it, I was never good at math"_. They populate the internet with memes like this:
 
-![Math meme.](seeing-a-number-in-math.png "People associate math with numbers")
+{{< image src="seeing-a-number-in-math.png" alt="Math meme." position="center">}}
 
-![Math meme.](your-math-has-numbers.png "Early school math only talks about numbers")
+{{< image src="your-math-has-numbers.png" alt="Math meme.">}}
 
 To be fair, they are not _entirely_ wrong. Numbers play a big role in mathematics, but they are not the aim of it.
 
