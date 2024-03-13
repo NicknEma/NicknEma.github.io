@@ -29,6 +29,7 @@
     }
   };
 </script>
+
     
 
     <style>
@@ -90,6 +91,7 @@
     _:where(li){pl:.375em}
     _:where(mark){text-decoration:1;underline;#fce016;_bg:transparent;_text-decoration-color:rgb(252;224;22/.5)@dark}
     _:where(p,li){font:fade-76;_font:16;_line-height:1.65;_font:fade-34@dark}
+    _:where(p,li){text-align:justify}
     _:where(p,pre,blockquote,figure,ul,ol,table){my:1.125em}
     >:first-child{mt:0!}
     _:where(pre){p:20;_r:8;_overflow:auto}
@@ -104,32 +106,30 @@
     _:where(th,p_code,li_code,a,mark){font:semibold;_font:medium@dark}
     _:where(ul){list-style-type:disc}
     _:where(ul,ol,blockquote){pl:1.5em}
-    _:where(video,img){max-width:full}
+    _:where(video,img){max-width:full;}
     _:where(a,mark){text-underline-offset:3}
     _:where(hr){h:2;_bg:fade-10;_bg:fade-70@dark;_my:3em}
 "><p>You are on a street, one person coming towards you from your right, another from your left. You know that, when they will have reached you, one of them will tell the truth and one will lie. To know which one will do what, you only need the answer to one yes-or-no question; in computer terms, you need <em>1 bit of information</em> to choose which person to trust. It doesn&rsquo;t matter if you ask &ldquo;should I trust the person coming from the right?&rdquo; or &ldquo;should I trust the one coming from the left?&rdquo;, both questions have 1-bit answers.</p>
 <p>Then, you find yourself in the middle of a crossing, with a person coming from each cardinal direction: one from south, one from east, one from north, and one from west. Only one of them will tell the truth, the other three will not. This time, a single question won&rsquo;t be enough: you first need to <em>exclude half the possibilities</em> by asking something like &ldquo;should I trust the person coming from the direction parallel to the equator?&rdquo;, and then nail it down to only one possible direction. You need not 1, but <em>2 bits of information</em>.</p>
 <p>This can be generalized:</p>
-<p><img src="log_formula.svg" alt="This is an alt text." title="This is a sample image."></p>
-<p>Seeing it the other way,</p>
-<p><img src="exp_formula.svg" alt="This is an alt text." title="This is a sample image."></p>
-<p>This is what the digital circuit called the <em>multiplexer</em> does: in its case, the &ldquo;people&rdquo; coming from different directions are wires, and its job is to pick the one that will carry through to its output based on the control bits it receives as a secondary input.</p>
-<p><img src="multiplexer.jpg" alt="This is an alt text." title="This is a sample image."></p>
-<p>Note that the primary inputs - the &ldquo;people&rdquo; - don&rsquo;t need to be 1-bit wide; they can carry an arbitrarily large amount of information, and the multiplexer couldn&rsquo;t care less. It doesn&rsquo;t have to interpret the information in any way, all it has to do is choose the right source. What matters is the <em>amount</em> of primary inputs - that&rsquo;s what determines how many control bits are required.</p>
+<img src="log_formula.svg" alt="This is an alt text." title="This is a sample image."><p>Seeing it the other way,</p>
+<img src="exp_formula.svg" alt="This is an alt text." title="This is a sample image."><p>This is what the digital circuit called the <em>multiplexer</em> does: in its case, the &ldquo;people&rdquo; coming from different directions are wires, and its job is to pick the one that will carry through to its output based on the control bits it receives as a secondary input.</p>
+<img src="multiplexer.jpg" alt="This is an alt text." title="This is a sample image."><p>Note that the primary inputs - the &ldquo;people&rdquo; - don&rsquo;t need to be 1-bit wide; they can carry an arbitrarily large amount of information, and the multiplexer couldn&rsquo;t care less. It doesn&rsquo;t have to interpret the information in any way, all it has to do is choose the right source. What matters is the <em>amount</em> of primary inputs - that&rsquo;s what determines how many control bits are required.</p>
 <p>Your computer uses a multiplexer when, for example, it wants to <em>read</em> from a register: each register has wires attached to it, continuously carrying its contents; but the CPU asked for a specific one, so a multiplexer will use the index of the register as its control bits and select the right data.</p>
-<p><img src="reading_from_a_register.jpg" alt="This is an alt text." title="This is a sample image."></p>
-<p>But what if your computer wanted to, instead, <em>write</em> to a register?</p>
+<img src="reading_from_a_register.jpg" alt="This is an alt text." title="This is a sample image."><p>But what if your computer wanted to, instead, <em>write</em> to a register?</p>
 <p>You can imagine yourself in that street again, but with the roles reversed: you, the sole connoisseur of the truth, surrounded by people, each one about to go in a different direction. Only one of them is allowed to know the secret and to bring it to a new place. <em>Everyone else shall remain ignorant. But who shall the chosen one be?</em></p>
 <p>You can use the same method (and math) as before: repeatedly divide by two. A <em>demultiplexer</em>, as the name implies, does the opposite job of a multiplexer: it takes its one primary input, and uses the control bits to choose <em>which of the outputs</em> to forward the input to. All the other outputs will be zeros.</p>
-<p><img src="demultiplexer.jpg" alt="This is an alt text." title="This is a sample image."></p>
-<p>We can now take advantage of the fact that, every clock cycle, each register receives a 1-bit signal called the write-enable that tells it whether it should update itself with the data it receives. When the CPU wants to write to a register, it can just send the data to all the registers. Then, a demultiplexer will set the write-enable bit of the selected register to 1, leaving all the others to zero, thus only allowing the chosen register to update.</p>
-<p><img src="writing_to_a_register.jpg" alt="This is an alt text." title="This is a sample image."></p>
-<p>Muxes and demuxes <a href="https://en.wikipedia.org/wiki/Multiplexer">have other uses</a>, and they are a fundamental part of how a computer&rsquo;s hardware works. Hopefully, with this analogy, you will be able to have a general idea of what their purpose is. You could even try to <a href="https://circuitverse.org/simulator">implement one yourself</a> by combining together logic gates!</p>
-</div></article>
+<img src="demultiplexer.jpg" alt="This is an alt text." title="This is a sample image."><p>We can now take advantage of the fact that, every clock cycle, each register receives a 1-bit signal called the write-enable that tells it whether it should update itself with the data it receives. When the CPU wants to write to a register, it can just send the data to all the registers. Then, a demultiplexer will set the write-enable bit of the selected register to 1, leaving all the others to zero, thus only allowing the chosen register to update.</p>
+<img src="writing_to_a_register.jpg" alt="This is an alt text." title="This is a sample image."><p>Muxes and demuxes <a href="https://en.wikipedia.org/wiki/Multiplexer">have other uses</a>, and they are a fundamental part of how a computer&rsquo;s hardware works. Hopefully, with this analogy, you will be able to have a general idea of what their purpose is. You could even try to <a href="https://circuitverse.org/simulator">implement one yourself</a> by combining together logic gates!</p>
+</div>
+</article>
 <footer class="py:24">
     <div class="f:fade-30 f:14 mb:8"></div>
-    <div class="f:fade-60 f:12">Theme <a class="f:bold" href="https://github.com/serkodev/holy" _target="_blank">Vans</a></div>
-</footer></div>
+    <div class="f:fade-60 f:12">Theme <span class="f:bold">Vans</span></div>
+</footer>
+
+
+</div>
     </div>
 </body>
 

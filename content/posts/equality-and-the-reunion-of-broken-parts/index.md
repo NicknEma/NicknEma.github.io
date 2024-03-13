@@ -1,10 +1,10 @@
 +++
 title = "Equality and the reunion of broken parts"
-description = "On the equals sign, the meaning of equality and the ethimology of the word 'algebra'."
-date = "2024-02-14T21:43:18+01:00"
+description = "On the equals sign, the meaning of equality and the etymology of the word 'algebra'."
+date = "2024-03-13T23:27:18+01:00"
 tags = ["math", "algebra"]
 categories = ["math", "essay"]
-draft = true
+draft = false
 +++
 We are used to think that the word "equals" means something very specific in mathematics. I can put an operation on the left side of the page, like this:
 
@@ -30,7 +30,7 @@ Just like in natural language (english, italian, etc) equals simply indicates a 
 
 In the case of \(2 + 2 = 4\), the objects are numbers. Since "2 + 2" and "4" are both numbers, I can talk about what the relationship is between them: they are the same number, simply expressed in two different ways.
 
-{{< image src="2+2=4.png" alt="Representation of numbers as circles. On the left, two groups of two circles; on the right, one group of four." position="center">}}
+{{< image src="2+2=4.png" alt="Representation of numbers as circles. On the left, two groups of two circles; on the right, one group of four." position="center" width="50%">}}
 
 This is powerful. Knowing two ways to write the same thing means that I can choose the one that's more convenient to the situation. I can look at this complicated expression and rewrite it more concisely by changing the "2 + 2" notation with the "4":
 
@@ -76,7 +76,7 @@ If you are in the mood to pause the reading and do some thinking, you can try it
 
 - Imagine a square and two circles; one of them is smaller, and touches exactly the midpoints of the square's sides; the other, larger, passes through the four corners of the square.
 
-<drawing>
+{{< image src="exercise.png" alt="Visualization of the problem." position="center" width="50%">}}
 
 Is the length of the inner circumference larger or smaller than half the length of the outer circumference?
 
@@ -94,15 +94,15 @@ Interesting. We went from the equals sign being the request for an answer, to it
 
 What am I trying to say?
 
-For a long time, I have been under the impression that _math_, and specifically _algebra_, is about _numbers_. I am not alone in this — in fact, many people _still believe_ that, despite being older than me. Whenever there is a question that involves numbers — like how much does each person pay if there's 4 of us and the total is $50.46 — they say _"I can't do it, I was never good at math"_. They populate the internet with memes like this:
+For a long time, I have been under the impression that _math_, and specifically _algebra_, is about _numbers_. I am not alone in this — in fact, many people _still believe_ that, despite being older than me. Whenever there is a question that involves numbers — like how much does each person pay if there's 4 of us and the total is $50.46 — they say _"I can't do it, I was never good at math"_. They populate the internet with memes like these:
 
-{{< image src="seeing-a-number-in-math.png" alt="Math meme." position="center">}}
+{{< image src="seeing-a-number-in-math.png" alt="Math meme." position="center" width="70%">}}
 
-{{< image src="your-math-has-numbers.png" alt="Math meme.">}}
+{{< image src="your-math-has-numbers.png" alt="Math meme." width="70%">}}
 
 To be fair, they are not _entirely_ wrong. Numbers play a big role in mathematics, but they are not the aim of it.
 
-One way to interpret the phrase "reunion of broken parts" as the meaning and ethimology of algebra is to call the different pieces of an expression, and say that the objective is to put all those pieces together. In our earlier example, the two \(2\)s are the _parts_, and the \(4\) is their _reunion_.
+One way to interpret the phrase "reunion of broken parts" as the meaning and etymology of algebra is to call the different pieces of an expression, and say that the objective is to put all those pieces together. In our earlier example, the two \(2\)s are the _parts_, and the \(4\) is their _reunion_.
 
 Recently I came up with another interpretation that I like a lot more. The "broken parts" are whichever abstract ideas you want — numbers, lines, triangles, motions in a space, even alphabets and languages — and the "reunion" is the discovery that, sometimes, two of those things that looked very different are, in fact, the same thing.
 

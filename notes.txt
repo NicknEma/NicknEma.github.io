@@ -7,9 +7,20 @@ https://gohugo.io/content-management/mathematics/
 # TODO:
 
 WEBSITE:
-[ ]: justify text
+[x]: justify text
+[ ]: make theme display posts' description
 [ ]: colorized math formulas
 [ ]: selectable math formulas
+[ ]: add website logo
+[ ]: change theme link to point to the website itself (temporary)
 
 CONTENT:
-[ ]: Copy articles from wordpress
+[ ]: equality post
+ [x]: finish writing
+ [ ]: vertical space between consecutive images
+ [ ]: remake the memes to be better sized
+ [ ]: generate the two images programmatically
+[ ]: copy articles from wordpress
+ [ ]: multiplexers post
+  [ ]: change date
+  [ ]: generate the four images programmatically

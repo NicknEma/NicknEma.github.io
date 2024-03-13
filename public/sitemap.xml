@@ -2,11 +2,32 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://NicknEma.github.io/tags/algebra/</loc>
+    <lastmod>2024-03-13T23:27:18+01:00</lastmod>
+  </url><url>
     <loc>https://NicknEma.github.io/</loc>
-    <lastmod>2024-03-02T19:26:55+01:00</lastmod>
+    <lastmod>2024-03-13T23:27:18+01:00</lastmod>
   </url><url>
     <loc>https://NicknEma.github.io/categories/</loc>
-    <lastmod>2024-03-02T19:26:55+01:00</lastmod>
+    <lastmod>2024-03-13T23:27:18+01:00</lastmod>
+  </url><url>
+    <loc>https://NicknEma.github.io/posts/equality-and-the-reunion-of-broken-parts/</loc>
+    <lastmod>2024-03-13T23:27:18+01:00</lastmod>
+  </url><url>
+    <loc>https://NicknEma.github.io/categories/essay/</loc>
+    <lastmod>2024-03-13T23:27:18+01:00</lastmod>
+  </url><url>
+    <loc>https://NicknEma.github.io/tags/math/</loc>
+    <lastmod>2024-03-13T23:27:18+01:00</lastmod>
+  </url><url>
+    <loc>https://NicknEma.github.io/categories/math/</loc>
+    <lastmod>2024-03-13T23:27:18+01:00</lastmod>
+  </url><url>
+    <loc>https://NicknEma.github.io/posts/</loc>
+    <lastmod>2024-03-13T23:27:18+01:00</lastmod>
+  </url><url>
+    <loc>https://NicknEma.github.io/tags/</loc>
+    <lastmod>2024-03-13T23:27:18+01:00</lastmod>
   </url><url>
     <loc>https://NicknEma.github.io/categories/digital-logic/</loc>
     <lastmod>2024-03-02T19:26:55+01:00</lastmod>
@@ -17,15 +38,10 @@
     <loc>https://NicknEma.github.io/posts/lies-secrets-and-multiplexers/</loc>
     <lastmod>2024-03-02T19:26:55+01:00</lastmod>
   </url><url>
-    <loc>https://NicknEma.github.io/posts/</loc>
-    <lastmod>2024-03-02T19:26:55+01:00</lastmod>
-  </url><url>
     <loc>https://NicknEma.github.io/projects/brainfact/</loc>
     <lastmod>2024-02-08T11:34:18+01:00</lastmod>
   </url><url>
     <loc>https://NicknEma.github.io/projects/</loc>
     <lastmod>2024-02-08T11:34:18+01:00</lastmod>
-  </url><url>
-    <loc>https://NicknEma.github.io/tags/</loc>
   </url>
 </urlset>

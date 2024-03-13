@@ -1,26 +1,19 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Posts on Answers at the End</title>
-    <link>https://NicknEma.github.io/posts/</link>
-    <description>Recent content in Posts on Answers at the End</description>
+    <title>math on Answers at the End</title>
+    <link>https://NicknEma.github.io/tags/math/</link>
+    <description>Recent content in math on Answers at the End</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 13 Mar 2024 23:27:18 +0100</lastBuildDate>
-    <atom:link href="https://NicknEma.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://NicknEma.github.io/tags/math/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Equality and the reunion of broken parts</title>
       <link>https://NicknEma.github.io/posts/equality-and-the-reunion-of-broken-parts/</link>
       <pubDate>Wed, 13 Mar 2024 23:27:18 +0100</pubDate>
       <guid>https://NicknEma.github.io/posts/equality-and-the-reunion-of-broken-parts/</guid>
       <description>We are used to think that the word &amp;ldquo;equals&amp;rdquo; means something very specific in mathematics. I can put an operation on the left side of the page, like this:&#xA;\[2 + 2\] And then I can ask you what this is equal to:&#xA;\[2 + 2 =\] That symbol, called the &amp;ldquo;equal sign&amp;rdquo;, is treated like a question mark. What is on its left forms a question, and then you put your answer on the right.</description>
-    </item>
-    <item>
-      <title>Lies, Secrets and Multiplexers</title>
-      <link>https://NicknEma.github.io/posts/lies-secrets-and-multiplexers/</link>
-      <pubDate>Sat, 02 Mar 2024 19:26:55 +0100</pubDate>
-      <guid>https://NicknEma.github.io/posts/lies-secrets-and-multiplexers/</guid>
-      <description>You are on a street, one person coming towards you from your right, another from your left. You know that, when they will have reached you, one of them will tell the truth and one will lie. To know which one will do what, you only need the answer to one yes-or-no question; in computer terms, you need 1 bit of information to choose which person to trust. It doesn&amp;rsquo;t matter if you ask &amp;ldquo;should I trust the person coming from the right?</description>
     </item>
   </channel>
 </rss>

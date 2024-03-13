@@ -7,6 +7,7 @@
     "dev": "hugo server -D --disableFastRender --source=exampleSite --themesDir=../.. --theme=${PWD##*/}",
     "build": "hugo --source=exampleSite --themesDir=../.. --theme=${PWD##*/}"
   },
+  /*
   "repository": {
     "type": "git",
     "url": "git+https://github.com/serkodev/holy.git"
@@ -17,4 +18,5 @@
     "url": "https://github.com/serkodev/holy/issues"
   },
   "homepage": "https://github.com/serkodev/holy#readme"
+  */
 }
