@@ -3,7 +3,7 @@ title = "Equality and the reunion of broken parts"
 description = "On the equals sign, the meaning of equality and the etymology of the word 'algebra'."
 date = "2024-03-13T23:27:18+01:00"
 tags = ["math", "algebra"]
-categories = ["math", "essay"]
+categories = ["essay"]
 draft = false
 +++
 We are used to think that the word "equals" means something very specific in mathematics. I can put an operation on the left side of the page, like this:
