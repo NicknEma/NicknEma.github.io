@@ -9,7 +9,7 @@ draft = true
 
 This is a line:
 
----
+{{<image src="line_dm.png" alt="A line." position="center">}}
 
 I was introduced to this mathematical object when I was in elementary school. The teacher drew one on the blackboard, and then said "a line is composed of an infinite number of points. The dashes at the ends indicate that it continues on forever, in both directions".
 At first, I was surprised by the mention of infinity. It's hard to _visualize_ something that is infinite; our poor mortal brains are not used to think about things that untangible. So, as you'd expect, I couldn't _see_ the line going on forever.
@@ -27,7 +27,7 @@ Put it simply, a line goes on forever because we want it to. It doesn't need a r
 
 Now that we're all on the same page, let's talk about half-lines. The teacher then picked up a red-colored chalk and drew a dot on the line, like this:
 
---@--
+{{<image src="half-line_dm.png" alt="A half-line." position="center">}}
 
 They said "this is a half line. It goes on forever in one direction, but not in the other. This," and pointed to the red dot, "is the origin of the half-line. Just like a line, a half-line has an infinite amount of points".
 If you understood lines, this one is easy. Instead of two creatures, it's only one that takes the neverending walk, leaving all of its infinite footprints.
@@ -36,7 +36,7 @@ I hope you're still with me, because now is when my mind exploded.
 
 "If you pick _two_ points on a line, you get a segment":
 
--@---@-
+{{<image src="segment_dm.png" alt="A segment." position="center">}}
 
 "A segment has ininitely many points too."
 
