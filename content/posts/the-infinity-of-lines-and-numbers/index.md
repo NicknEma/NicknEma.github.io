@@ -4,7 +4,7 @@ description = "Understanding shapes with an infinite amount of points and their 
 date = 2024-04-06T16:43:01+01:00
 tags = ["math", "infinity"]
 categories = ["explanation"]
-draft = true
+draft = false
 +++
 
 > “_Young man, in mathematics you don't understand things. You just get used to them._”
@@ -21,7 +21,7 @@ But _logically_, it made complete sense. _Since it never ends, you must need an 
 
 If you are wondering "how do we know that lines are infinite?", I want to make it clear that _lines don't exist in the real world_. They only exist in our minds, and they are perfect mathematical objects that are exactly what we imagine them to be.
 
-At the top of this page there is a drawing of a line; but that drawing is not at all like what I had in mind when I drew it. I was thinking of a _perfectly straight, infinitely thin and infinitely long_ sequence of points, and all I drew is just an _approximation_ of it. Like Magritte would say, "that is not a line".
+At the top of this page there is a drawing of a line; but that drawing is not at all like what I had in mind when I drew it. I was thinking of a _perfectly straight, infinitely thin and infinitely long_ sequence of points, and all I drew is just an _approximation_ of it. Like Magritte would say, "this is not a line".
 
 {{<figure-dynamic dark-src="ceci_dm.png" light-src="ceci_lm.png" alt="Ceci n'est pas une ligne." position="center">}}
 

@@ -1,26 +1,19 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>math on Answers at the End</title>
-    <link>https://NicknEma.github.io/tags/math/</link>
-    <description>Recent content in math on Answers at the End</description>
+    <title>infinity on Answers at the End</title>
+    <link>https://NicknEma.github.io/tags/infinity/</link>
+    <description>Recent content in infinity on Answers at the End</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 06 Apr 2024 16:43:01 +0100</lastBuildDate>
-    <atom:link href="https://NicknEma.github.io/tags/math/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://NicknEma.github.io/tags/infinity/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>The Infinity of Lines and Numbers</title>
       <link>https://NicknEma.github.io/posts/the-infinity-of-lines-and-numbers/</link>
       <pubDate>Sat, 06 Apr 2024 16:43:01 +0100</pubDate>
       <guid>https://NicknEma.github.io/posts/the-infinity-of-lines-and-numbers/</guid>
       <description>“Young man, in mathematics you don&amp;rsquo;t understand things. You just get used to them.”&#xA;– John von Neumann&#xA;This is a line:&#xA;I was introduced to this mathematical object when I was in elementary school. The teacher drew one on the blackboard, and then said &amp;ldquo;a line is composed of an infinite number of points. The dashes at the ends indicate that it continues on forever, in both directions&amp;rdquo;. At first, I was surprised by the mention of infinity.</description>
-    </item>
-    <item>
-      <title>Equality and the reunion of broken parts</title>
-      <link>https://NicknEma.github.io/posts/equality-and-the-reunion-of-broken-parts/</link>
-      <pubDate>Wed, 13 Mar 2024 23:27:18 +0100</pubDate>
-      <guid>https://NicknEma.github.io/posts/equality-and-the-reunion-of-broken-parts/</guid>
-      <description>We are used to think that the word &amp;ldquo;equals&amp;rdquo; means something very specific in mathematics. I can put an operation on the left side of the page, like this:&#xA;\[2 + 2\] And then I can ask you what this is equal to:&#xA;\[2 + 2 =\] That symbol, called the &amp;ldquo;equal sign&amp;rdquo;, is treated like a question mark. What is on its left forms a question, and then you put your answer on the right.</description>
     </item>
   </channel>
 </rss>
