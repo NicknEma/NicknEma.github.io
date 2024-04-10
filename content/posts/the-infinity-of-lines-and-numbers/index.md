@@ -41,7 +41,7 @@ I hope you're still with me, because now is when my mind exploded.
 
 {{<figure-dynamic dark-src="segment_dm.png" light-src="segment_lm.png" alt="A segment." position="center">}}
 
-"A segment has ininitely many points too."
+"A segment has infinitely many points too."
 
 Huh? A segment, infinitely many points? It has a start and an end, and in no direction keeps on going forever. I can _draw_ a whole segment, without putting dashes at the endpoints. How can this have anything to do with infinity?
 
