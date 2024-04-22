@@ -53,7 +53,7 @@ What are these two approaches?
 
 In the first one ("implicit"), symbols are resolved _at load time_, by _a collaboration between the linker and the operating system's loader_.
 
-The linker creates in the binary a _jump table_, where each row corresponds to a missing symbol. The _usage sites_ of the symbols in question receive as an operand an index into the jump table at the corresponding row.
+The linker [creates in the binary a _jump table_](https://web.stanford.edu/~ouster/cgi-bin/cs140-winter13/lecture.php?topic=linkers), where each row corresponds to a missing symbol. The _usage sites_ of the symbols in question receive as an operand an index into the jump table at the corresponding row.
 
 ```
 main:
