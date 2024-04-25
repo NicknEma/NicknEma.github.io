@@ -8,6 +8,7 @@ https://gohugo.io/content-management/mathematics/
 
 WEBSITE:
 [x]: justify text
+[x]: add ability to use latex for math
 [ ]: make theme display posts' description
 [ ]: colorized math formulas
 [ ]: selectable math formulas
