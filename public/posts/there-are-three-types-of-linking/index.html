@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html><head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <title>There Are Three Types of Linking - Answers at the End</title>
+
+    
+    
+    <meta name="description" content="I was taught that libraries can be linked one of two ways: statically or dynamically.
+Computer people love these two words and use them every time they can. Static and dynamic typing, static and dynamic scoping rules.
+In the case of linking, the nomenclature describes whether the resulting binary has depencencies that will still be unresolved when it will be loaded into memory for execution.
+For a symbol to be resolved statically, the linker (typically link." />
+    <meta name="author" content="" />
+    
+
+    <link href="https://NicknEma.github.io/styles/normal.css" rel="stylesheet">
+    <script src="https://unpkg.com/@master/style@1.5.0"></script>
+    <script src="https://unpkg.com/@master/styles@1.13.0"></script>
+    <script src="https://unpkg.com/master-styles-group"></script>
+    <script src="https://unpkg.com/themes.js"></script>
+    <script>window.themes = window.themes || new window.Themes()</script>
+
+    
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<script>
+  MathJax = {
+    tex: {
+      displayMath: [['\\[', '\\]'], ['$$', '$$']],  
+      inlineMath: [['\\(', '\\)']]                  
+    }
+  };
+</script>
+
+    
+
+    <style>
+        :root {
+            --font-sans: "Inter var", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+        }
+    </style></head>
+<body class="bg:fade-84@dark font:fade-16@dark font:sans">
+    <nav class="w:full h:90 fixed bg:fade-84/.95@dark bg:white z:1000">
+    <div class="
+        h:full
+        w:full
+        max-w:1200
+        mx:auto
+        px:32
+        d:flex
+        align-items:center
+    ">
+        <div>
+            <a href="/" class="mr-3 font:extralight">
+              
+              Answers at the End
+              
+            </a>
+        </div>
+
+        <div class="ml:auto">
+            
+            
+            
+        </div>
+    </div>
+</nav>
+<div class="d:flex flex:column@<=sm pt:90 px:24 jc:center gap:44 word-break:break-word">
+        <div class="max-w:700 w:full box:content-box">
+<article class="box:border-box pt:32">
+    <header class="mb:32">
+        <div class="font:40 font:extrabold">There Are Three Types of Linking</div>
+        <div class="mt:16 f:fade-60">
+            <time>Apr 25, 2024</time>
+            </div>
+    </header><div class="
+    _:where(a):hover{text-decoration-color:fade}
+    _:where(a){text-decoration:2;underline;fade-10;_text-decoration-color:fade-70@dark}
+    _:where(blockquote){bl:5;solid;fade-76/.1;_bl:5;solid;fade-34/.1@dark}
+    _:where(code){font:90%;_v:middle}
+    _:where(code:not(.highlight_*,pre_*)){p:2;6;_r:4}
+    _:where(del){text-decoration:1;line-through;fade-68;_text-decoration-color:red-64@dark}
+    _:where(figcaption){text:14;_p:10;20;0;_width:fit;_mx:auto;_font:fade-56;_font:fade-57@dark}
+    _:where(h1){font:40;_font:extrabold}
+    _:where(h1,h2,h3)+:where(h1,h2,h3){mt:.5em}
+    _:where(h1,h2,h3,h4,h5,h6){mt:2em}
+    _:where(h2){mb:1em;_font:32}
+    _:where(h3){font:24}
+    _:where(h4){font:20}
+    _:where(h5){font:16}
+    _:where(h6){font:14}
+    _:where(li)::marker{font:fade-44;_font:fade-68@dark}
+    _:where(li){pl:.375em}
+    _:where(mark){text-decoration:1;underline;#fce016;_bg:transparent;_text-decoration-color:rgb(252;224;22/.5)@dark}
+    _:where(p,li){font:fade-76;_font:16;_line-height:1.65;_font:fade-34@dark}
+    _:where(p,li){text-align:justify}
+    _:where(p,pre,blockquote,figure,ul,ol,table){my:1.125em}
+    >:first-child{mt:0!}
+    _:where(pre){p:20;_r:8;_overflow:auto}
+    _:where(pre,code:not(.highlight_*)){bg:fade-2;_bg:fade-92!@dark}
+    _:where(strong,b,a,code:not(.highlight_*),mark,del){font:fade-92;_font:fade-12@dark}
+    _:where(table){width:full;_border-spacing:0}
+    _:where(td){v:baseline}
+    _:where(td,th):first-child{pl:0}
+    _:where(td,th):last-child{pr:0}
+    _:where(td,th){bb:1;solid;fade-92/.06;_p:6;_b:fade-4/.04@dark}
+    _:where(th){font:fade-78;_font:14;_text:left;_font:fade-12@dark}
+    _:where(th,p_code,li_code,a,mark){font:semibold;_font:medium@dark}
+    _:where(ul){list-style-type:disc}
+    _:where(ul,ol,blockquote){pl:1.5em}
+    _:where(video,img){max-width:full;}
+    _:where(a,mark){text-underline-offset:3}
+    _:where(hr){h:2;_bg:fade-10;_bg:fade-70@dark;_my:3em}
+"><p>I was taught that libraries can be linked one of two ways: statically or dynamically.</p>
+<p>Computer people love these two words and use them every time they can. Static and dynamic typing, static and dynamic scoping rules.</p>
+<p>In the case of linking, the nomenclature describes whether the resulting binary has <em>depencencies</em> that will still be unresolved when it will be loaded into memory for execution.</p>
+<p>For a symbol to be resolved statically, the linker (typically <code>link.exe</code> on Windows and <code>ld</code> on Linux) needs access to the full compiled code, and will <em>hardcode</em> the addresses of procedures and global variables as the operands of the instructions that use them.</p>
+<p>For example, when compiling (and linking) this code:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C" data-lang="C"><span style="display:flex;"><span><span style="color:#75715e">/* foo.c */</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">extern</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">foo</span>(<span style="color:#66d9ef">void</span>) { <span style="color:#75715e">/* ... */</span> }
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C" data-lang="C"><span style="display:flex;"><span><span style="color:#75715e">/* main.c */</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">extern</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">foo</span>(<span style="color:#66d9ef">void</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">void</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">foo</span>();
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>You&rsquo;ll get an executable that looks (in pseudo-assembly) like this:</p>
+<pre tabindex="0"><code>foo:
+0x01234567                    ; body of foo
+
+...
+
+main:
+0x0A234567  jump 0x01234567   ; jump to the first instruction of foo
+</code></pre><p>When the processor reaches the <code>jump</code> instruction, it looks at the memory address right next to it and, well&hellip; jumps there. It assigns that pointer to the program counter, which makes execution continue from there.</p>
+<p>But when the linker <em>doesn&rsquo;t</em> have access to the full code, and doesn&rsquo;t know the starting address of <code>foo</code> (as the procedure is defined in a different binary), this step can&rsquo;t be done. The <code>jump</code> instruction doesn&rsquo;t know <em>where to jump to</em> until <em>someone</em> finds out where <code>foo</code> is located and writes its address in there.</p>
+<p>This is the difference between &ldquo;static&rdquo; and &ldquo;dynamic&rdquo; linking.</p>
+<p>However, the case of dynamic linking still leaves one question unanswered: if it isn&rsquo;t the linker, <em>who</em> is the one that locates the missing symbol, and <em>when</em> does it fix the pointer?</p>
+<p>I&rsquo;ve heard people subdivide dynamic linking further into <em>implicit dynamic linking</em> and <em>explicit dynamic linking</em>. This reflects the fact that there are, in fact, two possible answers to my question; these two approaches are quite different though, and they allow the programmer to solve different problems. Just saying &ldquo;dynamic linking&rdquo; to indicate both of them is quite reductive.</p>
+<p>What are these two approaches?</p>
+<p>In the first one (implicit), symbols are resolved <em>at load time</em>, by <em>a collaboration between the linker and the operating system&rsquo;s loader</em>.</p>
+<p>The linker <a href="https://web.stanford.edu/~ouster/cgi-bin/cs140-winter13/lecture.php?topic=linkers">creates in the binary a <em>jump table</em></a>, where each row corresponds to a missing symbol. The <em>usage sites</em> of the symbols in question receive as an operand an index into the jump table at the corresponding row.</p>
+<pre tabindex="0"><code>main:
+0x0A234567  jump 0x0B234567 + 0  ; jump to entry 0 of the jump table
+
+...
+
+jump_table:
+0x0B234567  jump ???             ; entry 0 corresponds to foo, the address of which is still unknown
+</code></pre><p>The linker also writes <em>what the binary&rsquo;s dependencies are</em> (which dynamic libraries contain the missing symbols&rsquo; definitions).</p>
+<p>When the program is launched, the operating system&rsquo;s loader takes the executable and all its dependencies; it then looks at the jump table and tries to fill it with the addresses of the corresponding symbol in the libraries.</p>
+<pre tabindex="0"><code>; Inside the loaded copy of main.exe
+main:
+0x0A234567  jump 0x0B234567 + 0  ; jump to entry 0 of the jump table
+
+...
+
+jump_table:
+0x0B234567  jump 0x0F234567      ; entry 0 corresponds to foo, the address of which
+                                 ; has been found by the loader
+</code></pre><pre tabindex="0"><code>Inside the loaded copy of foo.dll
+foo:
+0x0F234567                       ; body of foo
+</code></pre><p>The implementation details of this method vary from one OS to another, but in general the loader will make sure that no program can run when some of its symbols are still unresolved.</p>
+<p>For example, on Windows, trying to run a program without its associate library will bring up this message box:</p>
+
+
+<figure class="center"><img src="/posts/there-are-three-types-of-linking/system_error_ita.png"
+    alt="Windows complaining about a missing dll." width="60%"><figcaption>
+      <p><em>The code execution cannot proceed because libr.dll was not found. Reinstalling the program may fix this problem.</em></p>
+    </figcaption>
+</figure>
+
+<p>But what if we <em>want</em> to run a program when some of its symbols are unresolved? What if the programmer wants to have more control over how the linking works, the time at which it happens and the logic behind it?</p>
+<p>This is what the last kind of linking (explicit) is for. Windows and Linux both provide a way to do it, though they make it more cumbersome than the other two methods.</p>
+<p>By defining <code>foo</code> as a procedure <em>pointer</em>, neither the linker nor the loader will complain about a symbol being unresolved. Procedure pointers are just pointers, after all.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C" data-lang="C"><span style="display:flex;"><span><span style="color:#75715e">/* foo.c */</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">extern</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">foo</span>(<span style="color:#66d9ef">void</span>) { <span style="color:#75715e">/* ... */</span> }
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C" data-lang="C"><span style="display:flex;"><span><span style="color:#75715e">/* main.c */</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">Void_Proc</span>(<span style="color:#66d9ef">void</span>);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">static</span> Void_Proc <span style="color:#f92672">*</span>foo;
+</span></span></code></pre></div><p>If we manage to manually assign to <code>foo</code> its correct value, we can then call it as usual:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C" data-lang="C"><span style="display:flex;"><span><span style="color:#75715e">/* main.c */</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">void</span>) {
+</span></span><span style="display:flex;"><span>    foo <span style="color:#f92672">=</span> ...; <span style="color:#75715e">// assign the pointer *somehow*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">foo</span>();
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Fortunately, both Windows and Linux provide ways to figure out what the correct value of <code>foo</code> should be. The exact signatures are of course different, but the idea is the same; first, load the library contents into memory:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C" data-lang="C"><span style="display:flex;"><span><span style="color:#75715e">/* main.c */</span>
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// If on Windows:
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    HANDLE foo_library_handle <span style="color:#f92672">=</span> <span style="color:#a6e22e">LoadLibraryA</span>(<span style="color:#e6db74">&#34;foo.dll&#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// If on Linux:
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">void</span>  <span style="color:#f92672">*</span>foo_library_handle <span style="color:#f92672">=</span> <span style="color:#a6e22e">dlopen</span>(<span style="color:#e6db74">&#34;foo.so&#34;</span>, RTLD_LAZY);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>From the library handle, get the procedure&rsquo;s start address:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C" data-lang="C"><span style="display:flex;"><span><span style="color:#75715e">/* main.c */</span>
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// If on Windows:
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    foo <span style="color:#f92672">=</span> (Void_Proc <span style="color:#f92672">*</span>) <span style="color:#a6e22e">GetProcAddress</span>(foo_library_handle, <span style="color:#e6db74">&#34;foo&#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// If on Linux:
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    foo <span style="color:#f92672">=</span> (Void_Proc <span style="color:#f92672">*</span>) <span style="color:#a6e22e">dlsym</span>(foo_library_handle, <span style="color:#e6db74">&#34;foo&#34;</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>And you&rsquo;re done.</p>
+<p>You can see how this is quite different than the other flavour of &ldquo;dynamic linking&rdquo;, as it allows the program to choose <em>when</em> a library is loaded and linked, and even <em>if</em> the library should be loaded. You can imagine the library names being the result of some computation instead of being static strings like the ones in the example, and you can imagine a program un-linking and re-linking symbols at will at any time.</p>
+<p>Here is the full &ldquo;dynamic explicit&rdquo; code, (without any error-checking noise):</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C" data-lang="C"><span style="display:flex;"><span><span style="color:#75715e">/* foo.c */</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#if OS_WINDOWS
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">__declspec</span>(dllexport) <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">foo</span>(<span style="color:#66d9ef">void</span>) { <span style="color:#75715e">/* ... */</span> }
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#elif OS_LINUX
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">__attribute__</span> ((<span style="color:#a6e22e">visibility</span> (<span style="color:#e6db74">&#34;default&#34;</span>))) <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">foo</span>(<span style="color:#66d9ef">void</span>) { <span style="color:#75715e">/* ... */</span> }
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#endif
+</span></span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C" data-lang="C"><span style="display:flex;"><span><span style="color:#75715e">/* main.c */</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#if OS_WINDOWS
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;windows.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#elif OS_LINUX
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;dlfcn.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#endif
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">Void_Proc</span>(<span style="color:#66d9ef">void</span>);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">static</span> Void_Proc <span style="color:#f92672">*</span>foo;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">void</span>) {
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#if OS_WINDOWS
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>    HANDLE foo_library_handle <span style="color:#f92672">=</span> <span style="color:#a6e22e">LoadLibraryA</span>(<span style="color:#e6db74">&#34;foo.dll&#34;</span>);
+</span></span><span style="display:flex;"><span>    foo <span style="color:#f92672">=</span> (Void_Proc <span style="color:#f92672">*</span>) <span style="color:#a6e22e">GetProcAddress</span>(foo_library_handle, <span style="color:#e6db74">&#34;foo&#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#elif OS_LINUX
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">void</span>  <span style="color:#f92672">*</span>foo_library_handle <span style="color:#f92672">=</span> <span style="color:#a6e22e">dlopen</span>(<span style="color:#e6db74">&#34;foo.so&#34;</span>, RTLD_LAZY);
+</span></span><span style="display:flex;"><span>    foo <span style="color:#f92672">=</span> (Void_Proc <span style="color:#f92672">*</span>) <span style="color:#a6e22e">dlsym</span>(foo_library_handle, <span style="color:#e6db74">&#34;foo&#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#endif
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">foo</span>();
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Note: This post was based on <a href="https://youtu.be/6K71xSZivl4?si=nyuNsdGECs-Xr_5Z">this Allen Webster&rsquo;s stream</a>. If you want to know more about pros and cons of each kind of dynamic linking, and how runtime linking might be used to one&rsquo;s advantage, I suggest you go watch that recording. If you want a more structured and comprehensive reference, you can read <a href="https://mr4th.com/articles/reference-dynamic-linking">this page</a>.</p>
+</div>
+</article>
+<footer class="py:24">
+    <div class="f:fade-30 f:14 mb:8"></div>
+    <div class="f:fade-60 f:12">Theme <span class="f:bold">Vans</span></div>
+</footer>
+
+
+</div>
+    </div>
+</body>
+
+</html>

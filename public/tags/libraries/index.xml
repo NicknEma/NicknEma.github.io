@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>libraries on Answers at the End</title>
+    <link>https://NicknEma.github.io/tags/libraries/</link>
+    <description>Recent content in libraries on Answers at the End</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 25 Apr 2024 12:00:00 +0200</lastBuildDate>
+    <atom:link href="https://NicknEma.github.io/tags/libraries/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>There Are Three Types of Linking</title>
+      <link>https://NicknEma.github.io/posts/there-are-three-types-of-linking/</link>
+      <pubDate>Thu, 25 Apr 2024 12:00:00 +0200</pubDate>
+      <guid>https://NicknEma.github.io/posts/there-are-three-types-of-linking/</guid>
+      <description>I was taught that libraries can be linked one of two ways: statically or dynamically.&#xA;Computer people love these two words and use them every time they can. Static and dynamic typing, static and dynamic scoping rules.&#xA;In the case of linking, the nomenclature describes whether the resulting binary has depencencies that will still be unresolved when it will be loaded into memory for execution.&#xA;For a symbol to be resolved statically, the linker (typically link.</description>
+    </item>
+  </channel>
+</rss>

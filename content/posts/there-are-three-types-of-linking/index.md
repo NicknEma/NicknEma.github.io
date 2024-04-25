@@ -1,10 +1,13 @@
 +++
 title = 'There Are Three Types of Linking'
-date = 2024-04-22T14:03:38+02:00
-draft = true
+description = "Description of the three ways libraries can be linked to form runnable programs."
+date = 2024-04-25T12:00:00+02:00
+tags = ["programming", "linkers", "libraries"]
+categories = ["explanation"]
+draft = false
 +++
 
-I was taught that object files can be linked one of two ways: statically or dynamically.
+I was taught that libraries can be linked one of two ways: statically or dynamically.
 
 Computer people love these two words and use them every time they can. Static and dynamic typing, static and dynamic scoping rules.
 
@@ -27,7 +30,7 @@ int main(void) {
 }
 ```
 
-You'll get an executable that looks (at a very high level) like this:
+You'll get an executable that looks (in pseudo-assembly) like this:
 
 ```
 foo:
@@ -45,13 +48,13 @@ But when the linker _doesn't_ have access to the full code, and doesn't know the
 
 This is the difference between "static" and "dynamic" linking.
 
-However, the case of "dynamic" linking still leaves one question unanswered: if it isn't the linker, _who_ is the one that locates the missing symbol, and _when_ does it fix the pointer?
+However, the case of dynamic linking still leaves one question unanswered: if it isn't the linker, _who_ is the one that locates the missing symbol, and _when_ does it fix the pointer?
 
 I've heard people subdivide dynamic linking further into _implicit dynamic linking_ and _explicit dynamic linking_. This reflects the fact that there are, in fact, two possible answers to my question; these two approaches are quite different though, and they allow the programmer to solve different problems. Just saying "dynamic linking" to indicate both of them is quite reductive.
 
 What are these two approaches?
 
-In the first one ("implicit"), symbols are resolved _at load time_, by _a collaboration between the linker and the operating system's loader_.
+In the first one (implicit), symbols are resolved _at load time_, by _a collaboration between the linker and the operating system's loader_.
 
 The linker [creates in the binary a _jump table_](https://web.stanford.edu/~ouster/cgi-bin/cs140-winter13/lecture.php?topic=linkers), where each row corresponds to a missing symbol. The _usage sites_ of the symbols in question receive as an operand an index into the jump table at the corresponding row.
 
@@ -86,15 +89,15 @@ foo:
 0x0F234567                       ; body of foo
 ```
 
-The implementation details of this method vary from one OS to another, but the point of it is to make sure that no program can run when some of its symbols are still unresolved.
+The implementation details of this method vary from one OS to another, but in general the loader will make sure that no program can run when some of its symbols are still unresolved.
 
 For example, on Windows, trying to run a program without its associate library will bring up this message box:
 
-(image of message box)
+{{<figure src="system_error_ita.png" alt="Windows complaining about a missing dll." caption="_The code execution cannot proceed because libr.dll was not found. Reinstalling the program may fix this problem._" class="center" width="60%">}}
 
 But what if we _want_ to run a program when some of its symbols are unresolved? What if the programmer wants to have more control over how the linking works, the time at which it happens and the logic behind it?
 
-This is what the last kind of linking ("explicit" dynamic) is for. Windows and Linux both provide a way to do it, though they make it more cumbersome than the other two methods.
+This is what the last kind of linking (explicit) is for. Windows and Linux both provide a way to do it, though they make it more cumbersome than the other two methods.
 
 By defining `foo` as a procedure _pointer_, neither the linker nor the loader will complain about a symbol being unresolved. Procedure pointers are just pointers, after all.
 
@@ -108,7 +111,7 @@ typedef void Void_Proc(void);
 static Void_Proc *foo;
 ```
 
-We then need to manually assign the correct value to `foo`; then we can call it as usual:
+If we manage to manually assign to `foo` its correct value, we can then call it as usual:
 
 ```C
 /* main.c */
@@ -127,7 +130,7 @@ Fortunately, both Windows and Linux provide ways to figure out what the correct 
     HANDLE foo_library_handle = LoadLibraryA("foo.dll");
 
     // If on Linux:
-    void  *foo_library_handle = dlopen("foo.so");
+    void  *foo_library_handle = dlopen("foo.so", RTLD_LAZY);
 }
 ```
 
@@ -148,7 +151,16 @@ And you're done.
 
 You can see how this is quite different than the other flavour of "dynamic linking", as it allows the program to choose _when_ a library is loaded and linked, and even _if_ the library should be loaded. You can imagine the library names being the result of some computation instead of being static strings like the ones in the example, and you can imagine a program un-linking and re-linking symbols at will at any time.
 
-Here is the full "dynamic explicit" code (without the error-checking noise):
+Here is the full "dynamic explicit" code, (without any error-checking noise):
+
+```C
+/* foo.c */
+#if OS_WINDOWS
+__declspec(dllexport) void foo(void) { /* ... */ }
+#elif OS_LINUX
+__attribute__ ((visibility ("default"))) void foo(void) { /* ... */ }
+#endif
+```
 
 ```C
 /* main.c */
@@ -169,10 +181,12 @@ int main(void) {
 
 #elif OS_LINUX
 
-    void  *foo_library_handle = dlopen("foo.so");
+    void  *foo_library_handle = dlopen("foo.so", RTLD_LAZY);
     foo = (Void_Proc *) dlsym(foo_library_handle, "foo");
 
 #endif
     foo();
 }
 ```
+
+Note: This post was based on [this Allen Webster's stream](https://youtu.be/6K71xSZivl4?si=nyuNsdGECs-Xr_5Z). If you want to know more about pros and cons of each kind of dynamic linking, and how runtime linking might be used to one's advantage, I suggest you go watch that recording. If you want a more structured and comprehensive reference, you can read [this page](https://mr4th.com/articles/reference-dynamic-linking).
