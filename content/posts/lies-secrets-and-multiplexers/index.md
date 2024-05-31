@@ -1,7 +1,7 @@
 +++
 title = "Lies, Secrets and Multiplexers"
 description = "About Multiplexers, and a simple analogy that helped me understand how these digital circuits work."
-date = "2024-03-02T19:26:55+01:00"
+date = "2023-10-04T12:30:00+01:00"
 tags = ["", ""]
 categories = ["Hardware", "Digital Logic"]
 draft = false
