@@ -132,3 +132,7 @@ progress{
 summary{
   display:list-item
 }
+
+.content-gallery {
+  display:inline-block;
+}

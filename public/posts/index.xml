@@ -6,8 +6,15 @@
     <description>Recent content in Posts on Answers at the End</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 25 Apr 2024 12:00:00 +0200</lastBuildDate>
+    <lastBuildDate>Sun, 16 Jun 2024 16:53:13 +0200</lastBuildDate>
     <atom:link href="https://NicknEma.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Host a Website on GitHub Pages</title>
+      <link>https://NicknEma.github.io/posts/host-a-website-on-github-pages/</link>
+      <pubDate>Sun, 16 Jun 2024 16:53:13 +0200</pubDate>
+      <guid>https://NicknEma.github.io/posts/host-a-website-on-github-pages/</guid>
+      <description>This post expects you to already be able to create a GitHub repository and push changes onto it.&#xA;Any GitHub repository can be hosted with GitHub Pages. Each GitHub account is allowed 1 user site and unlimited project sites. Both kinds will have a limit of 1GB of storage and of 100GB of monthly bandwidth.&#xA;For a repository to be hosted on GitHub Pages it must be public (unless you have GitHub Pro).</description>
+    </item>
     <item>
       <title>There Are Three Types of Linking</title>
       <link>https://NicknEma.github.io/posts/there-are-three-types-of-linking/</link>
@@ -32,7 +39,7 @@
     <item>
       <title>Lies, Secrets and Multiplexers</title>
       <link>https://NicknEma.github.io/posts/lies-secrets-and-multiplexers/</link>
-      <pubDate>Sat, 02 Mar 2024 19:26:55 +0100</pubDate>
+      <pubDate>Wed, 04 Oct 2023 12:30:00 +0100</pubDate>
       <guid>https://NicknEma.github.io/posts/lies-secrets-and-multiplexers/</guid>
       <description>You are on a street, one person coming towards you from your right, another from your left. You know that, when they will have reached you, one of them will tell the truth and one will lie. To know which one will do what, you only need the answer to one yes-or-no question; in computer terms, you need 1 bit of information to choose which person to trust. It doesn&amp;rsquo;t matter if you ask &amp;ldquo;should I trust the person coming from the right?</description>
     </item>

@@ -4,11 +4,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
-    <title>Hardware - Answers at the End</title>
+    <title>Host a Website on GitHub Pages - Answers at the End</title>
 
     
     
-    <meta name="description" content="" />
+    <meta name="description" content="This post expects you to already be able to create a GitHub repository and push changes onto it.
+Any GitHub repository can be hosted with GitHub Pages. Each GitHub account is allowed 1 user site and unlimited project sites. Both kinds will have a limit of 1GB of storage and of 100GB of monthly bandwidth.
+For a repository to be hosted on GitHub Pages it must be public (unless you have GitHub Pro)." />
     <meta name="author" content="" />
     
 
@@ -65,11 +67,13 @@
 </nav>
 <div class="d:flex flex:column@<=sm pt:90 px:24 jc:center gap:44 word-break:break-word">
         <div class="max-w:700 w:full box:content-box">
-<div>
-    <article class="box:border-box pt:32 w:full">
-        <header class="mb:32">
-            <div class="font:40 font:extrabold">Hardware</div>
-        </header><div class="
+<article class="box:border-box pt:32">
+    <header class="mb:32">
+        <div class="font:40 font:extrabold">Host a Website on GitHub Pages</div>
+        <div class="mt:16 f:fade-60">
+            <time>Jun 16, 2024</time>
+            </div>
+    </header><div class="
     _:where(a):hover{text-decoration-color:fade}
     _:where(a){text-decoration:2;underline;fade-10;_text-decoration-color:fade-70@dark}
     _:where(blockquote){bl:5;solid;fade-76/.1;_bl:5;solid;fade-34/.1@dark}
@@ -107,51 +111,22 @@
     _:where(video,img){max-width:full;}
     _:where(a,mark){text-underline-offset:3}
     _:where(hr){h:2;_bg:fade-10;_bg:fade-70@dark;_my:3em}
-"></div>
-</article>
-    <ul>
-                <li>
-                    <div class="mb:16 py:24 f:fade-30 f:fade-10:hover transition:150ms;ease-in">
-                        <a class="f:24 font:semibold" href="https://NicknEma.github.io/posts/host-a-website-on-github-pages/">
-                            <div>Host a Website on GitHub Pages</div>
-                        </a>
-                        <div class="mt:12 f:fade-70"><time>Jun 16, 2024</time></div>
-                    </div>
-                </li>
-                <li>
-                    <div class="mb:16 py:24 f:fade-30 f:fade-10:hover transition:150ms;ease-in">
-                        <a class="f:24 font:semibold" href="https://NicknEma.github.io/posts/there-are-three-types-of-linking/">
-                            <div>There Are Three Types of Linking</div>
-                        </a>
-                        <div class="mt:12 f:fade-70"><time>Apr 25, 2024</time></div>
-                    </div>
-                </li>
-                <li>
-                    <div class="mb:16 py:24 f:fade-30 f:fade-10:hover transition:150ms;ease-in">
-                        <a class="f:24 font:semibold" href="https://NicknEma.github.io/posts/the-infinity-of-lines-and-numbers/">
-                            <div>The Infinity of Lines and Numbers</div>
-                        </a>
-                        <div class="mt:12 f:fade-70"><time>Apr 6, 2024</time></div>
-                    </div>
-                </li>
-                <li>
-                    <div class="mb:16 py:24 f:fade-30 f:fade-10:hover transition:150ms;ease-in">
-                        <a class="f:24 font:semibold" href="https://NicknEma.github.io/posts/equality-and-the-reunion-of-broken-parts/">
-                            <div>Equality and the reunion of broken parts</div>
-                        </a>
-                        <div class="mt:12 f:fade-70"><time>Mar 13, 2024</time></div>
-                    </div>
-                </li>
-                <li>
-                    <div class="mb:16 py:24 f:fade-30 f:fade-10:hover transition:150ms;ease-in">
-                        <a class="f:24 font:semibold" href="https://NicknEma.github.io/posts/lies-secrets-and-multiplexers/">
-                            <div>Lies, Secrets and Multiplexers</div>
-                        </a>
-                        <div class="mt:12 f:fade-70"><time>Oct 4, 2023</time></div>
-                    </div>
-                </li>
-    </ul>
+"><p><em>This post expects you to already be able to create a GitHub repository and push changes onto it.</em></p>
+<p>Any GitHub repository can be hosted with GitHub Pages. Each GitHub account is allowed <em>1 user site</em> and <em>unlimited project sites</em>. Both kinds will have a limit of 1GB of storage and of 100GB of monthly bandwidth.</p>
+<p>For a repository to be hosted on GitHub Pages it must be <em>public</em> (unless you have GitHub Pro). It must also include a file named <code>index.html</code>, which will be the main page of the website.</p>
+<h3 id="set-up-a-user-site">Set up a user site</h3>
+<p>The repository needs to be called exactly <code>&lt;account-name&gt;.github.io</code>, where <code>&lt;account-name&gt;</code> is your actual account&rsquo;s name.</p>
+<p>As soon as you push the creation of the <code>index.html</code> file, the hosting process will start. It may take a couple of minutes to finish.</p>
+<p>The user site will be hosted at <code>https://&lt;account-name&gt;.github.io</code>.</p>
+<p>The only way to <em>un-publish</em> a user site is to change the repository&rsquo;s name.</p>
+<h3 id="set-up-a-project-site">Set up a project site</h3>
+<p>To start hosting the website, open your repository&rsquo;s page on GitHub, then go to <strong>Settings</strong> &gt; <strong>Pages</strong> &gt; <strong>Source</strong>. Select a branch and click <strong>Save</strong>.</p>
+<p>The project site will now be hosted at <code>https://&lt;account-name&gt;.github.io/&lt;repository-name&gt;</code>.</p>
+<p>To <em>un-publish</em> the site, open your repository&rsquo;s page on GitHub, then go to <strong>Settings</strong> &gt; <strong>Pages</strong>. Click on the <strong>three dots</strong> and then on <strong>Unpublish site</strong>.</p>
+<h3 id="why-this-post">Why this post?</h3>
+<p>Because <em><a href="https://betterexplained.com/articles/brevity-is-beautiful/">brevity is beautiful</a></em> and you shouldn&rsquo;t have to spend a lot of time learning how to click a few buttons.</p>
 </div>
+</article>
 <footer class="py:24">
     <div class="f:fade-30 f:14 mb:8"></div>
     <div class="f:fade-60 f:12">Theme <span class="f:bold">Vans</span></div>

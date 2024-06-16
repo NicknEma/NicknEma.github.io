@@ -6,8 +6,15 @@
     <description>Recent content in Categories on Answers at the End</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 25 Apr 2024 12:00:00 +0200</lastBuildDate>
+    <lastBuildDate>Sun, 16 Jun 2024 16:53:13 +0200</lastBuildDate>
     <atom:link href="https://NicknEma.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>quick guide</title>
+      <link>https://NicknEma.github.io/categories/quick-guide/</link>
+      <pubDate>Sun, 16 Jun 2024 16:53:13 +0200</pubDate>
+      <guid>https://NicknEma.github.io/categories/quick-guide/</guid>
+      <description></description>
+    </item>
     <item>
       <title>explanation</title>
       <link>https://NicknEma.github.io/categories/explanation/</link>
@@ -25,14 +32,14 @@
     <item>
       <title>Digital Logic</title>
       <link>https://NicknEma.github.io/categories/digital-logic/</link>
-      <pubDate>Sat, 02 Mar 2024 19:26:55 +0100</pubDate>
+      <pubDate>Wed, 04 Oct 2023 12:30:00 +0100</pubDate>
       <guid>https://NicknEma.github.io/categories/digital-logic/</guid>
       <description></description>
     </item>
     <item>
       <title>Hardware</title>
       <link>https://NicknEma.github.io/categories/hardware/</link>
-      <pubDate>Sat, 02 Mar 2024 19:26:55 +0100</pubDate>
+      <pubDate>Wed, 04 Oct 2023 12:30:00 +0100</pubDate>
       <guid>https://NicknEma.github.io/categories/hardware/</guid>
       <description></description>
     </item>

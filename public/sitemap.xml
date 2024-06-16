@@ -3,10 +3,31 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://NicknEma.github.io/</loc>
-    <lastmod>2024-04-25T12:00:00+02:00</lastmod>
+    <lastmod>2024-06-16T16:53:13+02:00</lastmod>
   </url><url>
     <loc>https://NicknEma.github.io/categories/</loc>
-    <lastmod>2024-04-25T12:00:00+02:00</lastmod>
+    <lastmod>2024-06-16T16:53:13+02:00</lastmod>
+  </url><url>
+    <loc>https://NicknEma.github.io/tags/github/</loc>
+    <lastmod>2024-06-16T16:53:13+02:00</lastmod>
+  </url><url>
+    <loc>https://NicknEma.github.io/tags/host/</loc>
+    <lastmod>2024-06-16T16:53:13+02:00</lastmod>
+  </url><url>
+    <loc>https://NicknEma.github.io/posts/host-a-website-on-github-pages/</loc>
+    <lastmod>2024-06-16T16:53:13+02:00</lastmod>
+  </url><url>
+    <loc>https://NicknEma.github.io/posts/</loc>
+    <lastmod>2024-06-16T16:53:13+02:00</lastmod>
+  </url><url>
+    <loc>https://NicknEma.github.io/categories/quick-guide/</loc>
+    <lastmod>2024-06-16T16:53:13+02:00</lastmod>
+  </url><url>
+    <loc>https://NicknEma.github.io/tags/</loc>
+    <lastmod>2024-06-16T16:53:13+02:00</lastmod>
+  </url><url>
+    <loc>https://NicknEma.github.io/tags/website/</loc>
+    <lastmod>2024-06-16T16:53:13+02:00</lastmod>
   </url><url>
     <loc>https://NicknEma.github.io/categories/explanation/</loc>
     <lastmod>2024-04-25T12:00:00+02:00</lastmod>
@@ -17,13 +38,7 @@
     <loc>https://NicknEma.github.io/tags/linkers/</loc>
     <lastmod>2024-04-25T12:00:00+02:00</lastmod>
   </url><url>
-    <loc>https://NicknEma.github.io/posts/</loc>
-    <lastmod>2024-04-25T12:00:00+02:00</lastmod>
-  </url><url>
     <loc>https://NicknEma.github.io/tags/programming/</loc>
-    <lastmod>2024-04-25T12:00:00+02:00</lastmod>
-  </url><url>
-    <loc>https://NicknEma.github.io/tags/</loc>
     <lastmod>2024-04-25T12:00:00+02:00</lastmod>
   </url><url>
     <loc>https://NicknEma.github.io/posts/there-are-three-types-of-linking/</loc>
@@ -47,19 +62,19 @@
     <loc>https://NicknEma.github.io/categories/essay/</loc>
     <lastmod>2024-03-13T23:27:18+01:00</lastmod>
   </url><url>
-    <loc>https://NicknEma.github.io/categories/digital-logic/</loc>
-    <lastmod>2024-03-02T19:26:55+01:00</lastmod>
-  </url><url>
-    <loc>https://NicknEma.github.io/categories/hardware/</loc>
-    <lastmod>2024-03-02T19:26:55+01:00</lastmod>
-  </url><url>
-    <loc>https://NicknEma.github.io/posts/lies-secrets-and-multiplexers/</loc>
-    <lastmod>2024-03-02T19:26:55+01:00</lastmod>
-  </url><url>
     <loc>https://NicknEma.github.io/projects/brainfact/</loc>
     <lastmod>2024-02-08T11:34:18+01:00</lastmod>
   </url><url>
     <loc>https://NicknEma.github.io/projects/</loc>
     <lastmod>2024-02-08T11:34:18+01:00</lastmod>
+  </url><url>
+    <loc>https://NicknEma.github.io/categories/digital-logic/</loc>
+    <lastmod>2023-10-04T12:30:00+01:00</lastmod>
+  </url><url>
+    <loc>https://NicknEma.github.io/categories/hardware/</loc>
+    <lastmod>2023-10-04T12:30:00+01:00</lastmod>
+  </url><url>
+    <loc>https://NicknEma.github.io/posts/lies-secrets-and-multiplexers/</loc>
+    <lastmod>2023-10-04T12:30:00+01:00</lastmod>
   </url>
 </urlset>
