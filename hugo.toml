@@ -1,7 +1,9 @@
 baseURL = 'https://NicknEma.github.io/'
+title   = 'Answers at the End'
+theme   = "vans"
 languageCode = 'en-us'
-title = 'Answers at the End'
-theme = "vans"
+enableEmoji  = true
+
 [markup]
   [markup.goldmark]
     [markup.goldmark.extensions]
