@@ -9,6 +9,10 @@ patterns = {
 	"*.bat",
 	"*.sh",
 	"*.4coder",
+	"*.html",
+	"*.css",
+	"*.js",
+	"*.xml",
 };
 
 blacklist_patterns = {
@@ -27,13 +31,19 @@ load_paths = {
 
 commands = {
 	.build = { .out = "*compilation*", .footer_panel = true, .save_dirty_files = true,
-		.win   =   "build.bat",
-		.linux = "./build.sh",
-		.mac   = "./build.sh",
+		.win   = "hugo",
+		.linux = "hugo",
+		.mac   = "hugo",
+	},
+	
+	.serve = { .out = "*compilation*", .footer_panel = true, .save_dirty_files = true,
+		.win   = "hugo server -noHTTPCache -D",
+		.linux = "hugo server -noHTTPCache -D",
+		.mac   = "hugo server -noHTTPCache -D",
 	},
 };
 
 fkey_command = {
 	.F1 = "build",
-	.F2 = "run",
+	.F2 = "serve",
 };
