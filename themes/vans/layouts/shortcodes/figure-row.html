@@ -1,0 +1,72 @@
+<!-- Creates a sequence of <figure>, all styled as table-cell inside a table-row. -->
+
+<!-- Save args into variables -->
+
+{{ $default_alt := "No alt text" }}
+
+{{ $src := .Get "src" | default "" }}
+{{ $alt := .Get "alt" | default $default_alt }}
+{{ $cap := .Get "cap" | default "" }}
+
+{{ $src_sep := .Get "src_sep" | default (.Site.Params.image_strip_src_sep | default "") }}
+{{ $cap_sep := .Get "cap_sep" | default (.Site.Params.image_strip_cap_sep | default "") }}
+
+{{ $row_height := .Get "row_height" | default (.Site.Params.image_strip_row_height | default 150) }}
+{{ $margin := .Get "margin" | default (.Site.Params.image_strip_margin | default 5) }}
+
+<!-- Split the strings -->
+
+{{ $srcs := slice }}
+{{ $alts := slice }}
+{{ if not (eq $src_sep "") }}
+    {{ $srcs = split $src $src_sep }}
+    {{ $alts = split $alt $src_sep }}
+{{ else }}
+    {{ $srcs = slice $src }}
+    {{ $alts = slice $alt }}
+{{ end }}
+
+{{ $caps := slice }}
+{{ $per_image_cap := false }}
+{{ if not (eq $cap_sep "") }}
+    {{ $caps = split $cap $cap_sep }}
+    {{ $per_image_cap = true }}
+{{ else }}
+    {{ $caps = slice $cap }}
+{{ end }}
+
+<!-- Display the images, styled as a table -->
+
+<div style="width: 100%; display: table;">
+  <div style="display: table-row">
+    {{ range $i, $s := $srcs }}
+      <figure style="display: table-cell;">
+
+        <img
+          src="{{ . }}"
+          alt="{{ index $alts $i | default $default_alt }}"
+          {{ if fileExists . }}
+            {{ with $row_height }}height="{{ . }}"{{ end }}
+          {{ end }}
+        />
+
+        <!-- If the caption is per-image, put it here: -->
+        {{ if $per_image_cap }}
+            <figcaption> {{ index $caps $i | markdownify }} </figcaption>
+        {{ end }}
+
+      </figure>
+    {{ end }}
+  </div>
+
+  <!-- If the caption is per-strip, put it here: -->
+  {{ if not ($per_image_cap) }}
+    <div style="display: table-caption; caption-side: bottom; text-align: center;">
+      {{ $cap | markdownify }}
+    </div>
+  {{ end }}
+
+</div>
+
+<!-- Put divs side by side: -->
+<!-- https://stackoverflow.com/questions/2637696/how-to-place-div-side-by-side -->
