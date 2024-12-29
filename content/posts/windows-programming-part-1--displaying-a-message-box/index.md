@@ -9,13 +9,11 @@ draft       = true
 
 This article explains how to create a Windows program that displays a message box like the following. I call this the _Minimal Windows Program_&trade;, or _Hello Windows_.
 
-![What the final program will look like.](screenshot98.jpg "What the final program will look like.")
-
-{{<figure-row src_sep=";" src="Image 1;Image 2" cap_sep=";" cap="Caption 1;**Caption 2**" alt="Alt1;" row_height="150" margin="5">}}
+{{<figure src="screenshot_ok_10.png" caption="What the final program will look like." alt="A screenshot of a message box window">}}
 
 Such a simple program is ideal because it touches many topics and is useful for creating a foundation of Windows-related knowledge.
 
-The whole program is made out of a single function call. It'll be something like this:
+The whole program is made out of a single function call. It'll look something like this:
 
     main :: () {
         show message box(...)
@@ -29,25 +27,28 @@ Let's start by looking at the signature of the function itself. You can find it 
 
 ```C
 int MessageBox(
-  [in, optional] HWND    hWnd,
-  [in, optional] LPCTSTR lpText,
-  [in, optional] LPCTSTR lpCaption,
-  [in]           UINT    uType
+    [in, optional] HWND    hWnd,
+    [in, optional] LPCTSTR lpText,
+    [in, optional] LPCTSTR lpCaption,
+    [in]           UINT    uType
 );
 ```
 
 If you've never called a Windows function before, there are a few things that might catch your attention.
-First of all, the parameter names are all prefixed with one or two letters. Instead of just "Text", we have "lpText". Instead of "Type", it's "uType". What's up with that?
-Secondly, the _types_ of the parameters are different than the ones you are used to.
-Third, you might see that some of these parameters are labeled as "optional", and all of them are labeled as "in". What does it mean?
 
-Lastly, and _most importantly_, this function comes in _three_ versions:
+- The parameter _names_ are all prefixed with one or two letters. Instead of just `Text`, we have `lpText`. Instead of `Type`, it's `uType`. What's up with that?
+- The parameters _types_ are different than the ones you are used to. What in the world is a `LPCTSTR`?
+- Some of these parameters are labeled as "optional", and all of them are labeled as "in". What does it mean?
+
+But there is an even more mysterious fact: the documentation actually lists not one, but _three_ versions of this function:
 
 - MessageBox
 - MessageBox*A*
 - MessageBox*W*
 
-What's the difference? What do those suffxes "A" and "W" mean?
+Why? What's the difference?
+
+### Optional arguments
 
 Let's start from the easy ones. A lot of Windows functions take in _optional_ arguments in the form of zeros. You can pass `0`/`NULL` in place of an argument marked as _optional_, and it'll be replaced with a default value.
 This means that `MessageBox` can be called like this:
@@ -58,28 +59,64 @@ MessageBox(0, 0, 0, 0);
 
 The first three parameters will be replaced internally with default values.
 
-The deal with parameter _names_ is called [hungarian notation](). It's the practice of annotating every variable with a prefix that indicates the type of the variable. So an int variable representing a length will be called `nLength`, a pointer to a value will be called `pValue`, and so on.
+The _in_ annotation simply means that the argument is meant as an input to the function. In some other cases, you might see an argument labeled as _out_, which marks it as an argument that the function will write to. One example is [`GetMessage`](https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-getmessage):
+
+```C
+BOOL GetMessage(
+    [out]          LPMSG lpMsg,
+    [in, optional] HWND  hWnd,
+    [in]           UINT  wMsgFilterMin,
+    [in]           UINT  wMsgFilterMax
+);
+```
+
+Some functions even take _inout_ arguments, meant as both input and output.
+
+### Hungarian notation
+
+The deal with parameter _names_ is called [hungarian notation](). It's the practice of annotating every variable with a prefix that indicates the type of the variable. So an integer variable representing a length will be called `nLength`, a pointer to a value will be called `pValue`, and so on.
 
 In this case, we have:
 
-```C++
-hWnd         // A 'handle' to a window
-lpText       // A 'long pointer' to some text
-lpCaption    // A 'long pointer' to a caption
-uType        // An 'unsigned int' type
-```
+- `hWnd`: A "handle" to a window
+- `lpText`: A "long pointer" to some text
+- `lpCaption`: A "long pointer" to a caption
+- `uType`: An "unsigned int" type
+
 
 A big part of the Windows API uses this convention, so you better get used to it.
 
-## Windows data types
+### Windows data types
 
-The _types_ of the parameters are defined in a windows header called `BaseTsd.h`. You can check [this documentation page]() for a list of all the types defined there and their definition.
+This can be a big roadblock for someone new to Windows programming. Windows defines custom data types for *everything*, even for simple integer types.
 
-If you scroll through the list, you might see that most of the types are just alternate names for the builtin C types.
+Most of these types are defined in a header called `BaseTsd.h`. You can check [this documentation page](https://learn.microsoft.com/en-us/windows/win32/winprog/windows-data-types) for a list of all the types defined there and their definition.
+
+A quick glance at the list will reveal that most of the types are just alternate names for the builtin C types.
 
 For example, `UINT` is just an unsigned 32-bit integer. It is equivalend to `unsigned int`. Why define a new name for an existing type? I don't know, but Windows loves to do that.
 
-A `HWND` is simply a `void *`. It is one of the many types of "handles" that Windows defines. Whenever windows creates a resource that needs to be opaque, it will often return a "handle" to it. The details of how this handle works are unknown, and that's the point: you're not supposed to care about how this handle is interpreted, windows will know.
+In fact, it loves it so much that there are _many_ names for the same custom type: `DWORD`, `DWORD32`, `UINT`, `UINT32`, `ULONG` and `ULONG32` are all defined to be `unsigned int`.
+
+{{<image src="spiderman.png" alt="A pointing-spiderman meme" height="250">}}
+
+Pay special attention to the `DWORD` type, as it's used a lot in windows. It stands for "double-word", and it's a residue from the 16-bit processors era. Windows defines `BYTE`, `WORD`, `DWORD` and `QWORD` ("quadruple-word") to refer to a specific multiple of the byte:
+
+```goat
+.-------------------------------------------------------.
+| QWORD                                                 |
+.---------------------------.---------------------------.
+| DWORD                     |                           |
+.-------------.-------------.-------------.-------------.
+| WORD        |             |             |             |
+.------.------.------.------.------.------.------.------.
+| BYTE |      |      |      |      |      |      |      |
+.------.------.------.------.------.------.------.------.
+```
+
+A `HWND` is simply a `void *`. It is one of the many types of "handles" that Windows defines.
+
+Whenever windows creates a resource that should remain opaque, it will return a "handle" to it. The details of how this handle works are unknown, and that's the point: you're not supposed to care about how this handle is interpreted, windows will know.
 
 There are many types of handle: `HWND` (handle to a window), `HBRUSH` (handle to a brush), `HCURSOR` (handle to a cursor), and so on.
 
@@ -139,14 +176,18 @@ Where:
 So if your program is always going to output ANSI strings, you can just go with the A version and pass in regular strings. But how do we define wide strings?
 If you're using C or C++ you can add a `L` prefix in front of any string literal to tell the compiler to treat it as a wide string:
 
-    LPCWSTR message = L"Message text";
-                      ^
+```C
+LPCWSTR message = L"Message text";
+                  ^
+```
 
 For other languages, you have to hope that the compiler has a similar feature. In Odin, for example, the `L` prefix is replaced with a compiler intrinsic that
 does the same thing:
 
-    message := windows.L("Message text");
-               ^-------^
+```Odin
+message := windows.L("Message text");
+           ^-------^
+```
 
 We're almost there. So, having said all this, what is the "T" in `LPCTSTR`?
 It's all part of the same hack. The people at Microsoft decided they wanted developers to be able to switch between narrow and wide strings easily, without having to change every string literal, type and function call. So they defined a "TEXT" macro, which expands to either one of the two string literals depending on the presence of a symbol:
@@ -179,14 +220,16 @@ So there you have it. If you *always* write code using the `TEXT` macro, and the
 
 ## The program and a few other things
 
+So we figured out how to specify the strings, let's look at the other two parameters. First we have the _owner window_. As the documentation says, we can put `NULL` to mean that there is no owner window. The last parameter is a _bitfield_ which describes the buttons and icons that will appear in the box. If we leave it at `0`, that'll be the same thing as `MB_OK`, which puts an "OK"-button in the message box.
+
 Let's put everything together and write the program.
 
 ```C++
-/* C */
+/* C, C++ */
 #include <windows.h>
 
 int main(void) {
-    MessageBoxW(NULL, L"Hello, Windows!", L"Message", MB_OK);
+    MessageBoxW(NULL, L"It works!", L"Yay", MB_OK);
 }
 ```
 
@@ -197,21 +240,77 @@ package main
 import "core:sys/windows"
 
 main :: proc() {
-    windows.MessageBoxW(nil, windows.L("Hello, Windows!"), windows.L("Message"), windows.MB_OK);
+    windows.MessageBoxW(nil, windows.L("It works!"), windows.L("Yay"), windows.MB_OK);
 }
 ```
 
-If you did everything correctly, it should display a message box, like one of the two below:
+All that's left to do is compile and run. If you are compiling C or C++ code from the command line, remember to tell the linker to import the necessary libraries. You can find the import library for every windows function [at the bottom of its documentation](https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-messagebox#requirements). For `MessageBoxW`, it'll be `user32.lib`.
 
-[2 screenshots of the two versions of the message box]
-[Caption: The two possible results of the program. Note: The screenshots were taken on Windows 10. If you're using another version of windows, the message box might appear even more different!]
+```
+cl main.c /nologo /link user32.lib
+```
 
-Now, of course we aren't done. Why would it be like "one of the two below"? Shouldn't the result be the same for everybody? Is there a way to _choose_ the appearance of the message box?
-Oh, and also, if I run the program from the command line, the console become unresponsive; while if I run it by double-clicking on the icon, a new console opens up. Why?
+If you are compiling from a Visual Studio project, the auto-generated command line should already include everything you need.
 
-You will have an answer to all these questions, *but* at this point you should just have some fun. Go back to the documentation, look into the other possible values for the 'uType' parameter, look at what the function returns and do something based on it. You can now make message boxes appear on screen! Use this new superpower!
+Congratulations, you have just made your first message box!
 
-If you're ready to tackle the rest, read on.
+{{<image src="screenshot_yay_98.png" alt="Screenshot of a message box saying \"It works!\"">}}
+
+Now, of course we aren't done. If you look carefully, the message box in the picture above doesn't look exactly like the one at the top of the post. The button is different, this one looks... older, like it's coming straight out of Windows 98. Shouldn't it look more modern?
+
+Another problem is that this program is somehow "tied" to the command line running it. If you run the program from the command line, the console become unresponsive. If instead you run it by double-clicking on the icon, a new console opens up. Why?
+
+Let's tackle the console problem first.
+
+## Windows subsystems
+
+There is a [special linker flag](https://learn.microsoft.com/en-us/cpp/build/reference/subsystem-specify-subsystem?view=msvc-170) called "subsystem". It sets a field in the executable file that tells the windows loader how the program should be run. For normal user-level applications, only two of the listed values are relevant: "console" and "windows".
+
+The former is the current mode of our program: takes control of an existing console or creates one if it doesn't exist. It is useful for command-line programs like compilers. The latter is the opposite: no consoles attached. That's exactly what we need.
+
+Let's add it to our compilation line:
+
+```
+cl main.c /nologo /link user32.lib /subsystem:windows
+```
+
+Hit compile and...
+
+```
+LIBCMT.lib(exe_winmain.obj) : error LNK2019: unresolved external symbol WinMain in function "int __cdecl __scrt_common_main_seh(void)" (?__scrt_common_main_seh@@YAHXZ)
+main.exe : fatal error LNK1120: 1 unresolved externals
+```
+
+Uh oh. Aparently, the linker is looking for a symbol called `WinMain`, although we never referenced it in the code.
+
+It turns out that when a program is compiled for the "windows" subsystem, the linker by default expects [a different entry point](https://learn.microsoft.com/en-us/windows/win32/api/winbase/nf-winbase-winmain). This is its signature:
+
+```C++
+int __clrcall WinMain(
+    [in]           HINSTANCE hInstance,
+    [in, optional] HINSTANCE hPrevInstance,
+    [in]           LPSTR     lpCmdLine,
+    [in]           int       nShowCmd
+);
+```
+
+I won't talk about what all those parameters are, at least not for now. We don't need them. But notice that they follow the exact same conventions as the ones in `MessageBox`: hungarian notation, handles, long pointers.
+
+So one thing we could do is actually use this as the entry point, in place of `main`. But suppose we wanted to keep using `main`, how can we do it?
+
+There's another linker flag that can help us, "entry". As the name suggests, it lets you specify the entry point for a program. But be careful: it expects the _real_ entry point, the one than initializes the global variables and gets the command line arguments, not the one that the user is expected to use.
+
+By default, for windows-subsystem programs, this is set to `WinMainCRTStarup`. What we're looking for is `mainCRTStartup`, so let's specify that:
+
+```
+cl main.c /nologo /link user32.lib /subsystem:windows /entry:mainCRTStartup
+```
+
+We're back to compiling without errors, but this time the message box doesn't halt the console!
+
+## Visual styles
+
+## Final notes
 
 todo:
 - note that MB_OK = 0
@@ -219,5 +318,6 @@ todo:
 - the point of this article is not to explain EVERYTHING there is to know about message boxes; for that, there is documentation. The point is to notice all the things that would be confusing or difficult to figure out, not mentioned in the docs.
 - MessageBeep
 - Note: always keep a Sample VS Solution when doing windows programming
-- then: windows subsystems, WinMain, the /entry and /subsystem flags
 - visual styles, side-by-side assemblies
+
+# {{<figure-row src_sep=";" src="screenshot_ok_10.png;screenshot_ok_question_10.png" cap_sep=";" cap="Caption 1;**Caption 2**" alt="Alt1;" row_height="150" margin="5">}}
