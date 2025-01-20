@@ -6,8 +6,22 @@
     <description>Recent content on Answers at the End</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 16 Jun 2024 16:53:13 +0200</lastBuildDate>
+    <lastBuildDate>Mon, 20 Jan 2025 20:54:43 +0100</lastBuildDate>
     <atom:link href="https://NicknEma.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Windows programming part 1: displaying a message box</title>
+      <link>https://NicknEma.github.io/posts/windows-programming-part-1--displaying-a-message-box/</link>
+      <pubDate>Mon, 20 Jan 2025 20:54:43 +0100</pubDate>
+      <guid>https://NicknEma.github.io/posts/windows-programming-part-1--displaying-a-message-box/</guid>
+      <description>This article explains how to create a Windows program that displays a message box like the following. I call this the Minimal Windows Program™, or Hello Windows.&#xA;What the final program will look like.&#xA;Such a simple program is ideal because it touches many topics and is useful for creating a foundation of Windows-related knowledge.&#xA;The whole program is made out of a single function call. It&amp;rsquo;ll look something like this:</description>
+    </item>
+    <item>
+      <title>Odin Pills: Package Names</title>
+      <link>https://NicknEma.github.io/posts/odin-pills--package-names/</link>
+      <pubDate>Mon, 04 Nov 2024 21:08:06 +0100</pubDate>
+      <guid>https://NicknEma.github.io/posts/odin-pills--package-names/</guid>
+      <description>The Odin programming languages is built around the idea of packages: independent code units that contain related functionality.&#xA;As the documentation states, each Odin file must start with a package declaration, like this:&#xA;package strings // Package declaration /* ... */ The above file declares itself to be part of the strings package. If another package wants to use the functionality it provides, it must import it like this:&#xA;package program import &amp;#34;path_to_package/strings&amp;#34; // Import declaration main :: proc() { s := strings.</description>
+    </item>
     <item>
       <title>Host a Website on GitHub Pages</title>
       <link>https://NicknEma.github.io/posts/host-a-website-on-github-pages/</link>

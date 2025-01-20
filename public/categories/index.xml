@@ -6,20 +6,27 @@
     <description>Recent content in Categories on Answers at the End</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 16 Jun 2024 16:53:13 +0200</lastBuildDate>
+    <lastBuildDate>Mon, 20 Jan 2025 20:54:43 +0100</lastBuildDate>
     <atom:link href="https://NicknEma.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Programming</title>
+      <link>https://NicknEma.github.io/categories/programming/</link>
+      <pubDate>Mon, 20 Jan 2025 20:54:43 +0100</pubDate>
+      <guid>https://NicknEma.github.io/categories/programming/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Explanation</title>
+      <link>https://NicknEma.github.io/categories/explanation/</link>
+      <pubDate>Mon, 04 Nov 2024 21:08:06 +0100</pubDate>
+      <guid>https://NicknEma.github.io/categories/explanation/</guid>
+      <description></description>
+    </item>
     <item>
       <title>quick guide</title>
       <link>https://NicknEma.github.io/categories/quick-guide/</link>
       <pubDate>Sun, 16 Jun 2024 16:53:13 +0200</pubDate>
       <guid>https://NicknEma.github.io/categories/quick-guide/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>explanation</title>
-      <link>https://NicknEma.github.io/categories/explanation/</link>
-      <pubDate>Thu, 25 Apr 2024 12:00:00 +0200</pubDate>
-      <guid>https://NicknEma.github.io/categories/explanation/</guid>
       <description></description>
     </item>
     <item>

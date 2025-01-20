@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html><head>
+	
+	<title>Windows Programming Part 1: Displaying a Message Box - Answers at the End</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><meta name="description" content="This article explains how to create a Windows program that displays a message box like the following. I call this the Minimal Windows Program™, or Hello Windows.
+What the final program will look like.
+Such a simple program is ideal because it touches many topics and is useful for creating a foundation of Windows-related knowledge.
+The whole program is made out of a single function call. It&rsquo;ll look something like this:">
+		<meta name="author" content=""><meta name="keywords" content="Windows,UI"><script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<script>
+  MathJax = {
+    tex: {
+      displayMath: [['\\[', '\\]'], ['$$', '$$']],  
+      inlineMath: [['\\(', '\\)']]                  
+    }
+  };
+</script>
+
+	<link href="https://NicknEma.github.io/styles/normal.css" rel="stylesheet">
+	<style>
+	:root {
+		--font-sans: "Inter var", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+	}
+	</style>
+
+	
+	<script src="https://unpkg.com/@master/style@1.5.0"></script>
+	<script src="https://unpkg.com/@master/styles@1.13.0"></script>
+	<script src="https://unpkg.com/master-styles-group"></script>
+	<script src="https://unpkg.com/themes.js"></script>
+	<script>window.themes = window.themes || new window.Themes()</script>
+</head>
+<body class="bg:fade-84@dark font:fade-16@dark font:sans">
+    <nav class="w:full h:90 fixed bg:fade-84/.95@dark bg:white z:1000">
+    <div class="
+        h:full
+        w:full
+        max-w:1200
+        mx:auto
+        px:32
+        d:flex
+        align-items:center
+    ">
+        <div>
+            <a href="/" class="mr-3 font:extralight">
+              
+              Answers at the End
+              
+            </a>
+        </div>
+
+        <div class="ml:auto">
+            
+            
+            
+        </div>
+    </div>
+</nav>
+<div class="d:flex flex:column@<=sm pt:90 px:24 jc:center gap:44 word-break:break-word">
+        <div class="max-w:700 w:full box:content-box">
+<article class="box:border-box pt:32">
+    <header class="mb:32">
+        <div class="font:40 font:extrabold">Windows programming part 1: displaying a message box</div>
+        <div class="mt:16 f:fade-60">
+            <time>Jan 20, 2025</time>
+            </div>
+    </header><div class="
+    _:where(a):hover{text-decoration-color:fade}
+    _:where(a){text-decoration:2;underline;fade-10;_text-decoration-color:fade-70@dark}
+    _:where(blockquote){bl:5;solid;fade-76/.1;_bl:5;solid;fade-34/.1@dark}
+    _:where(code){font:90%;_v:middle}
+    _:where(code:not(.highlight_*,pre_*)){p:2;6;_r:4}
+    _:where(del){text-decoration:1;line-through;fade-68;_text-decoration-color:red-64@dark}
+    _:where(figcaption){text:14;_p:10;20;0;_width:fit;_mx:auto;_font:fade-56;_font:fade-57@dark}
+    _:where(h1){font:40;_font:extrabold}
+    _:where(h1,h2,h3)+:where(h1,h2,h3){mt:.5em}
+    _:where(h1,h2,h3,h4,h5,h6){mt:2em}
+    _:where(h2){mb:1em;_font:32}
+    _:where(h3){font:24}
+    _:where(h4){font:20}
+    _:where(h5){font:16}
+    _:where(h6){font:14}
+    _:where(li)::marker{font:fade-44;_font:fade-68@dark}
+    _:where(li){pl:.375em}
+    _:where(mark){text-decoration:1;underline;#fce016;_bg:transparent;_text-decoration-color:rgb(252;224;22/.5)@dark}
+    _:where(p,li){font:fade-76;_font:16;_line-height:1.65;_font:fade-34@dark}
+    _:where(p,li){text-align:justify}
+    _:where(p,pre,blockquote,figure,ul,ol,table){my:1.125em}
+    >:first-child{mt:0!}
+    _:where(pre){p:20;_r:8;_overflow:auto}
+    _:where(pre,code:not(.highlight_*)){bg:fade-2;_bg:fade-92!@dark}
+    _:where(strong,b,a,code:not(.highlight_*),mark,del){font:fade-92;_font:fade-12@dark}
+    _:where(table){width:full;_border-spacing:0}
+    _:where(td){v:baseline}
+    _:where(td,th):first-child{pl:0}
+    _:where(td,th):last-child{pr:0}
+    _:where(td,th){bb:1;solid;fade-92/.06;_p:6;_b:fade-4/.04@dark}
+    _:where(th){font:fade-78;_font:14;_text:left;_font:fade-12@dark}
+    _:where(th,p_code,li_code,a,mark){font:semibold;_font:medium@dark}
+    _:where(ul){list-style-type:disc}
+    _:where(ul,ol,blockquote){pl:1.5em}
+    _:where(video,img){max-width:full;}
+    _:where(a,mark){text-underline-offset:3}
+    _:where(hr){h:2;_bg:fade-10;_bg:fade-70@dark;_my:3em}
+"><p>This article explains how to create a Windows program that displays a message box like the following. I call this the <em>Minimal Windows Program</em>™, or <em>Hello Windows</em>.</p>
+
+
+<figure><img src="/posts/windows-programming-part-1--displaying-a-message-box/screenshot_ok_10.png"
+    alt="A screenshot of a message box window"><figcaption>
+      <p>What the final program will look like.</p>
+    </figcaption>
+</figure>
+
+<p>Such a simple program is ideal because it touches many topics and is useful for creating a foundation of Windows-related knowledge.</p>
+<p>The whole program is made out of a single function call. It&rsquo;ll look something like this:</p>
+<pre><code>main :: () {
+    show message box(...)
+}
+</code></pre>
+<p>However, everything <em>around</em> that single call is what makes this worth talking about.</p>
+<h2 id="the-messagebox-functionmacro">The MessageBox function/macro</h2>
+<p>Let&rsquo;s start by looking at the signature of the function itself. You can find it <a href="https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-messagebox">in the docs</a>, but I&rsquo;ll report it here for convenience.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C" data-lang="C"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">MessageBox</span>(
+</span></span><span style="display:flex;"><span>    [in, optional] HWND    hWnd,
+</span></span><span style="display:flex;"><span>    [in, optional] LPCTSTR lpText,
+</span></span><span style="display:flex;"><span>    [in, optional] LPCTSTR lpCaption,
+</span></span><span style="display:flex;"><span>    [in]           UINT    uType
+</span></span><span style="display:flex;"><span>);
+</span></span></code></pre></div><p>If you&rsquo;ve never called a Windows function before, there are a few things that might catch your attention.</p>
+<ul>
+<li>The parameter <em>names</em> are all prefixed with one or two letters. Instead of just <code>Text</code>, we have <code>lpText</code>. Instead of <code>Type</code>, it&rsquo;s <code>uType</code>. What&rsquo;s up with that?</li>
+<li>The parameters <em>types</em> are different than the ones you are used to. What in the world is a <code>LPCTSTR</code>?</li>
+<li>Some of these parameters are labeled as &ldquo;optional&rdquo;, and all of them are labeled as &ldquo;in&rdquo;. What does it mean?</li>
+</ul>
+<p>But there is an even more mysterious fact: the documentation actually lists not one, but <em>three</em> versions of this function:</p>
+<ul>
+<li>MessageBox</li>
+<li>MessageBox<em>A</em></li>
+<li>MessageBox<em>W</em></li>
+</ul>
+<p>Why? What&rsquo;s the difference?</p>
+<h3 id="optional-arguments">Optional arguments</h3>
+<p>Let&rsquo;s start from the easy ones. A lot of Windows functions take in <em>optional</em> arguments in the form of zeros. You can pass <code>0</code>/<code>NULL</code> in place of an argument marked as <em>optional</em>, and it&rsquo;ll be replaced with a default value.
+This means that <code>MessageBox</code> can be called like this:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C++" data-lang="C++"><span style="display:flex;"><span>MessageBox(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>);
+</span></span></code></pre></div><p>The first three parameters will be replaced internally with default values.</p>
+<p>The <em>in</em> annotation simply means that the argument is meant as an input to the function. In some other cases, you might see an argument labeled as <em>out</em>, which marks it as an argument that the function will write to. One example is <a href="https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-getmessage"><code>GetMessage</code></a>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C" data-lang="C"><span style="display:flex;"><span>BOOL <span style="color:#a6e22e">GetMessage</span>(
+</span></span><span style="display:flex;"><span>    [out]          LPMSG lpMsg,
+</span></span><span style="display:flex;"><span>    [in, optional] HWND  hWnd,
+</span></span><span style="display:flex;"><span>    [in]           UINT  wMsgFilterMin,
+</span></span><span style="display:flex;"><span>    [in]           UINT  wMsgFilterMax
+</span></span><span style="display:flex;"><span>);
+</span></span></code></pre></div><p>Some functions even take <em>inout</em> arguments, meant as both input and output.</p>
+<h3 id="hungarian-notation">Hungarian notation</h3>
+<p>The deal with parameter <em>names</em> is called <a href="">hungarian notation</a>. It&rsquo;s the practice of annotating every variable with a prefix that indicates the type of the variable. So an integer variable representing a length will be called <code>nLength</code>, a pointer to a value will be called <code>pValue</code>, and so on.</p>
+<p>In this case, we have:</p>
+<ul>
+<li><code>hWnd</code>: A &ldquo;handle&rdquo; to a window</li>
+<li><code>lpText</code>: A &ldquo;long pointer&rdquo; to some text</li>
+<li><code>lpCaption</code>: A &ldquo;long pointer&rdquo; to a caption</li>
+<li><code>uType</code>: An &ldquo;unsigned int&rdquo; type</li>
+</ul>
+<p>A big part of the Windows API uses this convention, so you better get used to it.</p>
+<h3 id="windows-data-types">Windows data types</h3>
+<p>This can be a big roadblock for someone new to Windows programming. Windows defines custom data types for <em>everything</em>, even for simple integer types.</p>
+<p>Most of these types are defined in a header called <code>BaseTsd.h</code>. You can check <a href="https://learn.microsoft.com/en-us/windows/win32/winprog/windows-data-types">this documentation page</a> for a list of all the types defined there and their definition.</p>
+<p>A quick glance at the list will reveal that most of the types are just alternate names for the builtin C types.</p>
+<p>For example, <code>UINT</code> is just an unsigned 32-bit integer. It is equivalend to <code>unsigned int</code>. Why define a new name for an existing type? I don&rsquo;t know, but Windows loves to do that.</p>
+<p>In fact, it loves it so much that there are <em>many</em> names for the same custom type: <code>DWORD</code>, <code>DWORD32</code>, <code>UINT</code>, <code>UINT32</code>, <code>ULONG</code> and <code>ULONG32</code> are all defined to be <code>unsigned int</code>.</p>
+
+
+  <img
+    src="spiderman.png"
+    alt="A pointing-spiderman meme"
+    
+    class="center"
+    
+  />
+
+
+
+
+
+
+
+<p>Pay special attention to the <code>DWORD</code> type, as it&rsquo;s used a lot in windows. It stands for &ldquo;double-word&rdquo;, and it&rsquo;s a residue from the 16-bit processors era. Windows defines <code>BYTE</code>, <code>WORD</code>, <code>DWORD</code> and <code>QWORD</code> (&ldquo;quadruple-word&rdquo;) to refer to a specific multiple of the byte:</p>
+
+
+
+<div class="goat svg-container ">
+  
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      font-family="Menlo,Lucida Console,monospace"
+      
+        viewBox="0 0 464 153"
+      >
+      <g transform='translate(8,16)'>
+<path d='M 0,0 L 448,0' fill='none' stroke='currentColor'></path>
+<path d='M 0,32 L 224,32' fill='none' stroke='currentColor'></path>
+<path d='M 224,32 L 448,32' fill='none' stroke='currentColor'></path>
+<path d='M 0,64 L 112,64' fill='none' stroke='currentColor'></path>
+<path d='M 112,64 L 224,64' fill='none' stroke='currentColor'></path>
+<path d='M 224,64 L 336,64' fill='none' stroke='currentColor'></path>
+<path d='M 336,64 L 448,64' fill='none' stroke='currentColor'></path>
+<path d='M 0,96 L 56,96' fill='none' stroke='currentColor'></path>
+<path d='M 56,96 L 112,96' fill='none' stroke='currentColor'></path>
+<path d='M 112,96 L 168,96' fill='none' stroke='currentColor'></path>
+<path d='M 168,96 L 224,96' fill='none' stroke='currentColor'></path>
+<path d='M 224,96 L 280,96' fill='none' stroke='currentColor'></path>
+<path d='M 280,96 L 336,96' fill='none' stroke='currentColor'></path>
+<path d='M 336,96 L 392,96' fill='none' stroke='currentColor'></path>
+<path d='M 392,96 L 448,96' fill='none' stroke='currentColor'></path>
+<path d='M 0,128 L 56,128' fill='none' stroke='currentColor'></path>
+<path d='M 56,128 L 112,128' fill='none' stroke='currentColor'></path>
+<path d='M 112,128 L 168,128' fill='none' stroke='currentColor'></path>
+<path d='M 168,128 L 224,128' fill='none' stroke='currentColor'></path>
+<path d='M 224,128 L 280,128' fill='none' stroke='currentColor'></path>
+<path d='M 280,128 L 336,128' fill='none' stroke='currentColor'></path>
+<path d='M 336,128 L 392,128' fill='none' stroke='currentColor'></path>
+<path d='M 392,128 L 448,128' fill='none' stroke='currentColor'></path>
+<path d='M 0,0 L 0,32' fill='none' stroke='currentColor'></path>
+<path d='M 0,32 L 0,64' fill='none' stroke='currentColor'></path>
+<path d='M 0,64 L 0,96' fill='none' stroke='currentColor'></path>
+<path d='M 0,96 L 0,128' fill='none' stroke='currentColor'></path>
+<path d='M 56,96 L 56,128' fill='none' stroke='currentColor'></path>
+<path d='M 112,64 L 112,96' fill='none' stroke='currentColor'></path>
+<path d='M 112,96 L 112,128' fill='none' stroke='currentColor'></path>
+<path d='M 168,96 L 168,128' fill='none' stroke='currentColor'></path>
+<path d='M 224,32 L 224,64' fill='none' stroke='currentColor'></path>
+<path d='M 224,64 L 224,96' fill='none' stroke='currentColor'></path>
+<path d='M 224,96 L 224,128' fill='none' stroke='currentColor'></path>
+<path d='M 280,96 L 280,128' fill='none' stroke='currentColor'></path>
+<path d='M 336,64 L 336,96' fill='none' stroke='currentColor'></path>
+<path d='M 336,96 L 336,128' fill='none' stroke='currentColor'></path>
+<path d='M 392,96 L 392,128' fill='none' stroke='currentColor'></path>
+<path d='M 448,0 L 448,32' fill='none' stroke='currentColor'></path>
+<path d='M 448,32 L 448,64' fill='none' stroke='currentColor'></path>
+<path d='M 448,64 L 448,96' fill='none' stroke='currentColor'></path>
+<path d='M 448,96 L 448,128' fill='none' stroke='currentColor'></path>
+<text text-anchor='middle' x='16' y='20' fill='currentColor' style='font-size:1em'>Q</text>
+<text text-anchor='middle' x='16' y='52' fill='currentColor' style='font-size:1em'>D</text>
+<text text-anchor='middle' x='16' y='84' fill='currentColor' style='font-size:1em'>W</text>
+<text text-anchor='middle' x='16' y='116' fill='currentColor' style='font-size:1em'>B</text>
+<text text-anchor='middle' x='24' y='20' fill='currentColor' style='font-size:1em'>W</text>
+<text text-anchor='middle' x='24' y='52' fill='currentColor' style='font-size:1em'>W</text>
+<text text-anchor='middle' x='24' y='84' fill='currentColor' style='font-size:1em'>O</text>
+<text text-anchor='middle' x='24' y='116' fill='currentColor' style='font-size:1em'>Y</text>
+<text text-anchor='middle' x='32' y='20' fill='currentColor' style='font-size:1em'>O</text>
+<text text-anchor='middle' x='32' y='52' fill='currentColor' style='font-size:1em'>O</text>
+<text text-anchor='middle' x='32' y='84' fill='currentColor' style='font-size:1em'>R</text>
+<text text-anchor='middle' x='32' y='116' fill='currentColor' style='font-size:1em'>T</text>
+<text text-anchor='middle' x='40' y='20' fill='currentColor' style='font-size:1em'>R</text>
+<text text-anchor='middle' x='40' y='52' fill='currentColor' style='font-size:1em'>R</text>
+<text text-anchor='middle' x='40' y='84' fill='currentColor' style='font-size:1em'>D</text>
+<text text-anchor='middle' x='40' y='116' fill='currentColor' style='font-size:1em'>E</text>
+<text text-anchor='middle' x='48' y='20' fill='currentColor' style='font-size:1em'>D</text>
+<text text-anchor='middle' x='48' y='52' fill='currentColor' style='font-size:1em'>D</text>
+</g>
+
+    </svg>
+  
+</div>
+<p>A <code>HWND</code> is simply a <code>void *</code>. It is one of the many types of &ldquo;handles&rdquo; that Windows defines.</p>
+<p>Whenever windows creates a resource that should remain opaque, it will return a &ldquo;handle&rdquo; to it. The details of how this handle works are unknown, and that&rsquo;s the point: you&rsquo;re not supposed to care about how this handle is interpreted, windows will know.</p>
+<p>There are many types of handle: <code>HWND</code> (handle to a window), <code>HBRUSH</code> (handle to a brush), <code>HCURSOR</code> (handle to a cursor), and so on.</p>
+<p>Finally, <code>LPCTSTR</code>. I left this one for last because it the most complicated to unpack. Starting from the easy parts, &ldquo;STR&rdquo; is short for &ldquo;string&rdquo;. So this type is a kind of string.
+&ldquo;LP&rdquo; is an acronym for &ldquo;Long Pointer&rdquo;. In this case, it doesn&rsquo;t mean anything - it&rsquo;s simply describing how strings are represented in C programs: as pointers to the actual data.
+So this is a pointer to a string, or simply a string. If you search in the <code>BaseTsd.h</code> header, you will find a &ldquo;LPSTR&rdquo; type, which is just a &ldquo;char *&rdquo;</p>
+<p>&ldquo;C&rdquo; stands for &ldquo;Constant&rdquo;. It&rsquo;s saying that the string in question has the &ldquo;const&rdquo; qualifier. The <code>BaseTsd.h</code> header also has a the <code>LPCSTR</code> type, defined as &ldquo;const char *&rdquo;</p>
+<p>We&rsquo;re left with the T. To explain this, we&rsquo;re going to have to take a quick detour into the windows headers. Feel free to follow along.</p>
+<h2 id="into-the-headers">Into the headers</h2>
+<p>In Visual Studio, create an new empty C++ solution/project.
+In a <code>.cpp</code> file, write the following code:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C++" data-lang="C++"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;windows.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    MessageBox();
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>The header <code>windows.h</code> is a wrapper header that contains most of the basic Windows functionality. It includes other headers such as <code>BaseTsd.h</code> (which we saw earlier) and <code>Winuser.h</code> (where <code>MessageBox</code> is defined).</p>
+<p>Right-click on <code>MessageBox</code>, then click on &lsquo;View Definition&rsquo;. It should open a new tab called <code>winuser.h</code>, right to the line where <code>MessageBox</code> is defined.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C++" data-lang="C++"><span style="display:flex;"><span><span style="color:#75715e">#ifdef UNICODE
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define MessageBox  MessageBoxW
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#else
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define MessageBox  MessageBoxA
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#endif </span><span style="color:#75715e">// !UNICODE
+</span></span></span></code></pre></div><p>As you can see, <code>MessageBox</code> is not actually a function, but rather a <em>macro</em>. It expands to either the <em>A</em> or the <em>W</em> version depending on some <code>UNICODE</code> symbol.</p>
+<p>This is a little historical artifact. If you want to know more about the history of this choice, [scroll to the bottom/watch Casey explain it]. What remains of it today is a hack to encourage new programs to use Unicode strings while still remaining backwards-compatible with programs that were written using ASCII strings.</p>
+<p>The &lsquo;A&rsquo; and &lsquo;W&rsquo; suffixes stand, respectively, for &lsquo;ANSI&rsquo; and &lsquo;Wide&rsquo;. They indicate wether the strings that they operate on are <em>narrow</em> or <em>wide</em>:</p>
+<p>[Image/diagram explaining the difference between narrow/wide strings]
+[Caption: How narrow and wide strings are encoded]</p>
+<p>If we read the signatures of the two functions and the definitions of the types of their parameters, we can see that they differ exactly on the string type:</p>
+<pre><code>MessageBoxA(HWND, LPCSTR,  LPCSTR,  UINT);
+MessageBoxW(HWND, LPCWSTR, LPCWSTR, UINT);
+                  ^--------------^
+</code></pre>
+<p>Where:</p>
+<pre><code>LPCSTR  = const char *
+LPCWSTR = const wchar_t *
+</code></pre>
+<p>So if your program is always going to output ANSI strings, you can just go with the A version and pass in regular strings. But how do we define wide strings?
+If you&rsquo;re using C or C++ you can add a <code>L</code> prefix in front of any string literal to tell the compiler to treat it as a wide string:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C" data-lang="C"><span style="display:flex;"><span>LPCWSTR message <span style="color:#f92672">=</span> <span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;Message text&#34;</span>;
+</span></span><span style="display:flex;"><span>                  <span style="color:#f92672">^</span>
+</span></span></code></pre></div><p>For other languages, you have to hope that the compiler has a similar feature. In Odin, for example, the <code>L</code> prefix is replaced with a compiler intrinsic that
+does the same thing:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Odin" data-lang="Odin"><span style="display:flex;"><span>message <span style="color:#f92672">:=</span> windows.L(<span style="color:#e6db74">&#34;Message text&#34;</span>);
+</span></span><span style="display:flex;"><span>           <span style="color:#f92672">^-------^</span>
+</span></span></code></pre></div><p>We&rsquo;re almost there. So, having said all this, what is the &ldquo;T&rdquo; in <code>LPCTSTR</code>?
+It&rsquo;s all part of the same hack. The people at Microsoft decided they wanted developers to be able to switch between narrow and wide strings easily, without having to change every string literal, type and function call. So they defined a &ldquo;TEXT&rdquo; macro, which expands to either one of the two string literals depending on the presence of a symbol:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C++" data-lang="C++"><span style="display:flex;"><span><span style="color:#75715e">#ifdef UNICODE
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define TEXT(s) L##s
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#else
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define TEXT(s) s
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#endif </span><span style="color:#75715e">// !UNICODE
+</span></span></span></code></pre></div><p>You use it like this:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C++" data-lang="C++"><span style="display:flex;"><span>LPCTSTR message <span style="color:#f92672">=</span> TEXT(<span style="color:#e6db74">&#34;Message text&#34;</span>);    <span style="color:#75715e">// Expands to L&#34;Message text&#34; if UNICODE is defined, to &#34;Message text&#34; otherwise.
+</span></span></span></code></pre></div><p>The <code>LPCTSTR</code> type is designed to caputure whatever type comes out of the <code>TEXT</code> macro. The &ldquo;T&rdquo;, of course, stands for &ldquo;TEXT&rdquo;. I&rsquo;ll put it here for completeness:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C++" data-lang="C++"><span style="display:flex;"><span><span style="color:#75715e">#ifdef UNICODE
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">typedef</span> LPCWSTR LPCTSTR
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#else
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">typedef</span> LPCSTR LPCTSTR
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#endif </span><span style="color:#75715e">// !UNICODE
+</span></span></span></code></pre></div><p>So there you have it. If you <em>always</em> write code using the <code>TEXT</code> macro, and the <code>LPCTSTR</code> type, and the macro wrappers for functions, you&rsquo;ll be able to switch between narrow and wide strings every time you compile the program.</p>
+<h2 id="the-program-and-a-few-other-things">The program and a few other things</h2>
+<p>So we figured out how to specify the strings, let&rsquo;s look at the other two parameters. First we have the <em>owner window</em>. As the documentation says, we can put <code>NULL</code> to mean that there is no owner window. The last parameter is a <em>bitfield</em> which describes the buttons and icons that will appear in the box. If we leave it at <code>0</code>, that&rsquo;ll be the same thing as <code>MB_OK</code>, which puts an &ldquo;OK&rdquo;-button in the message box.</p>
+<p>Let&rsquo;s put everything together and write the program.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C++" data-lang="C++"><span style="display:flex;"><span><span style="color:#75715e">/* C, C++ */</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;windows.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">void</span>) {
+</span></span><span style="display:flex;"><span>    MessageBoxW(NULL, <span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;It works!&#34;</span>, <span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;Yay&#34;</span>, MB_OK);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Odin" data-lang="Odin"><span style="display:flex;"><span><span style="color:#75715e">/* Odin */</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">package</span> main
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;core:sys/windows&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>main <span style="color:#f92672">::</span> <span style="color:#66d9ef">proc</span>() {
+</span></span><span style="display:flex;"><span>    windows.MessageBoxW(<span style="color:#66d9ef">nil</span>, windows.L(<span style="color:#e6db74">&#34;It works!&#34;</span>), windows.L(<span style="color:#e6db74">&#34;Yay&#34;</span>), windows.MB_OK);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>All that&rsquo;s left to do is compile and run. If you are compiling C or C++ code from the command line, remember to tell the linker to import the necessary libraries. You can find the import library for every windows function <a href="https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-messagebox#requirements">at the bottom of its documentation</a>. For <code>MessageBoxW</code>, it&rsquo;ll be <code>user32.lib</code>.</p>
+<pre tabindex="0"><code>cl main.c /nologo /link user32.lib
+</code></pre><p>If you are compiling from a Visual Studio project, the auto-generated command line should already include everything you need.</p>
+<p>Congratulations, you have just made your first message box!</p>
+
+
+  <img
+    src="screenshot_yay_98.png"
+    alt="Screenshot of a message box saying &#34;It works!&#34;"
+    
+    class="center"
+    
+  />
+
+
+
+
+
+
+
+<p>Now, of course we aren&rsquo;t done. If you look carefully, the message box in the picture above doesn&rsquo;t look exactly like the one at the top of the post. The button is different, this one looks&hellip; older, like it&rsquo;s coming straight out of Windows 98. Shouldn&rsquo;t it look more modern?</p>
+<p>Another problem is that this program is somehow &ldquo;tied&rdquo; to the command line running it. If you run the program from the command line, the console become unresponsive. If instead you run it by double-clicking on the icon, a new console opens up. Why?</p>
+<p>Let&rsquo;s tackle the console problem first.</p>
+<h2 id="windows-subsystems">Windows subsystems</h2>
+<p>There is a <a href="https://learn.microsoft.com/en-us/cpp/build/reference/subsystem-specify-subsystem?view=msvc-170">special linker flag</a> called &ldquo;subsystem&rdquo;. It sets a field in the executable file that tells the windows loader how the program should be run. For normal user-level applications, only two of the listed values are relevant: &ldquo;console&rdquo; and &ldquo;windows&rdquo;.</p>
+<p>The former is the current mode of our program: takes control of an existing console or creates one if it doesn&rsquo;t exist. It is useful for command-line programs like compilers. The latter is the opposite: no consoles attached. That&rsquo;s exactly what we need.</p>
+<p>Let&rsquo;s add it to our compilation line:</p>
+<pre tabindex="0"><code>cl main.c /nologo /link user32.lib /subsystem:windows
+</code></pre><p>Hit compile and&hellip;</p>
+<pre tabindex="0"><code>LIBCMT.lib(exe_winmain.obj) : error LNK2019: unresolved external symbol WinMain in function &#34;int __cdecl __scrt_common_main_seh(void)&#34; (?__scrt_common_main_seh@@YAHXZ)
+main.exe : fatal error LNK1120: 1 unresolved externals
+</code></pre><p>Uh oh. Aparently, the linker is looking for a symbol called <code>WinMain</code>, although we never referenced it in the code.</p>
+<p>It turns out that when a program is compiled for the &ldquo;windows&rdquo; subsystem, the linker by default expects <a href="https://learn.microsoft.com/en-us/windows/win32/api/winbase/nf-winbase-winmain">a different entry point</a>. This is its signature:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C++" data-lang="C++"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> __clrcall <span style="color:#a6e22e">WinMain</span>(
+</span></span><span style="display:flex;"><span>    [in]           HINSTANCE hInstance,
+</span></span><span style="display:flex;"><span>    [in, optional] HINSTANCE hPrevInstance,
+</span></span><span style="display:flex;"><span>    [in]           LPSTR     lpCmdLine,
+</span></span><span style="display:flex;"><span>    [in]           <span style="color:#66d9ef">int</span>       nShowCmd
+</span></span><span style="display:flex;"><span>);
+</span></span></code></pre></div><p>I won&rsquo;t talk about what all those parameters are, at least not for now. We don&rsquo;t need them. But notice that they follow the exact same conventions as the ones in <code>MessageBox</code>: hungarian notation, handles, long pointers.</p>
+<p>So one thing we could do is actually use this as the entry point, in place of <code>main</code>. But suppose we wanted to keep using <code>main</code>; how can we do it?</p>
+<p>There&rsquo;s another linker flag that can help us: &ldquo;entry&rdquo;. As the name suggests, it lets you specify the entry point for a program. But be careful: it expects the <em>real</em> entry point, the one than initializes the global variables and gets the command line arguments, not the one that the programmer is expected to use.</p>
+<p>By default, for windows-subsystem programs, this is set to <code>WinMainCRTStarup</code>. What we&rsquo;re looking for is <code>mainCRTStartup</code>, so let&rsquo;s specify that:</p>
+<pre tabindex="0"><code>cl main.c /nologo /link user32.lib /subsystem:windows /entry:mainCRTStartup
+</code></pre><p>We&rsquo;re back to compiling without errors, but this time the message box doesn&rsquo;t halt the console!</p>
+<h2 id="visual-styles">Visual styles</h2>
+<p>The <em>Minimal Windows Program</em>™ is almost done. The last things that&rsquo;s left to do is to make the button use the modern look. Again, this sounds like it&rsquo;s going to be as simple as setting a boolean, but it&rsquo;s not. Instead, we want to tell Windows to use the new version of the library that implements the buttons, called <code>ComCtl32.dll</code>.</p>
+<p>This choice of version does not happen when compiling or linking the program, but when the program is executed. Windows uses information it finds in the running program to determine what version of the library it should use (this is the idea behind <a href="https://learn.microsoft.com/en-us/windows/win32/sbscs/about-side-by-side-assemblies-">side-by-side assemblies</a>). How do we put this information into the program? The full details are explained <a href="https://learn.microsoft.com/en-us/windows/win32/controls/cookbook-overview">here</a>, but the general idea is to create a &ldquo;manifest file&rdquo; that will describe the executable. You can either create the manifest file manually, or generate one automatically with a <code>#pragma comment</code> in one of your C or C++ files&hellip;</p>
+<p>&hellip;or you can use undocumented Windows features to avoid using manifest files altogether. We can take the code from <a href="https://stackoverflow.com/a/10444161/13045830">this Stack Overflow answer</a> to force Windows to load the new version of the library. The comments under the answer briefly touch on what the code does, and honestly that is just about how far I decided to investigate.</p>
+<p>The choice is yours now: either pair up your executable with a manifest describing it, or use this hack. I usually choose the second option.</p>
+<p>Anyway, we finally did it! We have a working and good-looking message box.</p>
+
+
+  <img
+    src="screenshot_yay_10.png"
+    alt="Screenshot of a message box saying &#34;It works!&#34;"
+    
+    class="center"
+    
+  />
+
+
+
+
+
+
+
+<h2 id="final-notes">Final notes</h2>
+<p>The point of this article is not to say everything there is to know about message boxes. For that, there&rsquo;s documentation. This is just an overview of all the <em>topics</em> that you might want to know about when writing Windows programs.</p>
+<p>If you want to have some fun now that the hard part is done, go read about the possible values you can combine with <code>MB_OK</code>, how to interpret the return value, or spice up your message boxes with a <a href="https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-messagebeep">MessageBeep</a>.</p>
+</div>
+</article>
+<footer class="py:24">
+    <div class="f:fade-30 f:14 mb:8"></div>
+    <div class="f:fade-60 f:12">Theme <span class="f:bold">Vans</span></div>
+</footer>
+
+
+</div>
+    </div>
+</body>
+
+</html>

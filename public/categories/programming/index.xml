@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Programming on Answers at the End</title>
+    <link>https://NicknEma.github.io/categories/programming/</link>
+    <description>Recent content in Programming on Answers at the End</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 20 Jan 2025 20:54:43 +0100</lastBuildDate>
+    <atom:link href="https://NicknEma.github.io/categories/programming/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Windows programming part 1: displaying a message box</title>
+      <link>https://NicknEma.github.io/posts/windows-programming-part-1--displaying-a-message-box/</link>
+      <pubDate>Mon, 20 Jan 2025 20:54:43 +0100</pubDate>
+      <guid>https://NicknEma.github.io/posts/windows-programming-part-1--displaying-a-message-box/</guid>
+      <description>This article explains how to create a Windows program that displays a message box like the following. I call this the Minimal Windows Program™, or Hello Windows.&#xA;What the final program will look like.&#xA;Such a simple program is ideal because it touches many topics and is useful for creating a foundation of Windows-related knowledge.&#xA;The whole program is made out of a single function call. It&amp;rsquo;ll look something like this:</description>
+    </item>
+  </channel>
+</rss>

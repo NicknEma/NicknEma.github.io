@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html><head>
+	
+	<title>Odin Pills: Package Names - Answers at the End</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><meta name="description" content="The Odin programming languages is built around the idea of packages: independent code units that contain related functionality.
+As the documentation states, each Odin file must start with a package declaration, like this:
+package strings // Package declaration /* ... */ The above file declares itself to be part of the strings package. If another package wants to use the functionality it provides, it must import it like this:
+package program import &#34;path_to_package/strings&#34; // Import declaration main :: proc() { s := strings.">
+		<meta name="author" content=""><meta name="keywords" content="Programming Language,Compiler"><script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<script>
+  MathJax = {
+    tex: {
+      displayMath: [['\\[', '\\]'], ['$$', '$$']],  
+      inlineMath: [['\\(', '\\)']]                  
+    }
+  };
+</script>
+
+	<link href="https://NicknEma.github.io/styles/normal.css" rel="stylesheet">
+	<style>
+	:root {
+		--font-sans: "Inter var", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+	}
+	</style>
+
+	
+	<script src="https://unpkg.com/@master/style@1.5.0"></script>
+	<script src="https://unpkg.com/@master/styles@1.13.0"></script>
+	<script src="https://unpkg.com/master-styles-group"></script>
+	<script src="https://unpkg.com/themes.js"></script>
+	<script>window.themes = window.themes || new window.Themes()</script>
+</head>
+<body class="bg:fade-84@dark font:fade-16@dark font:sans">
+    <nav class="w:full h:90 fixed bg:fade-84/.95@dark bg:white z:1000">
+    <div class="
+        h:full
+        w:full
+        max-w:1200
+        mx:auto
+        px:32
+        d:flex
+        align-items:center
+    ">
+        <div>
+            <a href="/" class="mr-3 font:extralight">
+              
+              Answers at the End
+              
+            </a>
+        </div>
+
+        <div class="ml:auto">
+            
+            
+            
+        </div>
+    </div>
+</nav>
+<div class="d:flex flex:column@<=sm pt:90 px:24 jc:center gap:44 word-break:break-word">
+        <div class="max-w:700 w:full box:content-box">
+<article class="box:border-box pt:32">
+    <header class="mb:32">
+        <div class="font:40 font:extrabold">Odin Pills: Package Names</div>
+        <div class="mt:16 f:fade-60">
+            <time>Nov 4, 2024</time>
+            </div>
+    </header><div class="
+    _:where(a):hover{text-decoration-color:fade}
+    _:where(a){text-decoration:2;underline;fade-10;_text-decoration-color:fade-70@dark}
+    _:where(blockquote){bl:5;solid;fade-76/.1;_bl:5;solid;fade-34/.1@dark}
+    _:where(code){font:90%;_v:middle}
+    _:where(code:not(.highlight_*,pre_*)){p:2;6;_r:4}
+    _:where(del){text-decoration:1;line-through;fade-68;_text-decoration-color:red-64@dark}
+    _:where(figcaption){text:14;_p:10;20;0;_width:fit;_mx:auto;_font:fade-56;_font:fade-57@dark}
+    _:where(h1){font:40;_font:extrabold}
+    _:where(h1,h2,h3)+:where(h1,h2,h3){mt:.5em}
+    _:where(h1,h2,h3,h4,h5,h6){mt:2em}
+    _:where(h2){mb:1em;_font:32}
+    _:where(h3){font:24}
+    _:where(h4){font:20}
+    _:where(h5){font:16}
+    _:where(h6){font:14}
+    _:where(li)::marker{font:fade-44;_font:fade-68@dark}
+    _:where(li){pl:.375em}
+    _:where(mark){text-decoration:1;underline;#fce016;_bg:transparent;_text-decoration-color:rgb(252;224;22/.5)@dark}
+    _:where(p,li){font:fade-76;_font:16;_line-height:1.65;_font:fade-34@dark}
+    _:where(p,li){text-align:justify}
+    _:where(p,pre,blockquote,figure,ul,ol,table){my:1.125em}
+    >:first-child{mt:0!}
+    _:where(pre){p:20;_r:8;_overflow:auto}
+    _:where(pre,code:not(.highlight_*)){bg:fade-2;_bg:fade-92!@dark}
+    _:where(strong,b,a,code:not(.highlight_*),mark,del){font:fade-92;_font:fade-12@dark}
+    _:where(table){width:full;_border-spacing:0}
+    _:where(td){v:baseline}
+    _:where(td,th):first-child{pl:0}
+    _:where(td,th):last-child{pr:0}
+    _:where(td,th){bb:1;solid;fade-92/.06;_p:6;_b:fade-4/.04@dark}
+    _:where(th){font:fade-78;_font:14;_text:left;_font:fade-12@dark}
+    _:where(th,p_code,li_code,a,mark){font:semibold;_font:medium@dark}
+    _:where(ul){list-style-type:disc}
+    _:where(ul,ol,blockquote){pl:1.5em}
+    _:where(video,img){max-width:full;}
+    _:where(a,mark){text-underline-offset:3}
+    _:where(hr){h:2;_bg:fade-10;_bg:fade-70@dark;_my:3em}
+"><p>The <a href="https://odin-lang.org">Odin programming languages</a> is built around the idea of <em>packages</em>: independent code units that contain related functionality.</p>
+<p>As the <a href="https://odin-lang.org/docs/overview/#authoring-a-package">documentation</a> states, each Odin file must start with a <em>package declaration</em>, like this:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Odin" data-lang="Odin"><span style="display:flex;"><span><span style="color:#f92672">package</span> strings    <span style="color:#75715e">// Package declaration
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/* ... */</span>
+</span></span></code></pre></div><p>The above file declares itself to be part of the <code>strings</code> package. If another package wants to use the functionality it provides, it must import it like this:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Odin" data-lang="Odin"><span style="display:flex;"><span><span style="color:#f92672">package</span> program
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;path_to_package/strings&#34;</span>    <span style="color:#75715e">// Import declaration
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>main <span style="color:#f92672">::</span> <span style="color:#66d9ef">proc</span>() {
+</span></span><span style="display:flex;"><span>	s <span style="color:#f92672">:=</span> strings.clone(<span style="color:#e6db74">&#34;Hellope&#34;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>This way, the <code>program</code> package can use the name <code>strings</code> to refer to the imported package.</p>
+<p>However, if you try to do exactly what I did, you will run into a problem: My custom package is called <em>&ldquo;strings&rdquo;</em>, just like one of the packages in the <code>core</code> collection. This will cause a compilation error:</p>
+<pre tabindex="0"><code>C:/odin/core/strings/ascii_set.odin(1:2) Error: Duplicate declaration of &#39;package strings&#39;
+        package strings
+         ^~~~~~~~~~~~~^
+        A package name must be unique
+        There is no relation between a package name and the directory that contains it, so they can be completely different
+        A package name is required for link name prefixing to have a consistent ABI
+</code></pre><p>As you can see, the error is related to the <em>Application Binary Interface</em>, or <em>ABI</em>. In short, when the program is compiled and symbols need to be resolved, how can the linker know what links to what? If some code calls <code>clone()</code>, to which definition of the procedure is it referring? Odin uses package names to prevent this confusion.</p>
+<p>Does this mean you can&rsquo;t have a custom package with the same name as a standard package? Actually, you can.
+As the error message hints at, the name used for the package <em>declaration</em> is only used for linking, while the name of the <em>directory</em> will be what other packages can refer to.</p>
+<p>So if you want a custom <code>strings</code> package, all you have to do is make sure that all the files in your <code>strings</code> directory have a different package <em>declaration</em> than any of the ones used by the standard collections:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Odin" data-lang="Odin"><span style="display:flex;"><span><span style="color:#f92672">package</span> totally_not_a_string_package
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/* ... */</span>
+</span></span></code></pre></div><p>An then use it as normal:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Odin" data-lang="Odin"><span style="display:flex;"><span><span style="color:#f92672">package</span> program
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;path_to_package/strings&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>main <span style="color:#f92672">::</span> <span style="color:#66d9ef">proc</span>() {
+</span></span><span style="display:flex;"><span>	s <span style="color:#f92672">:=</span> strings.clone(<span style="color:#e6db74">&#34;Hellope&#34;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Now just be careful to <a href="https://odin-lang.org/docs/overview/#import-statement">use a different <em>import name</em></a> if importing both packages, otherwise you will have name conflicts <em>before the compiler even gets to linking</em>. Yeah, it can get pretty confusing at times.</p>
+</div>
+</article>
+<footer class="py:24">
+    <div class="f:fade-30 f:14 mb:8"></div>
+    <div class="f:fade-60 f:12">Theme <span class="f:bold">Vans</span></div>
+</footer>
+
+
+</div>
+    </div>
+</body>
+
+</html>
