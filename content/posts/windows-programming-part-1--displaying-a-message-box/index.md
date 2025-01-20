@@ -1,7 +1,7 @@
 +++
 title       = 'Windows programming part 1: displaying a message box'
 description = 'A guide to your first graphical Windows program'
-date        = '2024-12-18T11:29:43+01:00'
+date        = '2025-01-20T20:54:43+01:00'
 tags        = ['Windows', 'UI']
 categories  = ['Programming']
 draft       = false
