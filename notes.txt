@@ -4,6 +4,8 @@ https://bit-101.com/blog/posts/2023-12-30/hugo-themes-part-1/
 How to add LaTeX math rendering:
 https://gohugo.io/content-management/mathematics/
 
+# {{<figure-row src_sep=";" src="screenshot_ok_10.png;screenshot_ok_question_10.png" cap_sep=";" cap="Caption 1;**Caption 2**" alt="Alt1;" row_height="150" margin="5">}}
+
 # TODO:
 
 WEBSITE:

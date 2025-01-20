@@ -5,7 +5,6 @@ patterns = {
 	"*.toml",
 	"*.yaml",
 	"*.json",
-	"*.md",
 	"*.bat",
 	"*.sh",
 	"*.4coder",

@@ -1,10 +1,10 @@
 +++
 title       = 'Windows programming part 1: displaying a message box'
-description = ''
+description = 'A guide to your first graphical Windows program'
 date        = '2024-12-18T11:29:43+01:00'
-tags        = ['', '']
-categories  = ['']
-draft       = true
+tags        = ['Windows', 'UI']
+categories  = ['Programming']
+draft       = false
 +++
 
 This article explains how to create a Windows program that displays a message box like the following. I call this the _Minimal Windows Program_&trade;, or _Hello Windows_.
@@ -296,9 +296,9 @@ int __clrcall WinMain(
 
 I won't talk about what all those parameters are, at least not for now. We don't need them. But notice that they follow the exact same conventions as the ones in `MessageBox`: hungarian notation, handles, long pointers.
 
-So one thing we could do is actually use this as the entry point, in place of `main`. But suppose we wanted to keep using `main`, how can we do it?
+So one thing we could do is actually use this as the entry point, in place of `main`. But suppose we wanted to keep using `main`; how can we do it?
 
-There's another linker flag that can help us, "entry". As the name suggests, it lets you specify the entry point for a program. But be careful: it expects the _real_ entry point, the one than initializes the global variables and gets the command line arguments, not the one that the user is expected to use.
+There's another linker flag that can help us: "entry". As the name suggests, it lets you specify the entry point for a program. But be careful: it expects the _real_ entry point, the one than initializes the global variables and gets the command line arguments, not the one that the programmer is expected to use.
 
 By default, for windows-subsystem programs, this is set to `WinMainCRTStarup`. What we're looking for is `mainCRTStartup`, so let's specify that:
 
@@ -310,14 +310,20 @@ We're back to compiling without errors, but this time the message box doesn't ha
 
 ## Visual styles
 
+The _Minimal Windows Program_&trade; is almost done. The last things that's left to do is to make the button use the modern look. Again, this sounds like it's going to be as simple as setting a boolean, but it's not. Instead, we want to tell Windows to use the new version of the library that implements the buttons, called `ComCtl32.dll`.
+
+This choice of version does not happen when compiling or linking the program, but when the program is executed. Windows uses information it finds in the running program to determine what version of the library it should use (this is the idea behind [side-by-side assemblies](https://learn.microsoft.com/en-us/windows/win32/sbscs/about-side-by-side-assemblies-)). How do we put this information into the program? The full details are explained [here](https://learn.microsoft.com/en-us/windows/win32/controls/cookbook-overview), but the general idea is to create a "manifest file" that will describe the executable. You can either create the manifest file manually, or generate one automatically with a `#pragma comment` in one of your C or C++ files...
+
+...or you can use undocumented Windows features to avoid using manifest files altogether. We can take the code from [this Stack Overflow answer](https://stackoverflow.com/a/10444161/13045830) to force Windows to load the new version of the library. The comments under the answer briefly touch on what the code does, and honestly that is just about how far I decided to investigate.
+
+The choice is yours now: either pair up your executable with a manifest describing it, or use this hack. I usually choose the second option.
+
+Anyway, we finally did it! We have a working and good-looking message box.
+
+{{<image src="screenshot_yay_10.png" alt="Screenshot of a message box saying \"It works!\"">}}
+
 ## Final notes
 
-todo:
-- note that MB_OK = 0
-- note that text in buttons will be translated to the system's language (italian, french, etc)
-- the point of this article is not to explain EVERYTHING there is to know about message boxes; for that, there is documentation. The point is to notice all the things that would be confusing or difficult to figure out, not mentioned in the docs.
-- MessageBeep
-- Note: always keep a Sample VS Solution when doing windows programming
-- visual styles, side-by-side assemblies
+The point of this article is not to say everything there is to know about message boxes. For that, there's documentation. This is just an overview of all the _topics_ that you might want to know about when writing Windows programs.
 
-# {{<figure-row src_sep=";" src="screenshot_ok_10.png;screenshot_ok_question_10.png" cap_sep=";" cap="Caption 1;**Caption 2**" alt="Alt1;" row_height="150" margin="5">}}
+If you want to have some fun now that the hard part is done, go read about the possible values you can combine with `MB_OK`, how to interpret the return value, or spice up your message boxes with a [MessageBeep](https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-messagebeep).
