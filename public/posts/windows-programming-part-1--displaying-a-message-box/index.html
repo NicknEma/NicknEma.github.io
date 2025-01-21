@@ -169,7 +169,7 @@ This means that <code>MessageBox</code> can be called like this:</p>
 <p>Most of these types are defined in a header called <code>BaseTsd.h</code>. You can check <a href="https://learn.microsoft.com/en-us/windows/win32/winprog/windows-data-types">this documentation page</a> for a list of all the types defined there and their definition.</p>
 <p>A quick glance at the list will reveal that most of the types are just alternate names for the builtin C types.</p>
 <p>For example, <code>UINT</code> is just an unsigned 32-bit integer. It is equivalend to <code>unsigned int</code>. Why define a new name for an existing type? I don&rsquo;t know, but Windows loves to do that.</p>
-<p>In fact, it loves it so much that there are <em>many</em> names for the same custom type: <code>DWORD</code>, <code>DWORD32</code>, <code>UINT</code>, <code>UINT32</code>, <code>ULONG</code> and <code>ULONG32</code> are all defined to be <code>unsigned int</code>.</p>
+<p>In fact, it loves it so much that there are <em>many</em> names for the same custom type: <code>DWORD</code>, <code>DWORD32</code>, <code>UINT</code>, <code>UINT32</code>, <code>ULONG</code> and <code>ULONG32</code> are all defined to be 32-bit unsigned integers.</p>
 
 
   <img

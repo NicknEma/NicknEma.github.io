@@ -96,7 +96,7 @@ A quick glance at the list will reveal that most of the types are just alternate
 
 For example, `UINT` is just an unsigned 32-bit integer. It is equivalend to `unsigned int`. Why define a new name for an existing type? I don't know, but Windows loves to do that.
 
-In fact, it loves it so much that there are _many_ names for the same custom type: `DWORD`, `DWORD32`, `UINT`, `UINT32`, `ULONG` and `ULONG32` are all defined to be `unsigned int`.
+In fact, it loves it so much that there are _many_ names for the same custom type: `DWORD`, `DWORD32`, `UINT`, `UINT32`, `ULONG` and `ULONG32` are all defined to be 32-bit unsigned integers.
 
 {{<image src="spiderman.png" alt="A pointing-spiderman meme" height="250">}}
 
@@ -155,7 +155,7 @@ Right-click on `MessageBox`, then click on 'View Definition'. It should open a n
 
 As you can see, `MessageBox` is not actually a function, but rather a _macro_. It expands to either the *A* or the *W* version depending on some `UNICODE` symbol.
 
-This is a little historical artifact. If you want to know more about the history of this choice, [scroll to the bottom/watch Casey explain it]. What remains of it today is a hack to encourage new programs to use Unicode strings while still remaining backwards-compatible with programs that were written using ASCII strings.
+This is a little historical artifact. What remains of it today is a hack to encourage new programs to use Unicode strings while still remaining backwards-compatible with programs that were written using ASCII strings.
 
 The 'A' and 'W' suffixes stand, respectively, for 'ANSI' and 'Wide'. They indicate wether the strings that they operate on are _narrow_ or _wide_:
 
