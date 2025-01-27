@@ -27,3 +27,4 @@ CONTENT:
  [ ]: multiplexers post
   [ ]: change date
   [ ]: generate the four images programmatically
+ [ ]: Boomerang post
