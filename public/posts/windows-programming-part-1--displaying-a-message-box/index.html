@@ -288,7 +288,7 @@ In a <code>.cpp</code> file, write the following code:</p>
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define MessageBox  MessageBoxA
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e">#endif </span><span style="color:#75715e">// !UNICODE
 </span></span></span></code></pre></div><p>As you can see, <code>MessageBox</code> is not actually a function, but rather a <em>macro</em>. It expands to either the <em>A</em> or the <em>W</em> version depending on some <code>UNICODE</code> symbol.</p>
-<p>This is a little historical artifact. If you want to know more about the history of this choice, [scroll to the bottom/watch Casey explain it]. What remains of it today is a hack to encourage new programs to use Unicode strings while still remaining backwards-compatible with programs that were written using ASCII strings.</p>
+<p>This is a little historical artifact. What remains of it today is a hack to encourage new programs to use Unicode strings while still remaining backwards-compatible with programs that were written using ASCII strings.</p>
 <p>The &lsquo;A&rsquo; and &lsquo;W&rsquo; suffixes stand, respectively, for &lsquo;ANSI&rsquo; and &lsquo;Wide&rsquo;. They indicate wether the strings that they operate on are <em>narrow</em> or <em>wide</em>:</p>
 <p>[Image/diagram explaining the difference between narrow/wide strings]
 [Caption: How narrow and wide strings are encoded]</p>
