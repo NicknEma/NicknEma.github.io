@@ -1,4 +1,11 @@
+:root{
+	color-scheme: light dark; /* enable light-dark() function */
+}
+
 body{
+	color: light-dark(#333B3C, #D7D8DF);
+	background-color: light-dark(#EFEDEA, #1d1f25);
+
   line-height:1.2;
   -webkit-tap-highlight-color:transparent;
   text-size-adjust:100%;
