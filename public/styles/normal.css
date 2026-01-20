@@ -114,6 +114,10 @@ a{
   text-decoration:none
 }
 
+p a{
+text-decoration:underline
+}
+
 abbr[title]{
   text-decoration:underline dotted
 }
