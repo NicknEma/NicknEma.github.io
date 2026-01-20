@@ -33,6 +33,15 @@ b,strong{
   box-sizing:border-box
 }
 
+.odin{
+color: rgb(166, 171, 184) !important;
+transition: 150ms ease-in;
+}
+
+a:hover{
+color:#F4F4F6 !important;
+}
+
 *{
   text-rendering:geometricPrecision;
   border:0 solid
