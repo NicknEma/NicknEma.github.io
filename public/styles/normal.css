@@ -1,3 +1,14 @@
+/*
+TODO:
+- sidenotes
+- Quotes (italic)
+- lists
+- text block: toggle ins and del, copy to clipboard with tabs, copy to clipboard with spaces?, toggle line wrap
+- - automatic syntax coloring
+- images: single, single with caption, multiple with single caption, multiple with a caption for each
+
+*/
+
 /* --- GENERAL --- */
 
 @charset "UTF-8";
@@ -111,6 +122,16 @@ pre, code {
     direction: ltr;
     position: relative;
 }
+
+code ins {
+	text-decoration: none;
+	background-color: #dfd;
+}
+code del {
+	text-decoration: none;
+	background-color: #fdd;
+}
+
 
 ul,ol { margin: 0; padding: 0 }
 ul { list-style: none }
