@@ -135,6 +135,11 @@ a,[type=button]:not([disabled]),[role=button],button:not([disabled]) {
 .block {display: block}
 .inline {display: inline}
 
+.details {
+	font-size: 0.875rem;
+	color: rgb(76, 81, 95);
+}
+
 /* --- EMBEDS --- */
 
 img,svg,video,canvas,audio,iframe,embed,object{
