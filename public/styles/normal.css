@@ -37,6 +37,21 @@ body {
 	-moz-tab-size:4;*/
 	tab-size: 4;
 	margin: 0 auto;
+	
+	max-width: 43.75rem;
+	word-break: break-word;
+}
+
+nav {
+	z-index: 1000;
+}
+
+nav h1 {
+	margin: 0.97rem 0 0.67rem;
+}
+
+#home_button {
+	text-decoration: none;
 }
 
 main {
@@ -44,46 +59,26 @@ main {
 	hyphens: auto; /* Automatically insert - when wrapping across lines */
 }
 
+header, footer {
+	padding-top: 1.5rem;
+	padding-bottom: 1.5rem;
+}
+
 h2 {
 	margin-top: 1em;
 	margin-bottom: 1em;
 }
 
-nav {
-	width: 100%;
-	height: 5.625rem;
-	position: fixed;
-	z-index: 1000
-}
-
-.contents {
-	display: flex;
-	padding-top: 5.625rem; /* same as nav->height */
-	padding-left: 1.5rem;
-	padding-right: 1.5rem;
-	justify-content: center; /* put contents in the center */
-	word-break: break-word;
-	gap: 2.75rem;
-}
 
 @media (max-width: 768px) {
 	.contents { flex-direction: column; }
 }
 
-.narrow {
-max-width:43.75rem;
- width:100%;
-  box-sizing:content-box
-}
-
+/*
 .column {
 	display:flex; flex-direction:column; /* container for a column of elements */
 }
-
-header, footer {
-	padding-top: 1.5rem;
-	padding-bottom: 1.5rem;
-}
+*/
 
 header div {
 	margin-bottom: 0.5rem;
