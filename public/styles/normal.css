@@ -10,14 +10,14 @@ body{
 	
 	
 	line-height:1.2;
-	-webkit-tap-highlight-color:transparent;
+	/*-webkit-tap-highlight-color:transparent;*/
 	text-size-adjust:100%;
-	-webkit-text-size-adjust:100%;
+	/*-webkit-text-size-adjust:100%;
 	-moz-text-size-adjust:100%;
 	-ms-text-size-adjust:100%;
 	-moz-osx-font-smoothing:grayscale;
 	-webkit-font-smoothing:antialiased;
-	-moz-tab-size:4;
+	-moz-tab-size:4;*/
 	tab-size:4
 }
 
@@ -40,6 +40,12 @@ a:hover{
 color:#F4F4F6 !important;
 }
 
+.p{
+	margin-bottom: 0.75rem;
+	padding-top: 0.5rem;
+	padding-bottom: 0.5rem;
+}
+
 *{
   text-rendering:geometricPrecision;
   border:0 solid
@@ -49,9 +55,21 @@ body,blockquote,dl,dd,h1,h2,h3,h4,h5,h6,hr,figure,p,button,optgroup,select,texta
   margin:0
 }
 
+pre {font-family: inherit;}
+
 main, /*nav, header, footer*/ {
 	/*max-width:60em;*/
-	margin:0 auto;
+	/*margin:0 auto;*/
+}
+
+footer{
+padding-top:1.5rem;padding-bottom:1.5rem;
+}
+
+footer div{
+margin-top:0.5rem;
+font-size:0.75rem;
+color: light-dark(#4C515F, #4C515F);
 }
 
 td,legend,textarea,input,fieldset{
