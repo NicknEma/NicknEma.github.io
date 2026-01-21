@@ -6,7 +6,7 @@
   <!-- Metadata -->
   <meta charset="utf-8" />
   <meta name="author" content="Emanuele Rovini">
-  <meta name="description" content="Random bits of information I'd like to remember when writing C programs">
+  <meta name="description" content="Random bits of information I'd like to remember when writing (or reading) C programs">
   <meta name="keywords" content="C">
   <meta
     name="theme-color"
@@ -43,14 +43,33 @@
   
   <header>
     <h1><strong>C Tidbits</strong></h1>
-    <p class="details">Random bits of information I'd like to remember when writing C programs.<br />
+    <p class="details">Random bits of information I'd like to remember when writing (or reading) C programs.<br />
     Last modified <time>21/01/2026</time></p>
   </header>
   <main>
     <article>
       
+      <h2><a href="#">Parameter evaluation order</a></h2>
+      <p>Arguments to a function are not evaluated in left-to-right order, as one would imagine. Instead, they are evaluated right-to-left.</p>
+      <p>In the following code, <code>++x</code> is evaluated before <code>x</code>, so the function prints <code>1 1</code>:</p>
+      <pre><code>int x = 0;
+printf("%d %d", x, ++x);</code></pre>
+
+      <h2><a href="#">Comma operator</a></h2>
+      <p>The comma operator evaluates the first operand, discards the result, then evaluates the second operand (not the other way around). The following statements assigns <code>2</code> to <code>x</code>:</p>
+      <pre><code>x = (1, 2);</code></pre>
+      <p>It is guaranteed that all the side effects of the first expression will be completed before any side effect of the second expression is performed.</p>
       
+      <h2><a href="#">Compiler flags</a></h2>
+      <p>Visual Studio (MSVC) flags:
+        <ul>
+          <li><code>/external:anglebrackets /external:W0</code> &ndash; Disable warnings for all headers included using <code>&lt;&gt;</code></li>
+        </ul>
+      </p>
       
+      <!-- printf formats -->
+      <!-- <h2><a href="#">Operator precedence</a></h2> -->
+      <!-- Variable promotion when doing varargs: chars and shorts to long, float to double -->
     </article>
   </main>
 
