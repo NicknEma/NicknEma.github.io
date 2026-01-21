@@ -41,7 +41,7 @@ body {
 nav { z-index: 1000; }
 nav h1 { margin: 0.97rem 0 0.67rem; }
 
-#home_button { text-decoration: none; }
+#home_button { text-decoration: none; color: inherit; }
 
 @media (max-width: 768px) {
 	main { flex-direction: column; }
@@ -116,7 +116,7 @@ abbr[title] { text-decoration: underline dotted; }
 
 a {
 	color: #B09264;
-	text-decoration: underline;
+	text-decoration: none;
 }
 a:visited {
 	color: #705224;
@@ -124,9 +124,10 @@ a:visited {
 a:hover {
 	transition: 150ms ease-in;
 	color: #4B799B;
+	text-decoration: underline;
 }
 a,[type=button]:not([disabled]),[role=button],button:not([disabled]) {
-	cursor: pointer
+	cursor: pointer;
 }
 
 /* --- UTILITY CLASSES --- */
