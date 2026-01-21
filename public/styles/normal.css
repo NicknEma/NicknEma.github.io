@@ -1,12 +1,16 @@
 /* --- GENERAL --- */
 
+@charset "UTF-8";
+
 * {
-  text-rendering: geometricPrecision;
-  border: 0 solid
+	text-rendering: geometricPrecision;
+	border: 0 solid;
+	margin: 0;
+	padding: 0;
 }
 
 *,:before,:after {
-	box-sizing: border-box
+	box-sizing: border-box;
 }
 
 :root {
@@ -22,7 +26,7 @@ body {
 	font-family: "Inter var", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
 	
 	
-	line-height: 1.2;
+	line-height: 1.5;
 	/*-webkit-tap-highlight-color:transparent;*/
 	text-size-adjust: 100%;
 	/*-webkit-text-size-adjust:100%;
@@ -31,11 +35,13 @@ body {
 	-moz-osx-font-smoothing:grayscale;
 	-webkit-font-smoothing:antialiased;
 	-moz-tab-size:4;*/
-	tab-size: 4
+	tab-size: 4;
+	margin: 0 auto;
 }
 
-body,blockquote,dl,dd,h1,h2,h3,h4,h5,h6,hr,figure,p,button,optgroup,select,textarea,pre {
-	margin: 0
+main {
+	text-align: justify;
+	hyphens: auto; /* Automatically insert - when wrapping across lines */
 }
 
 h2 {
@@ -50,23 +56,45 @@ nav {
 	z-index: 1000
 }
 
-main {
-display:flex; padding-top: 5.625rem; padding-left: 1.5rem; padding-right: 1.5rem; justify-content:center; word-break:break-word; gap:2.75rem
+.contents {
+	display: flex;
+	padding-top: 5.625rem; /* same as nav->height */
+	padding-left: 1.5rem;
+	padding-right: 1.5rem;
+	justify-content: center; /* put contents in the center */
+	word-break: break-word;
+	gap: 2.75rem;
 }
 
-footer {
+@media (max-width: 768px) {
+	.contents { flex-direction: column; }
+}
+
+.narrow {
+max-width:43.75rem;
+ width:100%;
+  box-sizing:content-box
+}
+
+.column {
+	display:flex; flex-direction:column; /* container for a column of elements */
+}
+
+header, footer {
 	padding-top: 1.5rem;
 	padding-bottom: 1.5rem;
+}
+
+header div {
+	margin-bottom: 0.5rem;
+	font-size: 0.95rem;
+	color: light-dark(#4C515F, #4C515F);
 }
 
 footer div {
 	margin-top: 0.5rem;
 	font-size: 0.75rem;
 	color: light-dark(#4C515F, #4C515F);
-}
-
-@media (max-width: 768px) {
-	#mydiv { flex-direction: column; }
 }
 
 /* --- TEXT --- */

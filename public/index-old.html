@@ -16,9 +16,12 @@
 			<div style="margin-left:auto"></div>
 		</div>
 	</nav>
-	<main>
-		<div style="max-width:43.75rem; width:100%; box-sizing:content-box">
-			<div style="display:flex;flex-direction:column;">
+
+	<div class="contents">
+		<div class="narrow">
+			<div class="column">
+				<header><div>This is the <strong>header</strong></div></header>
+				<!---
 				<div class="
     _:where(a):hover{text-decoration-color:fade}
     _:where(a){text-decoration:2;underline;fade-10;_text-decoration-color:fade-70@dark}
@@ -57,15 +60,24 @@
     _:where(video,img){max-width:full;}
     _:where(a,mark){text-underline-offset:3}
     _:where(hr){h:2;_bg:fade-10;_bg:fade-70@dark;_my:3em}
-"></div>
+"></div> --->
+			<main>
+			<div class="p">
+				This sentence is part of main, but not part of article.
+			</div>
+			<article>
 				<div class="p">
-					Hi this is a looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong sentence.
+					This sentence is part of article.
+				</div>
+
+				<div class="p">
+					Hi this is a <br />looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong sentence.
 				</div>
 				<div class="p">
 					This is a long sentence made up of many many many many many many many many many many many many many many many many many many many many many many many many many many many many many many many many many many many many many many many many many many many many many many many many many many many words.
 					It has a <a href="#">link</a>
 				</div>
-			</div>
+
 
 
 <p>Download it here: <a href="https://github.com/NicknEma/brainfact">https://github.com/NicknEma/brainfact</a></p>
@@ -85,14 +97,16 @@
 		</a>
 		<div style="margin-top: 0.75rem; font-size: 0.875rem;color: rgb(76, 81, 95)"><time>Nov 4, 2024</time></div>    <!--- LM color for dates rgb(76, 81, 95) --->
 	</div>
-
+			</article>
+			</main>
 			
 			<footer>
 				<div>
 					This is the <strong>footer</strong>
 				</div>
 			</footer>
-		</div>
-	</main>
+			</div>
+		</div> <!--- class="narrow" --->
+	</div> <!--- class="central" --->
 </body>
 </html>
