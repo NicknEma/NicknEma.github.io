@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en-gb">
+<head>
+  <title>C Tidbits - NicknEma</title>
+  
+  <!-- Metadata -->
+  <meta charset="utf-8" />
+  <meta name="author" content="Emanuele Rovini">
+  <meta name="description" content="Random bits of information I'd like to remember when writing (or reading) C programs">
+  <meta name="keywords" content="C">
+  <meta
+    name="theme-color"
+    content="lightgray"
+    media="(prefers-color-scheme: light)" />
+  <meta
+    name="theme-color"
+    content="darkgray"
+    media="(prefers-color-scheme: dark)" />
+  <meta name="color-scheme" content="dark light" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+  <script>
+    MathJax = {
+      tex: {
+        displayMath: [['\\[', '\\]'], ['$$', '$$']],  
+        inlineMath: [['\\(', '\\)']]                  
+      }
+    };
+  </script>
+
+  <link href="/styles/normal.css" rel="stylesheet">
+</head>
+
+<body>
+ <nav>
+    <h1>
+      <a id="home_button" href="/" style="cursor: pointer">
+        NicknEma
+      </a>
+    </h1>
+  </nav>
+  
+  <header>
+    <h1><strong>C Tidbits</strong></h1>
+    <p class="details">Random bits of information I'd like to remember when writing (or reading) C programs.<br />
+    Last modified <time>24/01/2026</time></p>
+  </header>
+  <main>
+    <article>
+      
+      <h2><a href="#">Parameter evaluation order</a></h2>
+      <p>Arguments to a function are not evaluated in left-to-right order, as one would imagine. The order of evaluation (and the order of execution of side effects) is unspecified.</p>
+      <p>In the following code, it's possible that <code>++x</code> will be evaluated before <code>x</code>, and the function could print <code>1 1</code>:</p>
+      <pre><code>int x = 0;
+printf("%d %d", x, ++x);</code></pre>
+
+      <h2><a href="#">Comma operator</a></h2>
+      <p>The comma operator evaluates the first operand, discards the result, then evaluates the second operand (not the other way around). The following statements assigns <code>2</code> to <code>x</code>:</p>
+      <pre><code>x = (1, 2);</code></pre>
+      <p>It is guaranteed that all the side effects of the first expression will be completed before any side effect of the second expression is performed.</p>
+      
+      <!--
+      <h2><a href="#">Undefined, unspecified and whatever-ed behaviour</a></h2>
+      
+      <p>Memory-related undefined behaviour:</p>
+      <ul>
+        <li>Use a variable before it is initialized</li>
+        <li>Dereference a pointer to an 'object' whose lifetime has ended (the stack frame was popped or the object was freed/deleted)</li>
+        <li>Dereference a pointer outisde the boundaries of an 'object'</li>
+        <li>Doing pointer arithmetic that yields a value outisde the boundaries of an 'object'</li>
+        An lvalue does not designate an object when evaluated
+        Conversion between two pointer types produces a result that is incorrectly aligned
+        An object has its stored value accessed other than by an lvalue of an allowable type
+      </ul>
+      
+      <p>Number-related undefined behaviour:</p>
+      <ul>
+        <li>Signed integer overflow</li>
+        <li>Left-shifting values by a negative amount</li>
+        <li>Casting a numeric value into a value that can't be represented by the target type</li>
+      </ul>
+      </p>
+      
+      The program executes more than one call to the exit function 
+      double free
+      Calling free() or realloc() passing a pointer that was not returned by malloc, calloc or realloc
+      use of a FILE* variable after fclose()
+      passing an invalid mode string to fopen() (???)
+      dereference a pointer returned by malloc(0), calloc(0) or realloc(0)
+      passing a va_list to a function if the va_list variable was not initialized with va_start
+      calling printf with the 'n' format char and include any modifier (length, width, padding)
+      
+      The parameter parmN of a va_start macro is declared with the register storage class, with a function or array type, or with a type that is not compatible with the type that results after application of the default argument promotions (WHAT)
+      
+      The va_copy or va_start macro is called to initialize a va_list that was previously initialized by either macro without an intervening invocation of the va_end macro for the same va_list
+      
+      The character sequence in an #include preprocessing directive does not start with a letter 
+      
+      <p>String-related undefined behaviour:</p>
+      <ul>
+        <li>Attempting to modify a string literal or any other const object during its lifetime</li>The program attempts to modify a string literal
+        The string set up by the getenv or strerror function is modified by the program
+        <li>Concatenating a narrow with a wide string literal during preprocessing</li>
+        <li>A backslash followed by a character that is not part of the specified escape codes in a character or string constant</li>
+      </ul>
+      -->
+      
+      <h2><a href="#">Compiler flags</a></h2>
+      <p>Visual Studio (MSVC) flags:
+        <ul>
+          <li><code>/external:anglebrackets /external:W0</code> &ndash; Disable warnings for all headers included using <code>&lt;&gt;</code>.</li>
+        </ul>
+      </p>
+      
+      <h2><a href="#">sizeof</a></h2>
+      <p>The <code>sizeof</code> operator does not evaluate its operand, so <code>sizeof(*p)</code> does not actually dereference the pointer.</p>
+      
+      <!-- Variable literals suffixes and prefixes (L for strings, U/UL/ULL for ints, F for floats) -->
+      <!-- printf formats -->
+      <!-- <h2><a href="#">Operator precedence</a></h2> -->
+      <!-- Variable promotion when doing varargs: chars and shorts to long, float to double -->
+    </article>
+  </main>
+
+  <footer>
+    <div>
+      Emanuele Rovini, <time>2026</time> &ndash; Powered by <strong>plain HTML</strong>
+    </div>
+  </footer>
+</body>
+</html>

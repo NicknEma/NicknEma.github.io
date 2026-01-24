@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en-gb">
+<head>
+  <title>C Pills - Comparing structs - NicknEma</title>
+  
+  <!-- Metadata -->
+  <meta charset="utf-8" />
+  <meta name="author" content="Emanuele Rovini">
+  <meta name="description" content="Things you need to be aware of when comparing structs">
+  <meta name="keywords" content="C struct memcmp padding alignment">
+  <meta
+    name="theme-color"
+    content="lightgray"
+    media="(prefers-color-scheme: light)" />
+  <meta
+    name="theme-color"
+    content="darkgray"
+    media="(prefers-color-scheme: dark)" />
+  <meta name="color-scheme" content="dark light" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+  <script>
+    MathJax = {
+      tex: {
+        displayMath: [['\\[', '\\]'], ['$$', '$$']],  
+        inlineMath: [['\\(', '\\)']]                  
+      }
+    };
+  </script>
+
+  <link href="/styles/normal.css" rel="stylesheet">
+</head>
+<body>
+ <nav>
+    <h1>
+      <a id="home_button" href="/" style="cursor: pointer">
+        NicknEma
+      </a>
+    </h1>
+  </nav>
+  
+  <header>
+    <h1><strong>C Pills - Comparing structs</strong></h1>
+    <p class="details">Things you need to be aware of when comparing structs.<br />
+    Last modified <time>21/01/2026</time></p>
+  </header>
+  <main>
+    <article>
+      <p>The C programming language does not define the equality operator <code>==</code> for compound types (structs).
+      If you want to compare two variables of the same compound type, you have to explicitly compare each field:</p>
+      <pre><code>struct my_vec { int x, y; };
+struct my_vec v1 = {0}, struct my_vec v2 = {0};
+
+if (v1 == v2);                     // Not allowed
+if (v1.x == v2.x && v1.y == v2.y); // You have to do this</code></pre>
+      <p>This is error-prone, annoying to type and verbose, so it is tempting to just call <code>memcmp</code>. That's what it was made for, right?</p>
+    </article>
+  </main>
+
+  <footer>
+    <div>
+      Emanuele Rovini, <time>2026</time> &ndash; Powered by <strong>plain HTML</strong>
+    </div>
+  </footer>
+</body>
+</html>
