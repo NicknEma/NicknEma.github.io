@@ -70,8 +70,8 @@ if (v1.x == v2.x && v1.y == v2.y); // You have to do this</code></pre>
       This will leave an empty, unnamed 4-byte gap between <code>length</code> and <code>data</code>.</p>
 
       <div style="display: flex; display-direction: row">
-        <figure style="margin: 0 auto;">
-        <svg width="280" height="240" viewBox="0 0 280 240" style="border: 2px solid black;">
+      <figure style="margin: 0 auto;">
+        <svg width="280" height="240" viewBox="0 0 280 240">
           <rect x="40" y="40" width="40" height="120" fill="none" stroke="darkgray" stroke-width="3" />
           <line x1="40" y1="80" x2="80" y2="80" stroke="darkgray" stroke-width="3"/>
           
@@ -81,7 +81,7 @@ if (v1.x == v2.x && v1.y == v2.y); // You have to do this</code></pre>
         <figcaption>The struct with no padding</figcaption>
       </figure>
       <figure style="margin: 0 auto">
-        <svg width="280" height="240" viewBox="0 0 280 240" style="border: 2px solid black;">
+        <svg width="280" height="240" viewBox="0 0 280 240">
           <rect x="40" y="40" width="40" height="160" fill="none" stroke="darkgray" stroke-width="3" />
           <line x1="40" y1="80" x2="80" y2="80" stroke="darkgray" stroke-width="3"/>
           <line x1="40" y1="120" x2="80" y2="120" stroke="darkgray" stroke-width="3"/>
@@ -95,7 +95,8 @@ if (v1.x == v2.x && v1.y == v2.y); // You have to do this</code></pre>
       </div>
 
       <p>What does this gap contain? It could be anything. The programmer can't read from or write to it, unless they use pointer arithmetic. Compilers aren't required to initialize this space with anything. Yes, even if you explicityly do zero-initialization of the variable like this:</p>
-      <pre><code>struct string s = {0}; // Compiler still allowed to do whatever it wants with those padding bytes</code></pre>
+      <pre><code>// Compiler still allowed to do whatever it wants with those padding bytes
+struct string s = {0};</code></pre>
       <p>This is generally not a problem, but it becomes one if two variables of this compound type are compared with <code>memcmp</code>:
       even if both fields of the variables are identical, <code>memcmp</code> could still return non-zero if it finds those padding bytes to be different.</p>
       [Insert diagram here]
