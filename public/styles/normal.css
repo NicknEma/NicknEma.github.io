@@ -141,6 +141,11 @@ td,legend,textarea,input,fieldset{
 	padding:0
 }
 
+figcaption {
+  text-align:center;
+  font-size:0.9rem;
+}
+
 /* --- FONTS --- */
 
 pre { font-family: inherit; }
