@@ -54,7 +54,7 @@ struct my_vec v1 = {0}, struct my_vec v2 = {0};
 
 if (v1 == v2);                     // Not allowed
 if (v1.x == v2.x && v1.y == v2.y); // You have to do this</code></pre>
-      <p>This is error-prone, annoying to type and verbose, so it is tempting to just call <code>memcmp</code>. That's what it was made for, right?</p>
+      <p>This is error-prone, annoying to type and verbose, so it is tempting to just call <code><a href="https://man7.org/linux/man-pages/man3/memcmp.3.html">memcmp</a></code>. That's what it was made for, right?</p>
       <p>Yes. And no.
       When the compiler generates code for a struct, it doesn't only make sure that it is large enough for all members to fit;
       it also has to place each field at its correct alignment.</p>
