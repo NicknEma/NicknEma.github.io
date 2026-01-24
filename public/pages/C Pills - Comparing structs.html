@@ -58,16 +58,15 @@ if (v1.x == v2.x && v1.y == v2.y); // You have to do this</code></pre>
       <p>Yes. And no.
       When the compiler generates code for a struct, it doesn't only make sure that it is large enough for all members to fit;
       it also has to place each field at its correct alignment.</p>
-      <p>Suppose you have a <code>string</code> structure that looks like this:</p>
-      <pre><code>struct string {
-    int32_t length;
-    uint8_t *data;
+      <p>Suppose you have a struct that looks like this:</p>
+      <pre><code>struct my_type {
+    int32_t x;
+    int64_t y;
 };</code></pre>
-      <p>If we're compiling this code for a 64-bit architecture, the pointer will be 8 bytes.
-      Add 4 bytes for the length, and the total size should be 8+4=12 bytes.<br />
-      What we don't see is that the compiler wants to place 8-byte pointers as <i>8-byte aligned</i> (that is, it wants the bottom log_2(8)=3 bits of the pointer to be zeros).
+      <p>If we just look at the size of individual fields, it looks like the total size should be 4+8=12 bytes.<br />
+      What we don't see is that the compiler wants to place 8-byte fields as <i>8-byte aligned</i> (that is, it wants the bottom log_2(8)=3 bits of the offset to be zeros).
       Assuming that the struct starts at address <code>0x0</code>, the first offset after that to have 3 zero bits at the bottom is <code>0x8</code>, exactly 4 bytes after the end of the <code>length</code> field.
-      This will leave an empty, unnamed 4-byte gap between <code>length</code> and <code>data</code>.</p>
+      This will leave an empty, unnamed 4-byte gap between <code>x</code> and <code>y</code>.</p>
 
       <div style="display: flex; display-direction: row">
       <figure style="margin: 0 auto;">
@@ -75,8 +74,8 @@ if (v1.x == v2.x && v1.y == v2.y); // You have to do this</code></pre>
           <rect x="40" y="40" width="40" height="120" fill="none" stroke="darkgray" stroke-width="3" />
           <line x1="40" y1="80" x2="80" y2="80" stroke="darkgray" stroke-width="3"/>
           
-          <text x="90" y="60" style="font-family:monospace; fill:darkgray">length</text>
-          <text x="90" y="100" style="font-family:monospace; fill:darkgray">data</text>
+          <text x="90" y="60" style="font-family:monospace; fill:darkgray">x</text>
+          <text x="90" y="100" style="font-family:monospace; fill:darkgray">y</text>
         </svg>
         <figcaption>The struct with no padding</figcaption>
       </figure>
@@ -86,9 +85,9 @@ if (v1.x == v2.x && v1.y == v2.y); // You have to do this</code></pre>
           <line x1="40" y1="80" x2="80" y2="80" stroke="darkgray" stroke-width="3"/>
           <line x1="40" y1="120" x2="80" y2="120" stroke="darkgray" stroke-width="3"/>
           
-          <text x="90" y="60" style="font-family:monospace; fill:darkgray">length</text>
+          <text x="90" y="60" style="font-family:monospace; fill:darkgray">x</text>
           <text x="90" y="100" style="font-family:monospace; fill:darkgray">padding</text>
-          <text x="90" y="140" style="font-family:monospace; fill:darkgray">data</text>
+          <text x="90" y="140" style="font-family:monospace; fill:darkgray">y</text>
         </svg>
         <figcaption>How it really is</figcaption>
       </figure>
@@ -96,7 +95,7 @@ if (v1.x == v2.x && v1.y == v2.y); // You have to do this</code></pre>
 
       <p>What does this gap contain? It could be anything. The programmer can't read from or write to it, unless they use pointer arithmetic. Compilers aren't required to initialize this space with anything. Yes, even if you explicityly do zero-initialization of the variable like this:</p>
       <pre><code>// Compiler still allowed to do whatever it wants with those padding bytes
-struct string s = {0};</code></pre>
+struct my_type a = {0};</code></pre>
       <p>This is generally not a problem, but it becomes one if two variables of this compound type are compared with <code>memcmp</code>:
       even if both fields of the variables are identical, <code>memcmp</code> could still return non-zero if it finds those padding bytes to be different.</p>
       [Insert diagram here]
@@ -104,13 +103,13 @@ struct string s = {0};</code></pre>
       <p>This leaves the programmer with two options, neither of which is optimal.<br />
       The first is to compare each field individually, and wrap that into a function when it starts to get repeptitive.
       The second is to make sure that <em>no implicit padding bytes are inserted in the struct</em> by making them explicit:</p>
-      <pre><code>struct string {
-    int32_t length;
-    int32_t _pad0; // Exactly fits the gap left between length and data
-    uint8_t *data;
+      <pre><code>struct my_type {
+    int32_t x;
+    int32_t _pad0[0]; // Exactly fits the gap left between length and data
+    int64_t y;
 };
 
-struct string s = {0}; // Now the compiler is required to cooperate</code></pre>
+struct my_type s = {0}; // Now the compiler is required to cooperate</code></pre>
       <p>Of course this could be tiresome if working with data types subject to frequent changes.</p>
     </article>
   </main>
