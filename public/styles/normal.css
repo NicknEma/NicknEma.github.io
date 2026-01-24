@@ -95,13 +95,13 @@ p code, li code {
     padding: 1px 3px;
     color: #333;
     background-color: #f7f7f7;
-    font-size: 0.85em !important;
+    font-size: 0.85em;
 }
 
 pre {
     margin: 1em 0;
     border: 1px solid #ccc;
-    border-radius: 2px;
+    border-radius: 4px;
     padding: 0.5em 1em;
     color: #333;
     background-color: #f7f7f7;
@@ -110,11 +110,11 @@ pre {
 
 pre, code {
     font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
-    font-size: 1em;
+    font-size: 0.9rem;
     line-height: 1.3;
     tab-size: 4;
     word-break: normal;
-    word-spacing: pre;
+    word-spacing: normal;
     text-align: left;
     word-wrap: normal;
     overflow-wrap: normal;
@@ -123,15 +123,9 @@ pre, code {
     position: relative;
 }
 
-code ins {
-	text-decoration: none;
-	background-color: #dfd;
-}
-code del {
-	text-decoration: none;
-	background-color: #fdd;
-}
-
+code ins, code del { text-decoration: none; }
+code ins { background-color: #dfd; }
+code del { background-color: #fdd; }
 
 ul,ol { margin: 0; padding: 0 }
 ul { list-style: none }
@@ -140,6 +134,11 @@ hr { height: 0; color: inherit }
 td,legend,textarea,input,fieldset{
 	padding:0
 }
+
+figcaption {
+  text-align:center;
+  font-size:0.9rem;
+} 
 
 /* --- FONTS --- */
 
@@ -195,6 +194,8 @@ a,[type=button]:not([disabled]),[role=button],button:not([disabled]) {
 	font-size: 0.875rem;
 	color: rgb(76, 81, 95);
 }
+
+.border { border: 1px solid black; }
 
 /* --- EMBEDS --- */
 
