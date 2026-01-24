@@ -70,7 +70,8 @@ if (v1.x == v2.x && v1.y == v2.y); // You have to do this</code></pre>
       This will leave an empty, unnamed 4-byte gap between <code>length</code> and <code>data</code>.</p>
 
       <div style="display: flex; display-direction: row">
-      <svg width="280" height="160" style="border: 2px solid black;">
+        <figure style="margin: 0 auto;">
+        <svg width="280" height="160" viewBox="0 0 280 160" style="border: 2px solid black;">
         <line x1="30"  y1="30"
               x2="250" y2="30"
               stroke="darkgray"
@@ -91,34 +92,21 @@ if (v1.x == v2.x && v1.y == v2.y); // You have to do this</code></pre>
               x2="180" y2="60"
               stroke="darkgray"
               stroke-width="3" />
-      </svg>
-      <svg width="280" height="160" style="border: 2px solid black;">
-        <line x1="30"  y1="30"
-              x2="250" y2="30"
-              stroke="darkgray"
-              stroke-width="3" />
-        <line x1="30"  y1="60"
-              x2="250" y2="60"
-              stroke="darkgray"
-              stroke-width="3" />
-        <line x1="70" y1="30"
-              x2="70" y2="60"
-              stroke="darkgray"
-              stroke-width="3" />
-        <line x1="100" y1="30"
-              x2="100" y2="60"
-              stroke="darkgray"
-              stroke-width="3" />
-        <line x1="130" y1="30"
-              x2="130" y2="60"
-              stroke="darkgray"
-              stroke-width="3" />
-        <line x1="190" y1="30"
-              x2="190" y2="60"
-              stroke="darkgray"
-              stroke-width="3" />
-        <text x="100" y="90">How it really is</text>
-      </svg>
+        </svg>
+        <figcaption style="text-align:center">The struct with no padding</figcaption>
+      </figure>
+      <figure style="margin: 0 auto">
+        <svg width="280" height="240" viewBox="0 0 280 240" style="border: 2px solid black;">
+          <rect x="40" y="40" width="40" height="160" fill="none" stroke="darkgray" stroke-width="3" />
+          <line x1="40" y1="80" x2="80" y2="80" stroke="darkgray" stroke-width="3"/>
+          <line x1="40" y1="120" x2="80" y2="120" stroke="darkgray" stroke-width="3"/>
+          
+          <text x="90" y="60">length</text>
+          <text x="90" y="100">padding</text>
+          <text x="90" y="140">data</text>
+        </svg>
+        <figcaption style="text-align:center">How it really is</figcaption>
+      </figure>
       </div>
 
       <p>What does this gap contain? It could be anything. The programmer can't read from or write to it, unless they use pointer arithmetic. Compilers aren't required to initialize this space with anything. Yes, even if you explicityly do zero-initialization of the variable like this:</p>
