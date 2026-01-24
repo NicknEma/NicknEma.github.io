@@ -43,7 +43,7 @@
   <header>
     <h1><strong>C Pills - Comparing structs</strong></h1>
     <p class="details">Things you need to be aware of when comparing structs.<br />
-    Last modified <time>21/01/2026</time></p>
+    Last modified <time>24/01/2026</time></p>
   </header>
   <main>
     <article>
@@ -55,6 +55,37 @@ struct my_vec v1 = {0}, struct my_vec v2 = {0};
 if (v1 == v2);                     // Not allowed
 if (v1.x == v2.x && v1.y == v2.y); // You have to do this</code></pre>
       <p>This is error-prone, annoying to type and verbose, so it is tempting to just call <code>memcmp</code>. That's what it was made for, right?</p>
+      <p>Yes. And no.
+      When the compiler generates code for a struct, it doesn't only make sure that it is large enough for all members to fit;
+      it also has to place each field at its correct alignment.</p>
+      <p>Suppose you have a <code>string</code> structure that looks like this:</p>
+      <pre><code>struct string {
+    int32_t length;
+    uint8_t *data;
+};</code></pre>
+      <p>If we're compiling this code for a 64-bit architecture, the pointer will be 8 bytes.
+      Add 4 bytes for the length, and the total size should be 8+4=12 bytes.<br />
+      What we don't see is that the compiler wants to place 8-byte pointers as <i>8-byte aligned</i> (that is, it wants the bottom log_2(8)=3 bits of the pointer to be zeros).
+      Assuming that the struct starts at address <code>0x0</code>, the first offset after that to have 3 zero bits at the bottom is <code>0x8</code>, exactly 4 bytes after the end of the <code>length</code> field.
+      This will leave an empty, unnamed 4-byte gap between <code>length</code> and <code>data</code>.</p>
+      [Insert diagram here]
+      <p>What does this gap contain? It could be anything. The programmer can't read from or write to it, unless they use pointer arithmetic. Compilers aren't required to initialize this space with anything. Yes, even if you explicityly do zero-initialization of the variable like this:</p>
+      <pre><code>struct string s = {0}; // Compiler still allowed to do whatever it wants with those padding bytes</code></pre>
+      <p>This is generally not a problem, but it becomes one if two variables of this compound type are compared with <code>memcmp</code>:
+      even if both fields of the variables are identical, <code>memcmp</code> could still return non-zero if it finds those padding bytes to be different.</p>
+      [Insert diagram here]
+      <p>This could be the intended behaviour, but it usually isn't.</p>
+      <p>This leaves the programmer with two options, neither of which is optimal.<br />
+      The first is to compare each field individually, and wrap that into a function when it starts to get repeptitive.
+      The second is to make sure that <em>no implicit padding bytes are inserted in the struct</em> by making them explicit:</p>
+      <pre><code>struct string {
+    int32_t length;
+    int32_t _pad0; // Exactly fits the gap left between length and data
+    uint8_t *data;
+};
+
+struct string s = {0}; // Now the compiler is required to cooperate</code></pre>
+      <p>Of course this could be tiresome if working with data types subject to frequent changes.</p>
     </article>
   </main>
 
