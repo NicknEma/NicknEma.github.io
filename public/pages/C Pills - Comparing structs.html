@@ -98,7 +98,35 @@ if (v1.x == v2.x && v1.y == v2.y); // You have to do this</code></pre>
 struct my_type a = {0};</code></pre>
       <p>This is generally not a problem, but it becomes one if two variables of this compound type are compared with <code>memcmp</code>:
       even if both fields of the variables are identical, <code>memcmp</code> could still return non-zero if it finds those padding bytes to be different.</p>
-      [Insert diagram here]
+
+      <div style="display: flex; display-direction: row">
+      <figure style="margin: 0 auto;">
+        <svg width="240" height="200" viewBox="0 0 240 200">
+          <rect x="40" y="40" width="40" height="40" fill="#cfc" stroke="darkgray" stroke-width="3" />
+          <rect x="80" y="40" width="40" height="40" fill="#fcc" stroke="darkgray" stroke-width="3" />
+          <rect x="120" y="40" width="40" height="40" fill="#cfc" stroke="darkgray" stroke-width="3" />
+          <rect x="160" y="40" width="40" height="40" fill="#cfc" stroke="darkgray" stroke-width="3" />
+
+          <rect x="40" y="120" width="40" height="40" fill="#cfc" stroke="darkgray" stroke-width="3" />
+          <rect x="80" y="120" width="40" height="40" fill="#fcc" stroke="darkgray" stroke-width="3" />
+          <rect x="120" y="120" width="40" height="40" fill="#cfc" stroke="darkgray" stroke-width="3" />
+          <rect x="160" y="120" width="40" height="40" fill="#cfc" stroke="darkgray" stroke-width="3" />
+
+          <text x="45" y="60" style="font-family:monospace; fill:darkgray">0xDE</text>
+          <text x="85" y="60" style="font-family:monospace; fill:darkgray">0x2A</text>
+          <text x="125" y="60" style="font-family:monospace; fill:darkgray">0xBE</text>
+          <text x="165" y="60" style="font-family:monospace; fill:darkgray">0xEF</text>
+          
+          <text x="45" y="140" style="font-family:monospace; fill:darkgray">0xDE</text>
+          <text x="85" y="140" style="font-family:monospace; fill:darkgray">0x45</text>
+          <text x="125" y="140" style="font-family:monospace; fill:darkgray">0xBE</text>
+          <text x="165" y="140" style="font-family:monospace; fill:darkgray">0xEF</text>
+          
+          </svg>
+        <figcaption>Comparing with memcmp</figcaption>
+      </figure>
+      </div>
+
       <p>This could be the intended behaviour, but it usually isn't.</p>
       <p>This leaves the programmer with two options, neither of which is optimal.<br />
       The first is to compare each field individually, and wrap that into a function when it starts to get repeptitive.
