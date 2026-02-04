@@ -93,7 +93,7 @@ p code, li code {
     border: 1px solid light-dark(#ccc, #333);
     border-radius: 2px;
     padding: 1px 3px;
-    color: #333;
+    color: light-dark(#333, #ccc);
     background-color: light-dark(#f7f7f7, #151515);
     font-size: 0.85em;
 }
