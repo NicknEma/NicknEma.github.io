@@ -90,21 +90,21 @@ p, dl, ol, ul {
 
 p code, li code {
     line-height: 1;
-    border: 1px solid #ccc;
+    border: 1px solid light-dark(#ccc, #333);
     border-radius: 2px;
     padding: 1px 3px;
     color: #333;
-    background-color: #f7f7f7;
+    background-color: light-dark(#f7f7f7, #151515);
     font-size: 0.85em;
 }
 
 pre {
     margin: 1em 0;
-    border: 1px solid #ccc;
+    border: 1px solid light-dark(#ccc, #333);
     border-radius: 4px;
     padding: 0.5em 1em;
-    color: #333;
-    background-color: #f7f7f7;
+    color: light-dark(#333, #CCC);
+    background-color: light-dark(#f7f7f7, #151515);
     position: relative;
 }
 
@@ -124,8 +124,8 @@ pre, code {
 }
 
 code ins, code del { text-decoration: none; }
-code ins { background-color: #dfd; }
-code del { background-color: #fdd; }
+code ins { background-color: light-dark(#dfd, #efe); }
+code del { background-color: light-dark(#fdd, #fee); }
 
 ul,ol { margin: 0; padding: 0 }
 ul { list-style: none }
@@ -170,15 +170,15 @@ header, footer {
 abbr[title] { text-decoration: underline dotted; }
 
 a {
-	color: #B09264;
+	color: light-dark(#B09264, #FCD190);
 	text-decoration: none;
 }
 a:visited {
-	color: #705224;
+	color: light-dark(#705224, #CCA974);
 }
 a:hover {
 	transition: 150ms ease-in;
-	color: #4B799B;
+	color: light-dark(#4B799B, #71B8EB);
 	text-decoration: underline;
 }
 a,[type=button]:not([disabled]),[role=button],button:not([disabled]) {
@@ -192,7 +192,7 @@ a,[type=button]:not([disabled]),[role=button],button:not([disabled]) {
 
 .details {
 	font-size: 0.875rem;
-	color: rgb(76, 81, 95);
+	color: light-dark(rgb(76, 81, 95), rgb(176, 181, 195));
 }
 
 .border { border: 1px solid black; }
