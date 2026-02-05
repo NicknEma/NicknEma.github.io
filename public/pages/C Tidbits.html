@@ -54,7 +54,7 @@
       <p>In the following code, it's possible that <code>++x</code> will be evaluated before <code>x</code>, and the function could print <code>1 1</code>:</p>
 
       <pre><code><span style="color:var(--code-keyword-color)">int</span> x = 0;
-printf("%d %d", x, ++x);</code></pre>
+printf(<span style="color:var(--code-string-color)">"%d %d"</span>, x, ++x);</code></pre>
 
       <h2><a href="#">Comma operator</a></h2>
       <p>The comma operator evaluates the first operand, discards the result, then evaluates the second operand (not the other way around). The following statements assigns <code>2</code> to <code>x</code>:</p>
