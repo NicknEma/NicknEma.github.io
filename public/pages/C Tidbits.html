@@ -51,14 +51,14 @@
       
       <h2><a href="#">Parameter evaluation order</a></h2>
       <p>Arguments to a function are not evaluated in left-to-right order, as one would imagine. The order of evaluation (and the order of execution of side effects) is unspecified.</p>
-      <p>In the following code, it's possible that <code>++x</code> will be evaluated before <code>x</code>, and the function could print <code>1 1</code>:</p>
+      <p>In the following code, it's possible that <code>++x</code> will be evaluated before <code>x</code>, and the function could print <code><span style="color:var(--code-number-color)">1</span> <span style="color:var(--code-number-color)">1</span></code>:</p>
 
-      <pre><code><span style="color:var(--code-keyword-color)">int</span> x = 0;
+      <pre><code><span style="color:var(--code-keyword-color)">int</span> x = <span style="color:var(--code-number-color)">0</span>;
 printf(<span style="color:var(--code-string-color)">"%d %d"</span>, x, ++x);</code></pre>
 
       <h2><a href="#">Comma operator</a></h2>
-      <p>The comma operator evaluates the first operand, discards the result, then evaluates the second operand (not the other way around). The following statements assigns <code>2</code> to <code>x</code>:</p>
-      <pre><code>x = (1, 2);</code></pre>
+      <p>The comma operator evaluates the first operand, discards the result, then evaluates the second operand (not the other way around). The following statements assigns <code><span style="color:var(--code-number-color)">2</span></code> to <code>x</code>:</p>
+      <pre><code>x = (<span style="color:var(--code-number-color)">1</span>, <span style="color:var(--code-number-color)">2</span>);</code></pre>
       <p>It is guaranteed that all the side effects of the first expression will be completed before any side effect of the second expression is performed.</p>
       
       <!--
@@ -115,7 +115,7 @@ printf(<span style="color:var(--code-string-color)">"%d %d"</span>, x, ++x);</co
       </p>
       
       <h2><a href="#">sizeof</a></h2>
-      <p>The <code>sizeof</code> operator does not evaluate its operand, so <code><span style="color:var(--code-keyword-color)">sizeof</span>(*p)</code> does not actually dereference the pointer.</p>
+      <p>The <code><span style="color:var(--code-keyword-color)">sizeof</span></code> operator does not evaluate its operand, so <code><span style="color:var(--code-keyword-color)">sizeof</span>(*p)</code> does not actually dereference the pointer.</p>
       
       <!-- Variable literals suffixes and prefixes (L for strings, U/UL/ULL for ints, F for floats) -->
       <!-- printf formats -->
