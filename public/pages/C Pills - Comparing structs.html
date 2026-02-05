@@ -51,11 +51,15 @@
       <p>The C programming language does not define the equality operator <code>==</code> for compound types (structs).
       If you want to compare two variables of the same compound type, you have to explicitly compare each field:</p>
 
+      <div class="code-block">
+      <div class="code-block-content">
       <pre><code><span style="color:var(--code-keyword-color)">struct</span> <span style="color:var(--code-typename-color)">my_vec</span> { <span style="color:var(--code-keyword-color)">int</span> x, y; };
 <span style="color:var(--code-keyword-color)">struct</span> <span style="color:var(--code-typename-color)">my_vec</span> v1 = {<span style="color:var(--code-number-color)">0</span>}, <span style="color:var(--code-keyword-color)">struct</span> <span style="color:var(--code-typename-color)">my_vec</span> v2 = {<span style="color:var(--code-number-color)">0</span>};
 
 <span style="color:var(--code-keyword-color)">if</span> (v1 == v2);                     <span style="color:var(--code-comment-color)">// Not allowed</span>
 <span style="color:var(--code-keyword-color)">if</span> (v1.x == v2.x && v1.y == v2.y); <span style="color:var(--code-comment-color)">// You have to do this</span></code></pre>
+      </div>
+      </div>
 
       <p>This is error-prone, annoying to type and verbose, so it is tempting to just call <code><a href="https://man7.org/linux/man-pages/man3/memcmp.3.html">memcmp</a></code>. That's what it was made for, right?</p>
       <p>Yes. And no.
@@ -63,10 +67,14 @@
       it also has to place each field at its correct alignment.</p>
       <p>Suppose you have a struct that looks like this:</p>
 
+      <div class="code-block">
+      <div class="code-block-content">
       <pre><code><span style="color:var(--code-keyword-color)">struct</span> <span style="color:var(--code-typename-color)">my_type</span> {
     <span style="color:var(--code-typename-color)">int32_t</span> x;
     <span style="color:var(--code-typename-color)">int64_t</span> y;
 };</code></pre>
+      </div>
+      </div>
 
       <p>If we just look at the size of individual fields, it looks like the total size should be 4+8=12 bytes.<br />
       What we don't see is that the compiler wants to place 8-byte fields as <i>8-byte aligned</i> (that is, it wants the bottom log_2(8)=3 bits of the offset to be zeros).
@@ -100,8 +108,12 @@
 
       <p>What does this gap contain? It could be anything. The programmer can't read from or write to it, unless they use pointer arithmetic. Compilers aren't required to initialize this space with anything. Yes, even if you explicityly do zero-initialization of the variable like this:</p>
 
+      <div class="code-block">
+      <div class="code-block-content">
       <pre><code><span style="color:var(--code-comment-color)">// Compiler still allowed to do whatever it wants with those padding bytes</span>
 <span style="color:var(--code-keyword-color)">struct</span> <span style="color:var(--code-typename-color)">my_type</span> a = {<span style="color:var(--code-number-color)">0</span>};</code></pre>
+      </div>
+      </div>
 
       <p>This is generally not a problem, but it becomes one if two variables of this compound type are compared with <code>memcmp</code>:
       even if both fields of the variables are identical, <code>memcmp</code> could still return non-zero if it finds those padding bytes to be different.</p>
@@ -139,6 +151,8 @@
       The first is to compare each field individually, and wrap that into a function when it starts to get repeptitive.
       The second is to make sure that <em>no implicit padding bytes are inserted in the struct</em> by making them explicit:</p>
 
+      <div class="code-block">
+      <div class="code-block-content">
       <pre><code><span style="color:var(--code-keyword-color)">struct</span> <span style="color:var(--code-typename-color)">my_type</span> {
     <span style="color:var(--code-typename-color)">int32_t</span> x;
     <span style="color:var(--code-typename-color)">int32_t</span> _pad0[<span style="color:var(--code-number-color)">0</span>]; <span style="color:var(--code-comment-color)">// Exactly fits the gap left between length and data</span>
@@ -146,6 +160,9 @@
 };
 
 <span style="color:var(--code-keyword-color)">struct</span> <span style="color:var(--code-typename-color)">my_type</span> s = {<span style="color:var(--code-number-color)">0</span>}; <span style="color:var(--code-comment-color)">// Now the compiler is required to cooperate</span></code></pre>
+      </div>
+      </div>
+
       <p>Of course this could be tiresome if working with data types subject to frequent changes.</p>
     </article>
   </main>

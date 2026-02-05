@@ -99,22 +99,68 @@ p, dl, ol, ul {
 
 p code, li code {
     line-height: 1;
+    
+    /* Properties common between code blocks and inline spans */
     border: 1px solid light-dark(#ccc, #333);
     border-radius: 2px;
     padding: 1px 3px;
     color: light-dark(#333, #ccc);
     background-color: light-dark(#f7f7f7, #151515);
+    
     font-size: 0.85em;
 }
 
-pre {
+.code-block {
     margin: 1em 0;
+    
+    /* Properties common between code blocks and inline spans */
     border: 1px solid light-dark(#ccc, #333);
     border-radius: 4px;
-    padding: 0.5em 1em;
-    color: light-dark(#333, #CCC);
+    /*padding: 0.5em 1em;*/
+    color: light-dark(#333, #ccc);
     background-color: light-dark(#f7f7f7, #151515);
+    
     position: relative;
+}
+
+.code-block-bar {
+background-color: light-dark(#f7f7f7, #1f1f1f);
+border: 1px solid light-dark(#ccc, #333);
+border-top:0px;
+border-left:0px;
+border-right:0px;
+	display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    padding: .3rem 1rem;
+    position: relative;
+}
+
+.code-block-content {
+padding: 0.5em 1em;
+}
+
+button {
+
+}
+
+.code-block-copy-button {
+	/*position: absolute;*/
+	margin-right:0;
+	margin-left:auto;
+    /*top: 0;
+    right: 0;*/
+    padding: .2rem;
+    /*display: flex;*/
+    gap: .5rem;
+    justify-content: space-between;
+    align-items: center;
+    border-width: 1px;
+    border-style: solid;
+    border-color: light-dark(#ccc, #777);
+    border-radius: 2px;
+    font-size: 0.85rem;
 }
 
 pre, code {

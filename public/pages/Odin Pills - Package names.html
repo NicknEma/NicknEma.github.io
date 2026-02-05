@@ -44,7 +44,7 @@
   <header>
     <h1><strong>Odin Pills: Package names</strong></h1>
     <p class="details"><br /> <!-- TODO(ema): Description here and in the meta tag -->
-    Last modified <time datetime="2026-01-24">24/01/2026</time></p>
+    Last modified <time datetime="2024-11-04">4/11/2024</time></p>
   </header>
   <main>
     <article>
@@ -52,13 +52,19 @@
 <p>The <a href="https://odin-lang.org">Odin programming languages</a> is built around the idea of <em>packages</em>: independent code units that contain related functionality.</p>
 <p>As the <a href="https://odin-lang.org/docs/overview/#authoring-a-package">documentation</a> states, each Odin file must start with a <em>package declaration</em>, like this:</p>
 
+<div class="code-block">
+<div class="code-block-content">
 <div class="highlight"><pre tabindex="0"><code class="language-Odin" data-lang="Odin"><span style="display:flex;"><span><span style="color:var(--code-keyword-color)">package</span> strings    <span style="color:var(--code-comment-color)">// Package declaration
 </span></span></span><span style="display:flex;"><span><span style="color:var(--code-comment-color)"></span>
 </span></span><span style="display:flex;"><span><span style="color:var(--code-comment-color)">/* ... */</span>
 </span></span></code></pre>
+</div></div>
+</div>
 
 <p>The above file declares itself to be part of the <code>strings</code> package. If another package wants to use the functionality it provides, it must import it like this:</p>
 
+<div class="code-block">
+<div class="code-block-content">
 <div class="highlight"><pre tabindex="0"><code class="language-Odin" data-lang="Odin"><span style="display:flex;"><span><span style="color:var(--code-keyword-color)">package</span> program
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:var(--code-keyword-color)">import</span> <span style="color:var(--code-string-color)">&#34;path_to_package/strings&#34;</span>    <span style="color:var(--code-comment-color)">// Import declaration
@@ -67,10 +73,14 @@
 </span></span><span style="display:flex;"><span>	s <span style="color:var(--code-syntax-crap-color)">:=</span> strings.<span style="color:var(--code-proc-call-site-color)">clone</span>(<span style="color:var(--code-string-color)">&#34;Hellope&#34;</span>)
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div>
+</div>
+</div>
 
 <p>This way, the <code>program</code> package can use the name <code>strings</code> to refer to the imported package.</p>
 <p>However, if you try to do exactly what I did, you will run into a problem: My custom package is called <em>&ldquo;strings&rdquo;</em>, just like one of the packages in the <code>core</code> collection. This will cause a compilation error:</p>
 
+<div class="code-block">
+<div class="code-block-content">
 <pre tabindex="0"><code>C:/odin/core/strings/ascii_set.odin(1:2) Error: Duplicate declaration of &#39;package strings&#39;
         package strings
          ^~~~~~~~~~~~~^
@@ -78,6 +88,8 @@
         There is no relation between a package name and the directory that contains it, so they can be completely different
         A package name is required for link name prefixing to have a consistent ABI
 </code></pre>
+</div>
+</div>
 
 <p>As you can see, the error is related to the <em>Application Binary Interface</em>, or <em>ABI</em>. In short, when the program is compiled and symbols need to be resolved, how can the linker know what links to what? If some code calls <code>clone()</code>, to which definition of the procedure is it referring? Odin uses package names to prevent this confusion.</p>
 
@@ -86,13 +98,19 @@ As the error message hints at, the name used for the package <em>declaration</em
 
 <p>So if you want a custom <code>strings</code> package, all you have to do is make sure that all the files in your <code>strings</code> directory have a different package <em>declaration</em> than any of the ones used by the standard collections:</p>
 
+<div class="code-block">
+<div class="code-block-content">
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Odin" data-lang="Odin"><span style="display:flex;"><span><span style="color:var(--code-keyword-color)">package</span> totally_not_a_string_package
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:var(--code-comment-color)">/* ... */</span>
 </span></span></code></pre></div>
+</div>
+</div>
 
 <p>An then use it as normal:</p>
 
+<div class="code-block">
+<div class="code-block-content">
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Odin" data-lang="Odin"><span style="display:flex;"><span><span style="color:var(--code-keyword-color)">package</span> program
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:var(--code-keyword-color)">import</span> <span style="color:var(--code-string-color)">&#34;path_to_package/strings&#34;</span>
@@ -101,6 +119,8 @@ As the error message hints at, the name used for the package <em>declaration</em
 </span></span><span style="display:flex;"><span>	s <span style="color:var(--code-syntax-crap-color)">:=</span> strings.<span style="color:var(--code-proc-call-site-color)">clone</span>(<span style="color:var(--code-string-color)">&#34;Hellope&#34;</span>)
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div>
+</div>
+</div>
 
 <p>Now just be careful to <a href="https://odin-lang.org/docs/overview/#import-statement">use a different <em>import name</em></a> if importing both packages, otherwise you will have name conflicts <em>before the compiler even gets to linking</em>. Yeah, it can get pretty confusing at times.</p>  
     </article>

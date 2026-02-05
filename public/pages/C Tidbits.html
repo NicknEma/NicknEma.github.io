@@ -44,7 +44,7 @@
   <header>
     <h1><strong>C Tidbits</strong></h1>
     <p class="details">Random bits of information I'd like to remember when writing (or reading) C programs.<br />
-    Last modified <time>24/01/2026</time></p>
+    Last modified <time datetime="2026-01-24">24/01/2026</time></p>
   </header>
   <main>
     <article>
@@ -53,12 +53,31 @@
       <p>Arguments to a function are not evaluated in left-to-right order, as one would imagine. The order of evaluation (and the order of execution of side effects) is unspecified.</p>
       <p>In the following code, it's possible that <code>++x</code> will be evaluated before <code>x</code>, and the function could print <code><span style="color:var(--code-number-color)">1</span> <span style="color:var(--code-number-color)">1</span></code>:</p>
 
-      <pre><code><span style="color:var(--code-keyword-color)">int</span> x = <span style="color:var(--code-number-color)">0</span>;
+      <div class="code-block">
+      <div class="code-block-bar">
+      <span>C</span>
+      <button type="button" class="code-block-copy-button" onclick="let c = `int x = 0;
+printf(&quot;%d %d\\n&quot;, x, ++x);`; navigator.clipboard.writeText(c)">Copy</button>
+      </div> <!-- code-block-bar -->
+      <div class="code-block-content" data-code-block itemscope itemtype="https://schema.org/SoftwareSourceCode">
+        <meta itemprop="codeSampleType" content="snippet" />
+        <meta itemprop="programmingLanguage" content="C" />
+        <meta data-code-id="evalOrder" itemprop="text" content="int x = 0;
+printf(&quot;%d %d\n&quot;, x, ++x);" />
+        <pre class="language-C"><code class="language-C"><span class="token keyword" style="color:var(--code-keyword-color)">int</span> x = <span style="color:var(--code-number-color)">0</span>;
 <span style="color:var(--code-proc-call-site-color)">printf</span>(<span style="color:var(--code-string-color)">"%d %d"</span>, x, ++x);</code></pre>
+      </div> <!-- data-code-block -->
+      </div> <!-- code-block -->
 
       <h2><a href="#">Comma operator</a></h2>
       <p>The comma operator evaluates the first operand, discards the result, then evaluates the second operand (not the other way around). The following statements assigns <code><span style="color:var(--code-number-color)">2</span></code> to <code>x</code>:</p>
+
+      <div class="code-block">
+      <div class="code-block-content">
       <pre><code>x = (<span style="color:var(--code-number-color)">1</span>, <span style="color:var(--code-number-color)">2</span>);</code></pre>
+      </div>
+      </div>
+      
       <p>It is guaranteed that all the side effects of the first expression will be completed before any side effect of the second expression is performed.</p>
       
       <!--
