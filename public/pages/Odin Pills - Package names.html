@@ -59,12 +59,12 @@
 
 <p>The above file declares itself to be part of the <code>strings</code> package. If another package wants to use the functionality it provides, it must import it like this:</p>
 
-<div class="highlight"><pre tabindex="0"><code class="language-Odin" data-lang="Odin"><span style="display:flex;"><span><span style="color:#f92672">package</span> program
+<div class="highlight"><pre tabindex="0"><code class="language-Odin" data-lang="Odin"><span style="display:flex;"><span><span style="color:var(--code-keyword-color)">package</span> program
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:var(--code-string-color)">&#34;path_to_package/strings&#34;</span>    <span style="color:var(--code-comment-color)">// Import declaration
+</span></span><span style="display:flex;"><span><span style="color:var(--code-keyword-color)">import</span> <span style="color:var(--code-string-color)">&#34;path_to_package/strings&#34;</span>    <span style="color:var(--code-comment-color)">// Import declaration
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span>main <span style="color:#f92672">::</span> <span style="color:#66d9ef">proc</span>() {
-</span></span><span style="display:flex;"><span>	s <span style="color:#f92672">:=</span> strings.clone(<span style="color:var(--code-string-color)">&#34;Hellope&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:var(--code-proc-decl-site-color)">main</span> <span style="color:var(--code-syntax-crap-color)">::</span> <span style="color:var(--code-keyword-color)">proc</span>() {
+</span></span><span style="display:flex;"><span>	s <span style="color:var(--code-syntax-crap-color)">:=</span> strings.clone(<span style="color:var(--code-string-color)">&#34;Hellope&#34;</span>)
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div>
 
@@ -86,19 +86,19 @@ As the error message hints at, the name used for the package <em>declaration</em
 
 <p>So if you want a custom <code>strings</code> package, all you have to do is make sure that all the files in your <code>strings</code> directory have a different package <em>declaration</em> than any of the ones used by the standard collections:</p>
 
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Odin" data-lang="Odin"><span style="display:flex;"><span><span style="color:#f92672">package</span> totally_not_a_string_package
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Odin" data-lang="Odin"><span style="display:flex;"><span><span style="color:var(--code-keyword-color)">package</span> totally_not_a_string_package
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:var(--code-comment-color)">/* ... */</span>
 </span></span></code></pre></div>
 
 <p>An then use it as normal:</p>
 
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Odin" data-lang="Odin"><span style="display:flex;"><span><span style="color:#f92672">package</span> program
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Odin" data-lang="Odin"><span style="display:flex;"><span><span style="color:var(--code-keyword-color)">package</span> program
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:var(--code-string-color)">&#34;path_to_package/strings&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:var(--code-keyword-color)">import</span> <span style="color:var(--code-string-color)">&#34;path_to_package/strings&#34;</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>main <span style="color:#f92672">::</span> <span style="color:#66d9ef">proc</span>() {
-</span></span><span style="display:flex;"><span>	s <span style="color:#f92672">:=</span> strings.clone(<span style="color:var(--code-string-color)">&#34;Hellope&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:var(--code-proc-decl-site-color)">main</span> <span style="color:var(--code-syntax-crap-color)">::</span> <span style="color:var(--code-keyword-color)">proc</span>() {
+</span></span><span style="display:flex;"><span>	s <span style="color:var(--code-syntax-crap-color)">:=</span> strings.clone(<span style="color:var(--code-string-color)">&#34;Hellope&#34;</span>)
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div>
 
