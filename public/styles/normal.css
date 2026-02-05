@@ -26,6 +26,9 @@ TODO:
 
 :root {
 	color-scheme: light dark; /* enable light-dark() function */
+	
+	--code-keyword-color: #f92672;
+	--code-comment-color: #75715e;
 }
 
 /* --- PAGE SECTIONS --- */

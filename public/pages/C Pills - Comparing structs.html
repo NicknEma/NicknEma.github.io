@@ -31,6 +31,7 @@
 
   <link href="/styles/normal.css" rel="stylesheet">
 </head>
+
 <body>
  <nav>
     <h1>
@@ -49,20 +50,24 @@
     <article>
       <p>The C programming language does not define the equality operator <code>==</code> for compound types (structs).
       If you want to compare two variables of the same compound type, you have to explicitly compare each field:</p>
-      <pre><code>struct my_vec { int x, y; };
-struct my_vec v1 = {0}, struct my_vec v2 = {0};
 
-if (v1 == v2);                     // Not allowed
-if (v1.x == v2.x && v1.y == v2.y); // You have to do this</code></pre>
+      <pre><code><span style="color:var(--code-keyword-color)">struct</span> my_vec { <span style="color:var(--code-keyword-color)">int</span> x, y; };
+<span style="color:var(--code-keyword-color)">struct</span> my_vec v1 = {0}, <span style="color:var(--code-keyword-color)">struct</span> my_vec v2 = {0};
+
+<span style="color:var(--code-keyword-color)">if</span> (v1 == v2);                     <span style="color:var(--code-comment-color)">// Not allowed</span>
+<span style="color:var(--code-keyword-color)">if</span> (v1.x == v2.x && v1.y == v2.y); <span style="color:var(--code-comment-color)">// You have to do this</span></code></pre>
+
       <p>This is error-prone, annoying to type and verbose, so it is tempting to just call <code><a href="https://man7.org/linux/man-pages/man3/memcmp.3.html">memcmp</a></code>. That's what it was made for, right?</p>
       <p>Yes. And no.
       When the compiler generates code for a struct, it doesn't only make sure that it is large enough for all members to fit;
       it also has to place each field at its correct alignment.</p>
       <p>Suppose you have a struct that looks like this:</p>
-      <pre><code>struct my_type {
+
+      <pre><code><span style="color:var(--code-keyword-color)">struct</span> my_type {
     int32_t x;
     int64_t y;
 };</code></pre>
+
       <p>If we just look at the size of individual fields, it looks like the total size should be 4+8=12 bytes.<br />
       What we don't see is that the compiler wants to place 8-byte fields as <i>8-byte aligned</i> (that is, it wants the bottom log_2(8)=3 bits of the offset to be zeros).
       Assuming that the struct starts at address <code>0x0</code>, the first offset after that to have 3 zero bits at the bottom is <code>0x8</code>, exactly 4 bytes after the end of the <code>length</code> field.
@@ -94,8 +99,10 @@ if (v1.x == v2.x && v1.y == v2.y); // You have to do this</code></pre>
       </div>
 
       <p>What does this gap contain? It could be anything. The programmer can't read from or write to it, unless they use pointer arithmetic. Compilers aren't required to initialize this space with anything. Yes, even if you explicityly do zero-initialization of the variable like this:</p>
-      <pre><code>// Compiler still allowed to do whatever it wants with those padding bytes
-struct my_type a = {0};</code></pre>
+
+      <pre><code><span style="color:var(--code-comment-color)">// Compiler still allowed to do whatever it wants with those padding bytes</span>
+<span>style="color:var(--code-keyword-color)">struct</span> my_type a = {0};</code></pre>
+
       <p>This is generally not a problem, but it becomes one if two variables of this compound type are compared with <code>memcmp</code>:
       even if both fields of the variables are identical, <code>memcmp</code> could still return non-zero if it finds those padding bytes to be different.</p>
 
@@ -131,13 +138,14 @@ struct my_type a = {0};</code></pre>
       <p>This leaves the programmer with two options, neither of which is optimal.
       The first is to compare each field individually, and wrap that into a function when it starts to get repeptitive.
       The second is to make sure that <em>no implicit padding bytes are inserted in the struct</em> by making them explicit:</p>
-      <pre><code>struct my_type {
+
+      <pre><code><span style="color:var(--code-keyword-color)">struct</span> my_type {
     int32_t x;
-    int32_t _pad0[0]; // Exactly fits the gap left between length and data
+    int32_t _pad0[0]; <span style="color:var(--code-comment-color)">// Exactly fits the gap left between length and data</span>
     int64_t y;
 };
 
-struct my_type s = {0}; // Now the compiler is required to cooperate</code></pre>
+<span style="color:var(--code-keyword-color)">struct</span> my_type s = {0}; <span style="color:var(--code-comment-color)">// Now the compiler is required to cooperate</span></code></pre>
       <p>Of course this could be tiresome if working with data types subject to frequent changes.</p>
     </article>
   </main>
