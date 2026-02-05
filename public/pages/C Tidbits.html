@@ -52,7 +52,8 @@
       <h2><a href="#">Parameter evaluation order</a></h2>
       <p>Arguments to a function are not evaluated in left-to-right order, as one would imagine. The order of evaluation (and the order of execution of side effects) is unspecified.</p>
       <p>In the following code, it's possible that <code>++x</code> will be evaluated before <code>x</code>, and the function could print <code>1 1</code>:</p>
-      <pre><code>int x = 0;
+
+      <pre><code><span style="color:var(--code-keyword-color)">int</span> x = 0;
 printf("%d %d", x, ++x);</code></pre>
 
       <h2><a href="#">Comma operator</a></h2>
@@ -114,7 +115,7 @@ printf("%d %d", x, ++x);</code></pre>
       </p>
       
       <h2><a href="#">sizeof</a></h2>
-      <p>The <code>sizeof</code> operator does not evaluate its operand, so <code>sizeof(*p)</code> does not actually dereference the pointer.</p>
+      <p>The <code>sizeof</code> operator does not evaluate its operand, so <code><span style="color:var(--code-keyword-color)">sizeof</span>(*p)</code> does not actually dereference the pointer.</p>
       
       <!-- Variable literals suffixes and prefixes (L for strings, U/UL/ULL for ints, F for floats) -->
       <!-- printf formats -->
