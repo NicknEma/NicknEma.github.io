@@ -168,8 +168,8 @@ pre, code {
 }
 
 code ins, code del { text-decoration: none; }
-code ins { background-color: light-dark(#dfd, #efe); }
-code del { background-color: light-dark(#fdd, #fee); }
+code ins { background-color: light-dark(#dfd, #252); }
+code del { background-color: light-dark(#fdd, #522); }
 
 ul,ol { margin: 0; padding: 0 }
 ul { list-style: none }
