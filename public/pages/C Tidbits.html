@@ -48,98 +48,99 @@
   </header>
   <main>
     <article>
-      
-      <h2><a href="#">Parameter evaluation order</a></h2>
-      <p>Arguments to a function are not evaluated in left-to-right order, as one would imagine. The order of evaluation (and the order of execution of side effects) is unspecified.</p>
-      <p>In the following code, it's possible that <code>++x</code> will be evaluated before <code>x</code>, and the function could print <code><span style="color:var(--code-number-color)">1</span> <span style="color:var(--code-number-color)">1</span></code>:</p>
 
-      <div class="code-block">
-      <div class="code-block-bar">
-      <span>C</span>
-      <button type="button" class="code-block-copy-button" onclick="let c = `int x = 0;
+<h2><a href="#">Parameter evaluation order</a></h2>
+<p>Arguments to a function are not evaluated in left-to-right order, as one would imagine. The order of evaluation (and the order of execution of side effects) is unspecified.</p>
+<p>In the following code, it's possible that <code>++x</code> will be evaluated before <code>x</code>, and the function could print <code><span class="token number">1</span> <span class="token number">1</span></code>:</p>
+
+<div class="code-block">
+<div class="code-block-bar">
+<span>C</span>
+<button type="button" class="code-block-copy-button" onclick="let c = `int x = 0;
 printf(&quot;%d %d\\n&quot;, x, ++x);`; navigator.clipboard.writeText(c)">Copy</button>
-      </div> <!-- code-block-bar -->
-      <div class="code-block-content" data-code-block itemscope itemtype="https://schema.org/SoftwareSourceCode">
-        <meta itemprop="codeSampleType" content="snippet" />
-        <meta itemprop="programmingLanguage" content="C" />
-        <meta data-code-id="evalOrder" itemprop="text" content="int x = 0;
+</div> <!-- code-block-bar -->
+<div class="code-block-content" data-code-block itemscope itemtype="https://schema.org/SoftwareSourceCode">
+<meta itemprop="codeSampleType" content="snippet" />
+<meta itemprop="programmingLanguage" content="C" />
+<meta data-code-id="evalOrder" itemprop="text" content="int x = 0;
 printf(&quot;%d %d\n&quot;, x, ++x);" />
-        <pre class="language-C"><code class="language-C"><span class="token keyword" style="color:var(--code-keyword-color)">int</span> x = <span style="color:var(--code-number-color)">0</span>;
-<span style="color:var(--code-proc-call-site-color)">printf</span>(<span style="color:var(--code-string-color)">"%d %d"</span>, x, ++x);</code></pre>
-      </div> <!-- data-code-block -->
-      </div> <!-- code-block -->
+<pre class="language-C"><code class="language-C"><span class="line"><span><span class="token keyword">int</span> x = <span class="token number">0</span>;
+</span></span><span class="line"><span><span style="color:var(--code-proc-call-site-color)">printf</span>(<span class="token string">"%d %d"</span>, x, ++x);</span></span></code></pre>
+</div> <!-- data-code-block -->
+</div> <!-- code-block -->
 
-      <h2><a href="#">Comma operator</a></h2>
-      <p>The comma operator evaluates the first operand, discards the result, then evaluates the second operand (not the other way around). The following statements assigns <code><span style="color:var(--code-number-color)">2</span></code> to <code>x</code>:</p>
+<h2><a href="#">Comma operator</a></h2>
+<p>The comma operator evaluates the first operand, discards the result, then evaluates the second operand (not the other way around). The following statements assigns <code><span style="color:var(--code-number-color)">2</span></code> to <code>x</code>:</p>
 
-      <div class="code-block">
-      <div class="code-block-content">
-      <pre><code>x = (<span style="color:var(--code-number-color)">1</span>, <span style="color:var(--code-number-color)">2</span>);</code></pre>
-      </div>
-      </div>
-      
-      <p>It is guaranteed that all the side effects of the first expression will be completed before any side effect of the second expression is performed.</p>
-      
-      <!--
-      <h2><a href="#">Undefined, unspecified and whatever-ed behaviour</a></h2>
-      
-      <p>Memory-related undefined behaviour:</p>
-      <ul>
-        <li>Use a variable before it is initialized</li>
-        <li>Dereference a pointer to an 'object' whose lifetime has ended (the stack frame was popped or the object was freed/deleted)</li>
-        <li>Dereference a pointer outisde the boundaries of an 'object'</li>
-        <li>Doing pointer arithmetic that yields a value outisde the boundaries of an 'object'</li>
-        An lvalue does not designate an object when evaluated
-        Conversion between two pointer types produces a result that is incorrectly aligned
-        An object has its stored value accessed other than by an lvalue of an allowable type
-      </ul>
-      
-      <p>Number-related undefined behaviour:</p>
-      <ul>
-        <li>Signed integer overflow</li>
-        <li>Left-shifting values by a negative amount</li>
-        <li>Casting a numeric value into a value that can't be represented by the target type</li>
-      </ul>
-      </p>
-      
-      The program executes more than one call to the exit function 
-      double free
-      Calling free() or realloc() passing a pointer that was not returned by malloc, calloc or realloc
-      use of a FILE* variable after fclose()
-      passing an invalid mode string to fopen() (???)
-      dereference a pointer returned by malloc(0), calloc(0) or realloc(0)
-      passing a va_list to a function if the va_list variable was not initialized with va_start
-      calling printf with the 'n' format char and include any modifier (length, width, padding)
-      
-      The parameter parmN of a va_start macro is declared with the register storage class, with a function or array type, or with a type that is not compatible with the type that results after application of the default argument promotions (WHAT)
-      
-      The va_copy or va_start macro is called to initialize a va_list that was previously initialized by either macro without an intervening invocation of the va_end macro for the same va_list
-      
-      The character sequence in an #include preprocessing directive does not start with a letter 
-      
-      <p>String-related undefined behaviour:</p>
-      <ul>
-        <li>Attempting to modify a string literal or any other const object during its lifetime</li>The program attempts to modify a string literal
-        The string set up by the getenv or strerror function is modified by the program
-        <li>Concatenating a narrow with a wide string literal during preprocessing</li>
-        <li>A backslash followed by a character that is not part of the specified escape codes in a character or string constant</li>
-      </ul>
-      -->
-      
-      <h2><a href="#">Compiler flags</a></h2>
-      <p>Visual Studio (MSVC) flags:
-        <ul>
-          <li><code>/external:anglebrackets /external:W0</code> &ndash; Disable warnings for all headers included using <code>&lt;&gt;</code>.</li>
-        </ul>
-      </p>
-      
-      <h2><a href="#">sizeof</a></h2>
-      <p>The <code><span style="color:var(--code-keyword-color)">sizeof</span></code> operator does not evaluate its operand, so <code><span style="color:var(--code-keyword-color)">sizeof</span>(*p)</code> does not actually dereference the pointer.</p>
-      
-      <!-- Variable literals suffixes and prefixes (L for strings, U/UL/ULL for ints, F for floats) -->
-      <!-- printf formats -->
-      <!-- <h2><a href="#">Operator precedence</a></h2> -->
-      <!-- Variable promotion when doing varargs: chars and shorts to long, float to double -->
+<div class="code-block">
+<div class="code-block-content">
+<pre><code><span class="line"><span>x = (<span style="color:var(--code-number-color)">1</span>, <span style="color:var(--code-number-color)">2</span>);</span></span></code></pre>
+</div>
+</div>
+
+<p>It is guaranteed that all the side effects of the first expression will be completed before any side effect of the second expression is performed.</p>
+
+<!--
+<h2><a href="#">Undefined, unspecified and whatever-ed behaviour</a></h2>
+
+<p>Memory-related undefined behaviour:</p>
+<ul>
+<li>Use a variable before it is initialized</li>
+<li>Dereference a pointer to an 'object' whose lifetime has ended (the stack frame was popped or the object was freed/deleted)</li>
+<li>Dereference a pointer outisde the boundaries of an 'object'</li>
+<li>Doing pointer arithmetic that yields a value outisde the boundaries of an 'object'</li>
+An lvalue does not designate an object when evaluated
+Conversion between two pointer types produces a result that is incorrectly aligned
+An object has its stored value accessed other than by an lvalue of an allowable type
+</ul>
+
+<p>Number-related undefined behaviour:</p>
+<ul>
+<li>Signed integer overflow</li>
+<li>Left-shifting values by a negative amount</li>
+<li>Casting a numeric value into a value that can't be represented by the target type</li>
+</ul>
+</p>
+
+The program executes more than one call to the exit function 
+double free
+Calling free() or realloc() passing a pointer that was not returned by malloc, calloc or realloc
+use of a FILE* variable after fclose()
+passing an invalid mode string to fopen() (???)
+dereference a pointer returned by malloc(0), calloc(0) or realloc(0)
+passing a va_list to a function if the va_list variable was not initialized with va_start
+calling printf with the 'n' format char and include any modifier (length, width, padding)
+
+The parameter parmN of a va_start macro is declared with the register storage class, with a function or array type, or with a type that is not compatible with the type that results after application of the default argument promotions (WHAT)
+
+The va_copy or va_start macro is called to initialize a va_list that was previously initialized by either macro without an intervening invocation of the va_end macro for the same va_list
+
+The character sequence in an #include preprocessing directive does not start with a letter 
+
+<p>String-related undefined behaviour:</p>
+<ul>
+<li>Attempting to modify a string literal or any other const object during its lifetime</li>The program attempts to modify a string literal
+The string set up by the getenv or strerror function is modified by the program
+<li>Concatenating a narrow with a wide string literal during preprocessing</li>
+<li>A backslash followed by a character that is not part of the specified escape codes in a character or string constant</li>
+</ul>
+-->
+
+<h2><a href="#">Compiler flags</a></h2>
+<p>Visual Studio (MSVC) flags:
+<ul>
+<li><code>/external:anglebrackets /external:W0</code> &ndash; Disable warnings for all headers included using <code>&lt;&gt;</code>.</li>
+</ul>
+</p>
+
+<h2><a href="#">sizeof</a></h2>
+<p>The <code><span class="token keyword">sizeof</span></code> operator does not evaluate its operand, so <code><span class="token keyword">sizeof</span>(*p)</code> does not actually dereference the pointer.</p>
+
+<!-- Variable literals suffixes and prefixes (L for strings, U/UL/ULL for ints, F for floats) -->
+<!-- printf formats -->
+<!-- <h2><a href="#">Operator precedence</a></h2> -->
+<!-- Variable promotion when doing varargs: chars and shorts to long, float to double -->
+
     </article>
   </main>
 
