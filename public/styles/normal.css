@@ -34,6 +34,8 @@ TODO:
 	--code-typename-color: #3de9d5;
 	--code-proc-decl-site-color: #66d9ef;
 	--code-proc-call-site-color: #ffdf96;
+	--code-function-color: #66d9ef;
+	--code-variable-color: #ffdf96;
 	--code-syntax-crap-color: #f92672;
 }
 
@@ -197,6 +199,14 @@ code .number {
 
 code .typename {
 	color:var(--code-typename-color);
+}
+
+code .function {
+	color: var(--code-function-color);
+}
+
+code .variable {
+	color: var(--code-variable-color);
 }
 
 code ins, code del { text-decoration: none; }
