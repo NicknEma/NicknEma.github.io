@@ -195,6 +195,10 @@ code .number {
 	color:var(--code-number-color);
 }
 
+code .typename {
+	color:var(--code-typename-color);
+}
+
 code ins, code del { text-decoration: none; }
 code ins { background-color: light-dark(#dfd, #252); }
 code del { background-color: light-dark(#fdd, #522); }
