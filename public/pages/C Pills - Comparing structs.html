@@ -65,7 +65,7 @@ if (v1.x == v2.x && v1.y == v2.y); // You have to do this`; navigator.clipboard.
 <meta itemprop="codeSampleType" content="snippet" />
 <meta itemprop="programmingLanguage" content="C" />
 <!-- <meta data-code-id="evalOrder" itemprop="text" content="" /> -->
-<pre class="language-C"><code class="language-C"><span class="line"><span><span class="token keyword">struct</span> <span class="token typename">my_vec</span> { <span class="token keyword">int</span> x, y; };
+<pre tabindex="0"><code class="language-C" data-lang="C"><span class="line"><span><span class="token keyword">struct</span> <span class="token typename">my_vec</span> { <span class="token keyword">int</span> x, y; };
 </span></span><span class="line"><span><span class="token keyword">struct</span> <span class="token typename">my_vec</span> v1 = {<span class="token number">0</span>}, <span class="token keyword">struct</span> <span class="token typename">my_vec</span> v2 = {<span class="token number">0</span>};
 </span></span><span class="line"><span>
 </span></span><span class="line"><span><span class="token keyword">if</span> (v1 == v2);                     <span class="token comment">// Not allowed</span>
@@ -91,7 +91,7 @@ it also has to place each field at its correct alignment.</p>
 <meta itemprop="codeSampleType" content="snippet" />
 <meta itemprop="programmingLanguage" content="C" />
 <!-- <meta data-code-id="evalOrder" itemprop="text" content="" /> -->
-<pre class="language-C"><code class="language-C"><span class="line"><span><span class="token keyword">struct</span> <span class="token typename">my_type</span> {
+<pre tabindex="0"><code class="language-C" data-lang="C"><span class="line"><span><span class="token keyword">struct</span> <span class="token typename">my_type</span> {
 </span></span><span class="line"><span>	<span class="token typename">int32_t</span> x;
 </span></span><span class="line"><span>	<span class="token typename">int64_t</span> y;
 </span></span><span class="line"><span>};</span></span></code></pre>
@@ -140,7 +140,7 @@ struct my_type a = {0};`; navigator.clipboard.writeText(c)">Copy</button>
 <meta itemprop="codeSampleType" content="snippet" />
 <meta itemprop="programmingLanguage" content="C" />
 <!-- <meta data-code-id="evalOrder" itemprop="text" content="" /> -->
-<pre class="language-C"><code class="language-C"><span class="line"><span><span class="token comment">// Compiler still allowed to do whatever it wants with those padding bytes</span>
+<pre tabindex="0"><code class="language-C" data-lang="C"><span class="line"><span><span class="token comment">// Compiler still allowed to do whatever it wants with those padding bytes</span>
 </span></span><span class="line"><span><span class="token keyword">struct</span> <span class="token typename">my_type</span> a = {<span class="token number">0</span>};</span></span></code></pre>
 </div>
 </div>
@@ -196,7 +196,7 @@ struct my_type s = {0}; // Now the compiler is required to cooperate`; navigator
 <meta itemprop="codeSampleType" content="snippet" />
 <meta itemprop="programmingLanguage" content="C" />
 <!-- <meta data-code-id="evalOrder" itemprop="text" content="" /> -->
-<pre class="language-C"><code class="language-C"><span class="line"><span><span class="token keyword">struct</span> <span class="token typename">my_type</span> {
+<pre tabindex="0"><code class="language-C" data-lang="C"><span class="line"><span><span class="token keyword">struct</span> <span class="token typename">my_type</span> {
 </span></span><span class="line"><span>	<span class="token typename">int32_t</span> x;
 </span></span><span class="line"><span>	<span class="token typename">int32_t</span> _pad0[<span class="token number">0</span>]; <span class="token comment">// Exactly fits the gap left between length and data</span>
 </span></span><span class="line"><span>	<span class="token typename">int64_t</span> y;
