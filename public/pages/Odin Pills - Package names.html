@@ -53,6 +53,12 @@
 <p>As the <a href="https://odin-lang.org/docs/overview/#authoring-a-package">documentation</a> states, each Odin file must start with a <em>package declaration</em>, like this:</p>
 
 <div class="code-block">
+<div class="code-block-bar">
+<span>C</span>
+<button type="button" class="code-block-copy-button" onclick="let c = `package strings    // Package declaration
+
+/* ... */`; navigator.clipboard.writeText(c)">Copy</button>
+</div>
 <div class="code-block-content">
 <div class="highlight"><pre tabindex="0"><code class="language-Odin" data-lang="Odin"><span class="line"><span><span class="token keyword">package</span> strings    <span class="token comment">// Package declaration
 </span></span></span><span class="line"><span>
@@ -64,6 +70,16 @@
 <p>The above file declares itself to be part of the <code>strings</code> package. If another package wants to use the functionality it provides, it must import it like this:</p>
 
 <div class="code-block">
+<div class="code-block-bar">
+<span>C</span>
+<button type="button" class="code-block-copy-button" onclick="let c = `package program
+
+import &quot;path_to_package/strings&quot;    // Import declaration
+
+main :: proc() {
+	s := strings.clone(&quot;Hellope&quot;)
+}`; navigator.clipboard.writeText(c)">Copy</button>
+</div>
 <div class="code-block-content">
 <div class="highlight"><pre tabindex="0"><code class="language-Odin" data-lang="Odin"><span class="line"><span><span class="token keyword">package</span> program
 </span></span><span class="line"><span>
@@ -99,6 +115,12 @@ As the error message hints at, the name used for the package <em>declaration</em
 <p>So if you want a custom <code>strings</code> package, all you have to do is make sure that all the files in your <code>strings</code> directory have a different package <em>declaration</em> than any of the ones used by the standard collections:</p>
 
 <div class="code-block">
+<div class="code-block-bar">
+<span>C</span>
+<button type="button" class="code-block-copy-button" onclick="let c = `package totally_not_a_string_package
+
+/* ... */`; navigator.clipboard.writeText(c)">Copy</button>
+</div>
 <div class="code-block-content">
 <div class="highlight"><pre tabindex="0"><code class="language-Odin" data-lang="Odin"><span class="line"><span><span class="token keyword">package</span> totally_not_a_string_package
 </span></span><span class="line"><span>
@@ -110,6 +132,16 @@ As the error message hints at, the name used for the package <em>declaration</em
 <p>An then use it as normal:</p>
 
 <div class="code-block">
+<div class="code-block-bar">
+<span>C</span>
+<button type="button" class="code-block-copy-button" onclick="let c = `package program
+
+import &quot;path_to_package/strings&quot;    // Import declaration
+
+main :: proc() {
+	s := strings.clone(&quot;Hellope&quot;)
+}`; navigator.clipboard.writeText(c)">Copy</button>
+</div>
 <div class="code-block-content">
 <div class="highlight"><pre tabindex="0"><code class="language-Odin" data-lang="Odin"><span class="line"><span><span class="token keyword">package</span> program
 </span></span><span class="line"><span>
