@@ -209,6 +209,13 @@ code .variable {
 	color: var(--code-variable-color);
 }
 
+code .operator {
+}
+
+code .syntax-crap {
+	color: var(--code-syntax-crap-color);
+}
+
 code ins, code del { text-decoration: none; }
 code ins { background-color: light-dark(#dfd, #252); }
 code del { background-color: light-dark(#fdd, #522); }

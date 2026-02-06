@@ -69,9 +69,9 @@
 </span></span><span class="line"><span>
 </span></span><span class="line"><span><span class="token keyword">import</span> <span class="token string">&#34;path_to_package/strings&#34;</span>    <span class="token comment">// Import declaration</span>
 </span></span><span class="line"><span>
-</span></span><span class="line"><span><span style="color:var(--code-proc-decl-site-color)">main</span> <span style="color:var(--code-syntax-crap-color)">::</span> <span class="token keyword">proc</span>() {
-</span></span><span class="line"><span>	s <span style="color:var(--code-syntax-crap-color)">:=</span> strings.<span style="color:var(--code-proc-call-site-color)">clone</span>(<span class="token string">&#34;Hellope&#34;</span>)
-</span></span><span class="line"><span>}
+</span></span><span class="line"><span><span class="token function">main</span> :: <span class="token keyword">proc</span><span class="token syntax-crap">() {</span>
+</span></span><span class="line"><span>	s := strings<span class="token syntax-crap">.</span><span class="token function">clone</span><span class="token syntax-crap">(</span><span class="token string">&#34;Hellope&#34;</span><span class="token syntax-crap">)</span>
+</span></span><span class="line"><span><span class="token syntax-crap">}</span>
 </span></span></code></pre></div>
 </div>
 </div>
@@ -113,12 +113,12 @@ As the error message hints at, the name used for the package <em>declaration</em
 <div class="code-block-content">
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Odin" data-lang="Odin"><span class="line"><span><span class="token keyword">package</span> program
 </span></span><span class="line"><span>
-</span></span><span class="line"><span><span class="token keyword">import</span> <span class="token string">&#34;path_to_package/strings&#34;</span>
+</span></span><span class="line"><span><span class="token keyword">import</span> <span class="token string">&#34;path_to_package/strings&#34;</span>    <span class="token comment">// Import declaration</span>
 </span></span><span class="line"><span>
-</span></span><span class="line"><span><span style="color:var(--code-proc-decl-site-color)">main</span> <span style="color:var(--code-syntax-crap-color)">::</span> <span class="token keyword">proc</span>() {
-</span></span><span class="line"><span>	s <span style="color:var(--code-syntax-crap-color)">:=</span> strings.<span style="color:var(--code-proc-call-site-color)">clone</span>(<span class="token string">&#34;Hellope&#34;</span>)
-</span></span><span class="line"><span>}
-</span></span></code></pre></div>
+</span></span><span class="line"><span><span class="token function">main</span> :: <span class="token keyword">proc</span><span class="token syntax-crap">() {</span>
+</span></span><span class="line"><span>	s := strings<span class="token syntax-crap">.</span><span class="token function">clone</span><span class="token syntax-crap">(</span><span class="token string">&#34;Hellope&#34;</span><span class="token syntax-crap">)</span>
+</span></span><span class="line"><span><span class="token syntax-crap">}</span>
+</span></span></code></code></pre></div>
 </div>
 </div>
 
