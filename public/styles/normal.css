@@ -34,7 +34,6 @@ TODO:
 	--code-typename-color: #3de9d5;
 	--code-function-color: #66d9ef;
 	--code-variable-color: #ffdf96;
-	--code-syntax-crap-color: #85816e;
 }
 
 /* --- PAGE SECTIONS --- */
@@ -207,13 +206,6 @@ code .function {
 
 code .variable {
 	color: var(--code-variable-color);
-}
-
-code .operator {
-}
-
-code .syntax-crap {
-	color: var(--code-syntax-crap-color);
 }
 
 code ins, code del { text-decoration: none; }
