@@ -95,6 +95,7 @@ main :: proc() {
 <p>This way, the <code>program</code> package can use the name <code>strings</code> to refer to the imported package.</p>
 <p>However, if you try to do exactly what I did, you will run into a problem: My custom package is called <em>&ldquo;strings&rdquo;</em>, just like one of the packages in the <code>core</code> collection. This will cause a compilation error:</p>
 
+<figcaption>
 <div class="code-block">
 <div class="code-block-content">
 <pre tabindex="0"><code>C:/odin/core/strings/ascii_set.odin(1:2) Error: Duplicate declaration of &#39;package strings&#39;
@@ -106,6 +107,8 @@ main :: proc() {
 </code></pre>
 </div>
 </div>
+<caption>Output given by <i>odin version dev-2025-12-nightly:6ef91e2</i></caption>
+</figcaption>
 
 <p>As you can see, the error is related to the <em>Application Binary Interface</em>, or <em>ABI</em>. In short, when the program is compiled and symbols need to be resolved, how can the linker know what links to what? If some code calls <code>clone()</code>, to which definition of the procedure is it referring? Odin uses package names to prevent this confusion.</p>
 
