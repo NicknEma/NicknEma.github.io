@@ -120,7 +120,7 @@ p code, li code {
 }
 
 .code-block-bar {
-	background-color: light-dark(#f7f7f7, #1f1f1f);
+	background-color: light-dark(#f2f2f2, #1f1f1f);
 	border: solid light-dark(#ccc, #333);
 	border-width: 0px 0px 1px;
 	display: flex;
