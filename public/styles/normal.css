@@ -27,13 +27,13 @@ TODO:
 :root {
 	color-scheme: light dark; /* enable light-dark() function */
 	
-	--code-keyword-color: #f92672;
-	--code-comment-color: #75715e;
-	--code-string-color: #e6db74;
-	--code-number-color: #3dd5e9;
-	--code-typename-color: #3de9d5;
-	--code-function-color: #66d9ef;
-	--code-variable-color: #ffdf96;
+	--code-keyword-color: light-dark(#d90642, #f92672);
+	--code-comment-color: light-dark(#85816e, #75715e);
+	--code-string-color: light-dark(#763b24, #e6db74);
+	--code-number-color: light-dark(#1db5c9, #3dd5e9);
+	--code-typename-color: light-dark(#0db9a5, #3de9d5);
+	--code-function-color: light-dark(#66d9ef, #66d9ef);
+	--code-variable-color: light-dark(#ffdf96, #ffdf96);
 }
 
 /* --- PAGE SECTIONS --- */
