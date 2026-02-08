@@ -140,6 +140,17 @@ p code, li code {
 	-moz-border-radius: var(--button-border-radius);
 	font-size: 0.85rem;
 }
+.code-block-copy-button:hover {
+	background-color: rgba(80,60,50, 0.5);
+}
+.code-block-copy-button:focus {
+	outline: none;
+	box-shadow: 0 0 0 3px lightskyblue;
+}
+.code-block-copy-button:active {
+	background-color: light-dark(#000, #fff);
+	color: light-dark(#fff, #000);
+}
 
 .code-block-content {
 	padding: 0.5em 1em;
