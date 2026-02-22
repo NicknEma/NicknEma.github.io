@@ -128,6 +128,128 @@ main :: proc() {
 <caption>Simple Odin program</caption>
 </figcaption>
 
+<h2><a href="#">Interactivity</a></h2>
+
+<div id="my_interactive_element">
+<svg viewBox="0 0 800 800" id="click" xmlns="http://www.w3.org/2000/svg">
+<circle id="my_circle" r="245" cx="400" cy="400" fill="#7FDB70" stroke="#41B82E" stroke-width="10"/>
+</svg>
+</div>
+
+<script>
+// Get the viewport height and width
+const viewportWidth  = Math.max(document.documentElement.clientWidth  || 0, window.innerWidth  || 0)
+const viewportHeight = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0)
+
+// Fit to viewport
+var width  = viewportWidth;
+var height = viewportWidth * 0.5;
+
+var myInteractiveElement = document.getElementById("my_interactive_element");
+console.log(myInteractiveElement);
+
+var circle = document.getElementById("my_circle");
+
+circle.addEventListener("click", increase_cy)
+
+function increase_cy(event) {
+	const element = event.target;
+	var y = parseFloat(element.getAttributeNS(null, 'cy'));
+	element.setAttributeNS(null, 'cy', y + 10);
+}
+
+// var y = parseFloat(circle.getAttributeNS(null, 'cy'));
+// circle.setAttributeNS(null, 'cy', y + 10);
+
+// createElementNS()
+// appendChild()
+// insertBefore()
+// insertAfter()
+
+
+console.log("Done");
+
+</script>
+
+<h2><a href="#">Logic gates</a></h2>
+
+<div style="background-color:#fff">
+<svg style="border:1px solid black" viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg">
+<g class="switch" id="switch-0">
+<rect x="60" y="40"  width="40" height="40" fill="#eee" stroke="#888" stroke-width="4"></rect>
+<text class="my_text" x="80" y="60"  font-size="20" text-anchor="middle" dominant-baseline="middle">Hi</text>
+<polyline points="100,60 200,60 200,90 300,90" fill="none" stroke="#888" stroke-width="4"/>
+</g>
+<g class="switch" id="switch-0">
+<rect x="60" y="120" width="40" height="40" fill="#eee" stroke="#888" stroke-width="4"></rect>
+<text class="my_text" x="80" y="140" font-size="20" text-anchor="middle" dominant-baseline="middle">Hi</text>
+<polyline points="100,140 200,140 200,110 300,110" fill="none" stroke="#888" stroke-width="4"/>
+</g>
+<g id="and-0-1">
+<path d="M 300 80 L 300 120 L 320 120 A 20 20 0 1 0 320 80 Z" fill="#eee" stroke="#888" stroke-width="4"/>
+<path d="M 340 100 L 400 100" fill="#eee" stroke="#888" stroke-width="4"/>
+</g>
+</svg>
+</div>
+
+<style>
+svg text {
+                 cursor: default;
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+}
+svg text::selection {
+    background: none;
+}
+</style>
+
+<script>
+var switches = document.querySelectorAll(".switch");
+var and = document.querySelector("#and-0-1");
+
+function toggle_status(event) {
+	const element = event.target;
+	const parentElement = element.parentElement;
+	const textElement = parentElement.querySelector("text");
+	parentElement.status = 1 - parentElement.status;
+	if (parentElement.status === 0) {
+		textElement.textContent = "0";
+	} else {
+		textElement.textContent = "1";
+	}
+
+	// text.setAttributeNS(null, 'cy', y + 10);
+	// var txt = document.createTextNode("Hello World");
+	// element.appendChild(txt);
+	// svg.appendChild(element);
+	// var y = parseFloat(element.getAttributeNS(null, 'cy'));
+	// element.setAttributeNS(null, 'cy', y + 10);
+
+	and.status = (switches[0].status === 1 && switches[1].status === 1);
+	if (and.status) {
+		var andPaths = and.querySelectorAll("path");
+		for (let path of andPaths) {
+			path.setAttributeNS(null, 'stroke', '#f00');
+		}
+	} else {
+		var andPaths = and.querySelectorAll("path");
+		for (let path of andPaths) {
+			path.setAttributeNS(null, 'stroke', '#888');
+		}
+	}
+}
+
+for (let i = 0; i < switches.length; i += 1) {
+	switches[i].addEventListener("click", toggle_status)
+	switches[i].status = 0;
+}
+
+and.status = (switches[0].status === 1 && switches[1].status === 1);
+
+</script>
+
     </article>
   </main>
 
