@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en-gb">
+<head>
+  <title>Experiments - NicknEma</title>
+  
+  <!-- Metadata -->
+  <meta charset="utf-8" />
+  <meta name="author" content="Emanuele Rovini">
+  <meta name="description" content="A place for experiments about web-related technologies">
+  <meta name="keywords" content="HTML CSS JS JavaScript Browser">
+  <meta
+    name="theme-color"
+    content="lightgray"
+    media="(prefers-color-scheme: light)" />
+  <meta
+    name="theme-color"
+    content="darkgray"
+    media="(prefers-color-scheme: dark)" />
+  <meta name="color-scheme" content="dark light" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+  <script>
+    MathJax = {
+      tex: {
+        displayMath: [['\\[', '\\]'], ['$$', '$$']],  
+        inlineMath: [['\\(', '\\)']]                  
+      }
+    };
+  </script>
+
+  <link href="/styles/normal.css" rel="stylesheet">
+</head>
+
+<body>
+ <nav>
+    <h1>
+      <a id="home_button" href="/" style="cursor: pointer">
+        NicknEma
+      </a>
+    </h1>
+  </nav>
+  
+  <header>
+    <h1><strong>Experiments</strong></h1>
+    <p class="details">A place for experiments about web-related technologies.<br />
+    Last modified <time>...</time></p>
+  </header>
+  <main>
+    <article>
+
+<h2><a href="#">Code snippets</a></h2>
+
+<figcaption>
+<div class="code-block">
+<div class="code-block-bar">
+<span>C</span>
+<button type="button" class="code-block-copy-button" onclick="let c = `#include <stdio.h>
+
+int main(int argc, char **argv) {
+	if (argc &gt; 1)
+		printf(&quot;Hello %s\\n&quot;, argv[1]);
+	return 0;
+}`; navigator.clipboard.writeText(c)">Copy</button>
+</div> <!-- code-block-bar -->
+<div class="code-block-content" data-code-block itemscope itemtype="https://schema.org/SoftwareSourceCode">
+<meta itemprop="codeSampleType" content="snippet" />
+<meta itemprop="programmingLanguage" content="C" />
+<meta data-code-id="evalOrder" itemprop="text" content="#include <stdio.h>
+
+int main(int argc, char **argv) {
+	if (argc &gt; 1)
+		printf(&quot;Hello %s\\n&quot;, argv[1]);
+	return 0;
+}" />
+<pre tabindex="0"><code class="language-C" data-lang="C"><span class="line"><span><span class="token c-preprocessor">#include</span> <span class="token string">&lt;stdio.h&gt;</span>
+</span></span><span class="line"><span>
+</span></span><span class="line"><span><span class="token keyword">int</span> main(<span class="token keyword">int</span> argc, <span class="token keyword">char</span> **argv) {
+</span></span><span class="line"><span>	<span class="token keyword">if</span> (argc > <span class="token number">1</span>)
+</span></span><span class="line"><span>		<span class="token function">printf</span>(<span class="token string">"Hello %s\n"</span>, argv[<span class="token number">1</span>]);
+</span></span><span class="line"><span>	return <span class="token number">0</span>;
+</span></span><span class="line"><span>}</span></span></code></pre>
+</div> <!-- data-code-block -->
+</div> <!-- code-block -->
+<caption>Simple C program</caption>
+</figcaption>
+
+<figcaption>
+<div class="code-block">
+<div class="code-block-bar">
+<span>Odin</span>
+<button type="button" class="code-block-copy-button" onclick="let c = `package example
+
+import &quot;core:os&quot;
+import &quot;core:fmt&quot;
+
+main :: proc() {
+	if len(os.args) &gt; 1 {
+		fmt.printf(&quot;Hello %s\\n&quot;, os.args[1]);
+	}
+}`; navigator.clipboard.writeText(c)">Copy</button>
+</div> <!-- code-block-bar -->
+<div class="code-block-content" data-code-block itemscope itemtype="https://schema.org/SoftwareSourceCode">
+<meta itemprop="codeSampleType" content="snippet" />
+<meta itemprop="programmingLanguage" content="Odin" />
+<meta data-code-id="evalOrder" itemprop="text" content="package example
+
+import &quot;core:os&quot;
+import &quot;core:fmt&quot;
+
+main :: proc() {
+	if len(os.args) &gt; 1 {
+		fmt.printf(&quot;Hello %s\\n&quot;, os.args[1]);
+	}
+}" />
+<pre tabindex="0"><code class="language-C" data-lang="C"><span class="line"><span><span class="token keyword">package</span> example
+</span></span><span class="line"><span>
+</span></span><span class="line"><span><span class="token keyword">import</span> <span class="token string">"core:os"</span>
+</span></span><span class="line"><span><span class="token keyword">import</span> <span class="token string">"core:fmt"</span>
+</span></span><span class="line"><span>
+</span></span><span class="line"><span>main :: <span class="token keyword">proc</span>() {
+</span></span><span class="line"><span>	<span class="token keyword">if</span> <span class="token function">len</span>(os.args) > <span class="token number">1</span> {
+</span></span><span class="line"><span>		fmt.<span class="token function">printf</span>(<span class="token string">"Hello %s\n"</span>, os.args[<span class="token number">1</span>]);
+</span></span><span class="line"><span>	}
+</span></span><span class="line"><span>}</span></span></code></pre>
+</div> <!-- data-code-block -->
+</div> <!-- code-block -->
+<caption>Simple Odin program</caption>
+</figcaption>
+
+    </article>
+  </main>
+
+  <footer>
+    <div>
+      Emanuele Rovini, <time>2026</time> &ndash; Powered by <strong>plain HTML</strong>
+    </div>
+  </footer>
+</body>
+</html>
