@@ -173,25 +173,6 @@ console.log("Done");
 
 <h2><a href="#">Logic gates</a></h2>
 
-<div style="background-color:#fff">
-<svg style="border:1px solid black" viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg">
-<g class="switch" id="switch-0">
-<rect x="60" y="40"  width="40" height="40" fill="#eee" stroke="#888" stroke-width="4"></rect>
-<text class="my_text" x="80" y="60"  font-size="20" text-anchor="middle" dominant-baseline="middle">Hi</text>
-<polyline points="100,60 200,60 200,90 300,90" fill="none" stroke="#888" stroke-width="4"/>
-</g>
-<g class="switch" id="switch-0">
-<rect x="60" y="120" width="40" height="40" fill="#eee" stroke="#888" stroke-width="4"></rect>
-<text class="my_text" x="80" y="140" font-size="20" text-anchor="middle" dominant-baseline="middle">Hi</text>
-<polyline points="100,140 200,140 200,110 300,110" fill="none" stroke="#888" stroke-width="4"/>
-</g>
-<g id="and-0-1">
-<path d="M 300 80 L 300 120 L 320 120 A 20 20 0 1 0 320 80 Z" fill="#eee" stroke="#888" stroke-width="4"/>
-<path d="M 340 100 L 400 100" fill="#eee" stroke="#888" stroke-width="4"/>
-</g>
-</svg>
-</div>
-
 <style>
 svg text {
                  cursor: default;
@@ -205,49 +186,102 @@ svg text::selection {
 }
 </style>
 
+<!-- TODO(ema): The whole thing disappears after I play with it for a while - Figure out why -->
+<div style="background-color:#fff">
+<svg style="border:1px solid black" viewBox="0 0 800 240" xmlns="http://www.w3.org/2000/svg">
+	<g class="switch" data-status="1" data-outputs="2">
+		<rect x="60" y="40"  width="40" height="40" fill="#eee" stroke="#888" stroke-width="4"></rect>
+		<text class="my_text" x="80" y="60"  font-size="20" text-anchor="middle" dominant-baseline="middle">Hi</text>
+		<polyline points="100,60 200,60 200,90 300,90" fill="none" stroke="#888" stroke-width="4"/>
+	</g>
+	<g class="switch" data-status="0" data-outputs="2">
+		<rect x="60" y="120" width="40" height="40" fill="#eee" stroke="#888" stroke-width="4"></rect>
+		<text class="my_text" x="80" y="140" font-size="20" text-anchor="middle" dominant-baseline="middle">Hi</text>
+		<polyline points="100,140 200,140 200,110 300,110" fill="none" stroke="#888" stroke-width="4"/>
+	</g>
+	<g class="and" id="2" data-outputs="4">
+		<path d="M 300 80 L 300 120 L 320 120 A 20 20 0 1 0 320 80 Z" fill="#eee" stroke="#888" stroke-width="4"/>
+		<path d="M 340 100 L 500 100" fill="#eee" stroke="#888" stroke-width="4"/>
+	</g>
+	<g class="switch" data-status="0" data-outputs="4">
+		<rect x="300" y="160" width="40" height="40" fill="#eee" stroke="#888" stroke-width="4"></rect>
+		<text class="my_text" x="320" y="180" font-size="20" text-anchor="middle" dominant-baseline="middle">Hi</text>
+		<polyline points="340,180 430,180 430,120 500,120" fill="none" stroke="#888" stroke-width="4"/>
+	</g>
+	<g class="and" id="4">
+		<path d="M 500 90 L 500 130 L 520 130 A 20 20 0 1 0 520 90 Z" fill="#eee" stroke="#888" stroke-width="4"/>
+		<path d="M 540 110 L 600 110" fill="#eee" stroke="#888" stroke-width="4"/>
+	</g>
+
 <script>
 var switches = document.querySelectorAll(".switch");
-var and = document.querySelector("#and-0-1");
+var andGates = document.querySelectorAll(".and");
 
-function toggle_status(event) {
+function setStatus(element, status) {
+	element.status = !!status;
+	const color = status ? '#f00' : '#888';
+	for (let child of element.children) {
+		child.setAttributeNS(null, 'stroke', color);
+		if (child.textContent) {
+			child.textContent = "" + (0 + !!status);
+		}
+	}
+	if (element.outputs == null) { element.outputs = []; }
+	for (let output of element.outputs) {
+		updateStatus(output);
+	}
+}
+
+function updateStatus(element) {
+	const classList = element.classList;
+	const isAnd = classList.contains("and");
+	let val = true;
+	if (isAnd) {
+		for (let input of element.inputs) {
+			val = val && !!input.status;
+		}
+	}
+	setStatus(element, val);
+}
+
+function toggleStatus(element) {
+	const status = !element.status;
+	setStatus(element, status);
+}
+
+function onSwitchClick(event) {
 	const element = event.target;
 	const parentElement = element.parentElement;
-	const textElement = parentElement.querySelector("text");
-	parentElement.status = 1 - parentElement.status;
-	if (parentElement.status === 0) {
-		textElement.textContent = "0";
-	} else {
-		textElement.textContent = "1";
-	}
+	toggleStatus(parentElement);
+}
 
-	// text.setAttributeNS(null, 'cy', y + 10);
-	// var txt = document.createTextNode("Hello World");
-	// element.appendChild(txt);
-	// svg.appendChild(element);
-	// var y = parseFloat(element.getAttributeNS(null, 'cy'));
-	// element.setAttributeNS(null, 'cy', y + 10);
-
-	and.status = (switches[0].status === 1 && switches[1].status === 1);
-	if (and.status) {
-		var andPaths = and.querySelectorAll("path");
-		for (let path of andPaths) {
-			path.setAttributeNS(null, 'stroke', '#f00');
-		}
-	} else {
-		var andPaths = and.querySelectorAll("path");
-		for (let path of andPaths) {
-			path.setAttributeNS(null, 'stroke', '#888');
+function initOutputs(element) {
+	const outputsString = element.getAttributeNS(null, 'data-outputs') || "";
+	const outputs = outputsString.split(" ") || [];
+	element.outputs = [];
+	for (let output of outputs) {
+		const outputElement = document.getElementById(output);
+		if (outputElement != null) {
+			element.outputs.push(outputElement);
+			if (outputElement.inputs == null) { outputElement.inputs = []; }
+			outputElement.inputs.push(element);
 		}
 	}
 }
 
 for (let i = 0; i < switches.length; i += 1) {
-	switches[i].addEventListener("click", toggle_status)
-	switches[i].status = 0;
+	initOutputs(switches[i]);
+	switches[i].addEventListener("click", onSwitchClick)
 }
 
-and.status = (switches[0].status === 1 && switches[1].status === 1);
+for (let i = 0; i < andGates.length; i += 1) {
+	initOutputs(andGates[i]);
+}
 
+for (let i = 0; i < switches.length; i += 1) {
+	const status = parseInt(switches[i].getAttributeNS(null, 'data-status'));
+	setStatus(switches[i], status);
+}
 </script>
 
     </article>
