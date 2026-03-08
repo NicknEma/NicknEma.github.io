@@ -4,9 +4,6 @@
 
 * {
 	text-rendering: geometricPrecision;
-	border: 0 solid;
-	margin: 0;
-	padding: 0;
 }
 
 *,:before,:after {
@@ -46,7 +43,6 @@ body {
 	-o-tab-size: 4;
 	tab-size: 4;
 	
-	margin: 0 auto;
 	max-width: 43.75rem;
 	word-break: break-word;
 }
@@ -70,6 +66,11 @@ header, footer {
 	padding-bottom: 1.1rem;
 }
 
+main, nav, header, footer {
+	max-width: 60em;
+	margin: 0 auto;
+}
+
 h1,h2,h3,h4,h5,h6 {
 	margin-top: 0.5rem;
 	margin-bottom: 0.2rem;
@@ -83,7 +84,7 @@ footer {
 	font-size: 0.75rem;
 }
 
-p, dl, ol, ul {
+dl, ol, ul {
 	padding-top: 0.2rem;
 	padding-bottom: 0.6rem;
 	font-size: 1.0rem;
@@ -265,6 +266,7 @@ a,[type=button]:not([disabled]),[role=button],button:not([disabled]) {
 .details {
 	font-size: 0.875rem;
 	color: light-dark(rgb(76, 81, 95), rgb(176, 181, 195));
+	margin: 0.7rem auto 0.2rem;
 }
 
 .border { border: 1px solid black; }
