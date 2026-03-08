@@ -43,7 +43,6 @@ body {
 	-o-tab-size: 4;
 	tab-size: 4;
 	
-	max-width: 43.75rem;
 	word-break: break-word;
 }
 
@@ -67,7 +66,7 @@ header, footer {
 }
 
 main, nav, header, footer {
-	max-width: 60em;
+	max-width: 60rem;
 	margin: 0 auto;
 }
 
