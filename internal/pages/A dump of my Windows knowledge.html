@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en-gb">
+<head>
+  <title>A dump of my Windows knowledge - NicknEma</title>
+  
+  <!-- Metadata -->
+  <meta charset="utf-8" />
+  <meta name="author" content="Emanuele Rovini">
+  <meta name="description" content="Things I learned over the years about programming on Windows">
+  <meta name="keywords" content="Programming Language, Compiler, Library, Binary">
+  <meta
+    name="theme-color"
+    content="lightgray"
+    media="(prefers-color-scheme: light)" />
+  <meta
+    name="theme-color"
+    content="darkgray"
+    media="(prefers-color-scheme: dark)" />
+  <meta name="color-scheme" content="dark light" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+  <script>
+    MathJax = {
+      tex: {
+        displayMath: [['\\[', '\\]'], ['$$', '$$']],  
+        inlineMath: [['\\(', '\\)']]                  
+      }
+    };
+  </script>
+
+  <link href="/styles/normal.css" rel="stylesheet">
+</head>
+
+<body>
+ <nav>
+    <h1>
+      <a id="home_button" href="/" style="cursor: pointer">
+        NicknEma
+      </a>
+    </h1>
+  </nav>
+  
+  <header>
+    <h1><strong>A dump of my Windows knowledge</strong></h1>
+    <p class="details">Things I learned over the years about programming on Windows<br />
+    Last modified <time datetime="2026-04-05">5/04/2026</time></p>
+  </header>
+  <main>
+    <article>
+
+<h3>Table of contents</h3>
+<ul>
+<li>The Windows SDK headers</li>
+<li>Narrow and wide strings</li>
+<li>Entry points</li>
+<li>Compiling and linking</li>
+<li>Window creation</li>
+</ul>
+
+<h3>The Windows SDK headers</h3>
+<p>A lot of the functionality that Windows offers is exposed in the glorious <code>windows.h</code> header. It is actually a collection of other headers, and macros that control how these other headers are included.<br/>
+For example, the <code>UNICODE</code> macro controls how some of the older string-related structs and functions are declared.</p> <!-- TODO(ema): Add a link "see the [unicode section](...)" -->
+<p>Because it contains so much stuff, to avoid polluting the global namespace and increasing compile times, some macros exist to exclude some of the declarations from the header. If you only want to use the most common stuff, define the <code>WIN32_LEAN_AND_MEAN</code> macro, like this:</p>
+
+<div class="code-block">
+<div class="code-block-bar">
+<span>C</span>
+<button type="button" class="code-block-copy-button" onclick="let c = `#define WIN32_LEAN_AND_MEAN
+#include <windows.h>`; navigator.clipboard.writeText(c)">Copy</button>
+</div>
+<div class="code-block-content">
+<div class="highlight"><pre tabindex="0"><code class="language-C" data-lang="C"><span class="line"><span><span class="token">#define</span> <span class="token">WIN32_LEAN_AND_MEAN</span>
+</span></span><span class="line"><span><span class="token">#include</span> <span class="token string">&lt;windows.h&gt;</span>
+</span></span></code></pre>
+</div></div>
+</div>
+
+<h3>Window creation</h3>
+<p>A window, the thing that Windows was named after, is rather weird to create. If you've never done it before, it will seem difficult, as there are many pieces that you need to connect. After a couple of times you'll change your mind, and think it's not so bad anymore. Then you'll change your mind again, realizing that you're experiencing weird behaviours that you don't want, and that in order to fix those you'll have to bend over backwards. Don't worry, not even official Microsoft programs get it right; not even the code samples that they give you in order to learn Windows. That's how bad it gets.</p>
+
+<p>The mere act of <em>creating</em> a Window isn't too difficult: just call the <code>CreateWindow</code> function (or rather, macro). But that won't get you anywhere; you need to understand the bigger picture:<br/>
+If you create a window with <code>CreateWindow</code>, you then need code that tells the compute what to do after the window was created: what to draw on it, what happens if the user interacts with it, and so on. Graphical programs are traditionally written using a loop: first the code checks if the user has done something, picks the appropriate response and communicates it to the user, then repeat forever (or until the user exits the program). This is usually called an <em>event loop</em> or a <em>message loop</em>. Imagine that your program will look something like this:</p>
+
+<div class="code-block">
+<div class="code-block-content">
+<pre tabindex="0">begin:
+	create window
+
+	until the user quits
+		wait for a user interaction
+		process that interaction</pre>
+</div>
+</div>
+
+<div class="code-block">
+<div class="code-block-content">
+<pre tabindex="0">begin:
+	create window
+
+	until the user quits
+		wait for a user interaction
+		call the event handler
+
+in the event handler:
+	process the interaction</pre>
+</div>
+</div>
+
+<h4>The window class</h4>
+
+<p>In Windows, each window has a <i>class</i>. In this case, the word "class" has nothing to do with the C++ construct. It is simply a way to group functionality between similar windows. You need to create a window class, even if you intend to only have 1 window of that class.<br/>
+To create a class, declare an instance of the <code>WNDCLASS</code> structure, fill in the members, then call <code>RegisterClass</code>:</p>
+
+<div class="code-block">
+<div class="code-block-bar">
+<span>C</span>
+<button type="button" class="code-block-copy-button" onclick="let c = `WNDCLASS WindowClass;
+/* ... initialize ... */
+
+RegisterClass(&WindowClass);`; navigator.clipboard.writeText(c)">Copy</button>
+</div>
+<div class="code-block-content">
+<div class="highlight"><pre tabindex="0"><code class="language-C" data-lang="C"><span class="line"><span><span class="token typename">WNDCLASS</span> <span class="token variable">WindowClass</span>;
+</span></span><span class="line"><span><span class="token comment">/* initialize */</span>
+</span></span><span class="line"><span>
+</span></span><span class="line"><span><span class="token function">RegisterClass</span>(&<span class="token variable">WindowClass</span>);
+</span></span></code></pre>
+</div></div>
+</div>
+
+<p>Note: the window class is one of those things that have a different definition depending on the <code>UNICODE</code> macro. The structure is defined to be either <code>WNDCLASSA</code> or <code>WNDCLASSW</code>, and the <code>RegisterClass</code> is a macro that expands to either a <code>A</code> or a <code>W</code>. We will see why this matters shortly; for now, let's just switch our code to use the <code>W</code> version.</p>
+
+<p>The <code>WNDCLASS*</code> structures have a lot of fields, but don't worry: you only have to set 3 of them to have a valid class; the others can be set to 0, and they will take default values.</p>
+
+<p>The first field to set is <code>lpzsClassName</code> (<b>l</b>ong <b>p</b>ointer to <b>z</b>ero-terminated <b>s</b>tring ClassName).
+It is the name that the system will register the class with.
+It needs to be unique for the entire process, and it is case-insensitive ("myclass", "MyClass" and "myClass" are equivalent).
+You also need to be aware of some system-defined names that are already registered at the start of your process, that are used for buttons and similar controls.</p>
+
+<div class="code-block">
+<div class="code-block-bar">
+<span>C</span>
+<button type="button" class="code-block-copy-button" onclick="let c = `WindowClass.lpzsClassName = L"Main Window Class";`; navigator.clipboard.writeText(c)">Copy</button>
+</div>
+<div class="code-block-content">
+<div class="highlight"><pre tabindex="0"><code class="language-C" data-lang="C"><span class="line"><span><span class="token variable">WindowClass</span>.<span class="token variable">lpzsClassName</span> = <span class="token string">L&quot;Main Window Class&quot;</span>;
+</span></span></code></pre>
+</div></div>
+</div>
+
+<p>The second field is <code>lpfnWndProc</code> (<b>l</b>ong <b>p</b>ointer to <b>f</b>u<b>n</b>ction Window Procedure).
+It's a pointer to the function that will process the events from our event loop.
+Windows provides a default one, <code>DefWindowProc</code> (also coming in narrow and wide variants).
+Let's use that for now.</p>
+
+<div class="code-block">
+<div class="code-block-bar">
+<span>C</span>
+<button type="button" class="code-block-copy-button" onclick="let c = `WindowClass.lpfnWndProc = DefWindowProcW;`; navigator.clipboard.writeText(c)">Copy</button>
+</div>
+<div class="code-block-content">
+<div class="highlight"><pre tabindex="0"><code class="language-C" data-lang="C"><span class="line"><span><span class="token variable">WindowClass</span>.<span class="token variable">lpfnWndProc</span> = <span class="token function">DefWindowProcW</span>;
+</span></span></code></pre>
+</div></div>
+</div>
+
+<p>The last essential field of our class is <code>hInstance</code> (this one is easier: <b>h</b>andle to an Instance).
+It's an opaque handle to the instance of the current module (executable or dll).
+It's the first parameter of the <code>WinMain</code> family of entry points, or, if you're going with a traditional <code>main</code>, you can get it like this:</p>
+
+<div class="code-block">
+<div class="code-block-bar">
+<span>C</span>
+<button type="button" class="code-block-copy-button" onclick="let c = `WindowClass.hInstance = GetModuleHandleW(NULL);`; navigator.clipboard.writeText(c)">Copy</button>
+</div>
+<div class="code-block-content">
+<div class="highlight"><pre tabindex="0"><code class="language-C" data-lang="C"><span class="line"><span><span class="token variable">WindowClass</span>.<span class="token variable">hInstance</span> = <span class="token function">GetModuleHandleW</span>(<span class="token">NULL</span>);
+</span></span></code></pre>
+</div></div>
+</div>
+
+<p>So now, just bulk-initialize everything else to zero and you'll have a valid window class.</p>
+
+<div class="code-block">
+<div class="code-block-bar">
+<span>C</span>
+<button type="button" class="code-block-copy-button" onclick="let c = `WNDCLASSW WindowClass = {0};
+WindowClass.lpfnWndProc   = DefWindowProcW;
+WindowClass.hInstance     = GetModuleHandleW(NULL);
+WindowClass.lpzsClassName = L"Main Window Class";
+
+RegisterClass(&WindowClass);`; navigator.clipboard.writeText(c)">Copy</button>
+</div>
+<div class="code-block-content">
+<div class="highlight"><pre tabindex="0"><code class="language-C" data-lang="C"><span class="line"><span><span class="token typename">WNDCLASSW</span> <span class="token variable">WindowClass</span> = {<span class="token number">0</span>};
+</span></span><span class="line"><span><span class="token variable">WindowClass</span>.<span class="token variable">lpfnWndProc</span>   = <span class="token function">DefWindowProcW</span>;
+</span></span><span class="line"><span><span class="token variable">WindowClass</span>.<span class="token variable">hInstance</span>     = <span class="token function">GetModuleHandleW</span>(<span class="token">NULL</span>);
+</span></span><span class="line"><span><span class="token variable">WindowClass</span>.<span class="token variable">lpzsClassName</span> = <span class="token string">L&quot;Main Window Class&quot;</span>;
+</span></span><span class="line"><span>
+</span></span><span class="line"><span><span class="token function">RegisterClassW</span>(&<span>WindowClass</span>);
+</span></span></code></pre>
+</div></div>
+</div>
+
+<h4>The window</h4>
+
+<p>Now that the window class is registered, it's time to call <code>CreateWindowW</code>. It has quite a few parameters.</p>
+
+<div class="code-block">
+<div class="code-block-bar">
+<span>C</span>
+<button type="button" class="code-block-copy-button" onclick="let c = `RegisterClass(&WindowClass);
+
+HWND Window = CreateWindowW(
+	WindowClass.lpzsClassName,
+	L"Hello Windows",
+	WS_OVERLAPPEDWINDOW,
+	CW_USEDEFAULT,
+	CW_USEDEFAULT,
+	CW_USEDEFAULT,
+	CW_USEDEFAULT,
+	NULL,
+	WindowClass.hInstance,
+	NULL,
+	NULL
+);`; navigator.clipboard.writeText(c)">Copy</button>
+</div>
+<div class="code-block-content">
+<div class="highlight"><pre tabindex="0"><code class="language-C" data-lang="C"><span class="line"><span><span class="token function">RegisterClassW</span>(&<span>WindowClass</span>);
+</span></span><span class="line"><span>
+</span></span><span class="line"><span>HWND Window = CreateWindowW(
+</span></span><span class="line"><span>	WindowClass.lpzsClassName,	// The class name
+</span></span><span class="line"><span>	L&quot;Hello Windows&quot;,			// Title of the window
+</span></span><span class="line"><span>	WS_OVERLAPPEDWINDOW,		// "Style" of the window
+</span></span><span class="line"><span>	CW_USEDEFAULT,				// Left edge
+</span></span><span class="line"><span>	CW_USEDEFAULT,				// Top edge
+</span></span><span class="line"><span>	CW_USEDEFAULT,				// Width
+</span></span><span class="line"><span>	CW_USEDEFAULT,				// Height
+</span></span><span class="line"><span>	NULL,						// Parent window
+</span></span><span class="line"><span>	WindowClass.hInstance,		// Module handle
+</span></span><span class="line"><span>	NULL,						// Menu
+</span></span><span class="line"><span>	NULL						// Additional data
+</span></span><span class="line"><span>);
+</span></span></code></pre>
+</div></div>
+</div>
+
+<!-- TODO(ema): What to do it CreateWindow fails but doesn't set last error?
+What happens with narrow vs wide windows
+what is the window state
+what are all the other members of the class struct, + what is a wndclassEX?
+what is the EXtended create window?
+how to figure out the size of the window starting from the size of the client area
+how to center a window
+how to fullscreen
+how to set minimum size of the window
+the message loop, the window proc
+the infamous WM_PAINT
+how to solve the problem: 1) if making a simple utility, lock the size of the window 2) if making a game, pick a handful of predefined resolutions
+3) otherwise 3a) WM_ENTERSIZEMOVE WM_EXITSIZEMOVE 3b) fibers 3c) threads 3d) custom window border
+stretchdibits, bitmap allocation & alignment-->
+
+    </article>
+  </main>
+
+  <footer>
+    <div>
+      Emanuele Rovini, <time>2026</time> &ndash; Powered by <strong>plain HTML</strong>
+    </div>
+  </footer>
+</body>
+</html>
