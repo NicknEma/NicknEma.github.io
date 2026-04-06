@@ -291,13 +291,13 @@ Since window styles are bit-flags, to combine styles is as simple as using a bit
 <button type="button" class="code-block-copy-button" onclick="let c = `HWND Window = CreateWindowW(...);
 /* Anything you want here */
 
-ShowWindow(Window, nCmdShow);`; navigator.clipboard.writeText(c)">Copy</button>
+ShowWindow(Window, SW_SHOW);`; navigator.clipboard.writeText(c)">Copy</button>
 </div>
 <div class="code-block-content">
 <div class="highlight"><pre tabindex="0"><code class="language-C" data-lang="C"><span class="line"><span><span class="token typename">HWND</span> <span class="token variable">Window</span> = <span class="token macro">CreateWindowW</span>(...);
 </span></span><span class="line"><span><span class="token comment">/* Anything you want here */</span>
 </span></span><span class="line"><span>
-</span></span><span class="line"><span><span class="token function">ShowWindow</span>(<span class="token variable">Window</span>, <span class="token variable">nCmdShow</span>);
+</span></span><span class="line"><span><span class="token function">ShowWindow</span>(<span class="token variable">Window</span>, <span class="token macro">SW_SHOW</span>);
 </span></span></code></pre>
 </div></div>
 </div>
