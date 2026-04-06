@@ -49,15 +49,16 @@
   <main>
     <article>
 
-<p>The Windows Operating System has a long history. It has <em>tons</em> of features, many of which are hidden, deprecated, undocumented, or simply explained really poorly.
-This page is an attempt to collect all the things I've found out about the Windows programming interface through documentation, articles, videos, live streams, experimentation, open source code, conversations on Reddit, Stack Overflow and Discord.<br/>
-As of now, it is far from complete.
+<p>The Windows Operating System has a long history.
+It has <em>tons</em> of features, many of which are hidden, deprecated, undocumented, or simply explained really poorly. This page is an attempt to collect all the things I've found out about the Windows programming interface through documentation, articles, videos, live streams, experimentation, open source code, conversations on Reddit, Stack Overflow and Discord.</p>
+<p>Yes, Windows programmers are pushing the system towards its demise. But I don't think it'll be abandoned shortly, as some programs only exist on Windows and some companies are forcing all their employees to stay. Oh, and video games exist.</p>
+<p>As of now, it is far from complete.
 I will update it as I have time to write, or as I find out new things.</p>
 
 <h2 id="toc"><a href="A dump of my Windows knowledge.html#toc">Table of contents</a></h2>
 <ul>
 <li><a href="A dump of my Windows knowledge.html#exploring-msdn">Exploring MSDN</a></li>
-<li>The Windows SDK headers</li>
+<li><a href="A dump of my Windows knowledge.html#sdk-headers">The Windows SDK headers</a></li>
 <li>Hungarian notation</li>
 <li>Narrow and wide strings</li>
 <li>Entry points</li>
@@ -66,11 +67,16 @@ I will update it as I have time to write, or as I find out new things.</p>
 </ul>
 
 <h3 id="exploring-msdn"><a href="A dump of my Windows knowledge.html#exploring-msdn">Exploring MSDN</a></h3>
-<p>Microsoft has the extremely good habit of localizing all of its software to many languages. It also has the extremely <em>bad</em> habit of letting some of these translations be done by automatic tools, or recently even AI. Not only this is extremely noticeable and distracting as some of the sentences are <em>obviously wrong</em>; for technical information, such as compiler error messages and API documentation, it's also useless at best and confusing at worst, because some of the terminology only exists in english, and trying to forcefully translate it to other languages is impossible.</p>
+<p>Microsoft has the extremely good habit of localizing all of its software to many languages.
+It also has the extremely <em>bad</em> habit of letting some of these translations be done by automatic tools, or recently even AI.
+Not only this is extremely noticeable and distracting as some of the sentences are <em>obviously wrong</em>;
+for technical information, such as compiler error messages and API documentation, it's also useless at best and confusing at worst, because some of the terminology only exists in english and trying to forcefully translate it to other languages is impossible.</p>
 
-<p>Thankfully, <a title="AirLancer on GitHub" href="https://github.com/AirLancer">some very kind people</a> have thought about this and made a <a title="FFS MSDN in English on Chrome Web Store" href="https://chromewebstore.google.com/detail/ffs-msdn-in-english/ddaknggefjjgpnlhiejepbiplceedmfl/related?pli=1">Chrome</a> and <a title="FFS MSDN in English on Firefox Add-Ons" href="https://addons.mozilla.org/en-US/firefox/addon/ffs-msdn-in-english/">Firefox</a> extension called <em>“FFS MSDN in English”</em> that automatically redirects every non-english version of MSDN pages to their corresponding english version.</p>
+<p>MSDN, the website for Microsoft documentation (and other things), is one of those auto-translated things.</p>
 
-<h3>The Windows SDK headers</h3>
+<p>Thankfully <a title="AirLancer on GitHub" href="https://github.com/AirLancer">some very kind people</a> have thought about this, and made a <a title="FFS MSDN in English on Chrome Web Store" href="https://chromewebstore.google.com/detail/ffs-msdn-in-english/ddaknggefjjgpnlhiejepbiplceedmfl/related?pli=1">Chrome</a> and <a title="FFS MSDN in English on Firefox Add-Ons" href="https://addons.mozilla.org/en-US/firefox/addon/ffs-msdn-in-english/">Firefox</a> extension called <em>“FFS MSDN in English”</em> that automatically redirects every non-english version of MSDN pages to their corresponding english version.</p>
+
+<h3 id="sdk-headers"><a href="A dump of my Windows knowledge.html#sdk-headers">The Windows SDK headers</a></h3>
 <p>A lot of the functionality that Windows offers is exposed in the glorious <code>windows.h</code> header. It is actually a collection of other headers, and macros that control how these other headers are included.<br/>
 For example, the <code><span class="token macro">UNICODE</span></code> macro controls how some of the older string-related structs and functions are declared.</p> <!-- TODO(ema): Add a link "see the [unicode section](...)" -->
 <p>Because it contains so much stuff, to avoid polluting the global namespace and increasing compile times, some macros exist to exclude some of the declarations from the header. If you only want to use the most common stuff, define the <code><span class="token macro">WIN32_LEAN_AND_MEAN</span></code> macro, like this:</p>
@@ -354,6 +360,89 @@ while (GetMessageW(&Message, NULL, 0, 0) > 0) {
 </span></span></code></pre>
 </div></div>
 </div>
+
+<h4>The window procedure</h4>
+
+<p>When you call <code>DispatchMessage</code> the system will use the message struct to figure out what the target window of that message is. It will then lookup the window's class, and from that call the <code>lpfnWndProc</code> function that is assigned to it.
+The role of a window procedure is to process each relevant message that is sent to the window.</p>
+<p>As one would expect, the <em>default procedure</em> <code>DefWindowProc</code> has standard responses for the most common messages:
+closes the window when the X button in the top-right is clicked (or when <kbd>Alt+F4</kbd> is pressed), paints the window with the chosen background color (which we haven't selected yed).</p>
+
+<p>The window procedure can be any function with the following signature:</p>
+
+<div class="code-block">
+<div class="code-block-bar">
+<span>C</span>
+<button type="button" class="code-block-copy-button" onclick="let c = `LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);`; navigator.clipboard.writeText(c)">Copy</button>
+</div>
+<div class="code-block-content">
+<div class="highlight"><pre tabindex="0"><code class="language-C" data-lang="C"><span class="line"><span>LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
+</span></span></code></pre>
+</div></div>
+</div>
+
+<p>It has four parameters:</p>
+<ul>
+<li><code>hwnd</code> &ndash; a handle to the window that received the message</li>
+<li><code>uMsg</code> &ndash; the numeric code for the message, such as <code>WM_LBUTTONDOWN</code></li>
+<li><code>wParam</code> and <code>lParam</code> &ndash; additional information about the message. Their meaning depends on the message code</li> <!-- TODO(ema): Margin note [1] about the meaning of "w" and "l" here -->
+</ul>
+
+<p>The function returns an <code>LRESULT</code>, which also has a different interpretation depending on the message code.
+<code>UINT</code>, <code>WPARAM</code>, <code>LPARAM</code> and <code>LRESULT</code> are all just 32-bit integers.</p>
+
+<p>When you write your window procedure you can simply write code that only handles the messages you care about, and forward everything else to the default procedure.</p>
+
+<div class="code-block">
+<div class="code-block-bar">
+<span>C</span>
+<button type="button" class="code-block-copy-button" onclick="let c = `LRESULT CALLBACK WindowProc(HWND Window, UINT MessageKind, WPARAM wParam, LPARAM lParam) {
+	LRESULT Result = 0;
+	switch (MessageKind) {
+		case WM_LBUTTONDOWN: {
+			/* Process the mouse click */
+		} break;
+
+		/* Other cases */
+
+		default: {
+			Result = DefWindowProcW(Window, MessageKind, wParam, lParam);
+		} break;
+	}
+	return Result;
+}
+
+int wWinMain(...) {
+	/* ... */
+	WindowClass.lpfnWndProc = WindowProc;`; navigator.clipboard.writeText(c)">Copy</button>
+</div>
+<div class="code-block-content">
+<div class="highlight"><pre tabindex="0"><code class="language-C" data-lang="C"><span class="line"><span><span class="token typename">LRESULT</span> <span class="token macro">CALLBACK</span> <span class="token function">WindowProc</span>(<span class="token typename">HWND</span> <span class="token variable">Window</span>, <span class="token typename">UINT</span> <span class="token variable">MessageKind</span>,
+</span></span><span class="line"><span>							<span class="token typename">WPARAM</span> <span class="token variable">wParam</span>, <span class="token typename">LPARAM</span> <span class="token variable">lParam</span>) {
+</span></span><span class="line"><span>	<span class="token typename">LRESULT</span> <span class="token variable">Result</span> = <span class="token number">0</span>;
+</span></span><span class="line"><span>	<span class="token keyword">switch</span> (<span class="token variable">MessageKind</span>) {
+</span></span><span class="line"><span>		<span class="token keyword">case</span> <span class="token macro">WM_LBUTTONDOWN</span>: {
+</span></span><span class="line"><span>			<span class="token comment">/* Process the mouse click */</span>
+</span></span><span class="line"><span>		} <span class="token keyword">break</span>;
+</span></span><span class="line"><span>
+</span></span><span class="line"><span>		<span class="token comment">/* Other cases */</span>
+</span></span><span class="line"><span>
+</span></span><span class="line"><span>		<span class="token keyword">default</span>: {
+</span></span><span class="line"><span>			<span class="token variable">Result</span> = <span class="token function">DefWindowProcW</span>(<span class="token variable">Window</span>, <span class="token variable">MessageKind</span>, <span class="token variable">wParam</span>, <span class="token variable">lParam</span>);
+</span></span><span class="line"><span>		} <span class="token keyword">break</span>;
+</span></span><span class="line"><span>	}
+</span></span><span class="line"><span>	<span class="token keyword">return</span> <span class="token variable">Result</span>;
+</span></span><span class="line"><span>}
+</span></span><span class="line"><span>
+</span></span><span class="line"><span><span class="token typename">int</span> <span class="token function">wWinMain</span>(...) {
+</span></span><span class="line"><span>	<span class="token comment">/* ... */</span>
+</span></span><span class="line"><span>	<span class="token variable">WindowClass</span>.<span class="token variable">lpfnWndProc</span> = <span class="token function">WindowProc</span>;
+</span></span></code></pre>
+</div></div>
+</div>
+
+
+
 
 <!-- TODO(ema): What to do it CreateWindow fails but doesn't set last error?
 What happens with narrow vs wide windows
