@@ -123,15 +123,15 @@ To create a class, declare an instance of the <code><span class="token typename"
 <div class="code-block-bar">
 <span>C</span>
 <button type="button" class="code-block-copy-button" onclick="let c = `WNDCLASS WindowClass;
-/* initialize */
+/* Initialize */
 
 RegisterClass(&WindowClass);`; navigator.clipboard.writeText(c)">Copy</button>
 </div>
 <div class="code-block-content">
 <div class="highlight"><pre tabindex="0"><code class="language-C" data-lang="C"><span class="line"><span><span class="token typename">WNDCLASS</span> <span class="token variable">WindowClass</span>;
-</span></span><span class="line"><span><span class="token comment">/* initialize */</span>
+</span></span><span class="line"><span><span class="token comment">/* Initialize */</span>
 </span></span><span class="line"><span>
-</span></span><span class="line"><span><span class="token function">RegisterClass</span>(&<span class="token variable">WindowClass</span>);
+</span></span><span class="line"><span><span class="token function">RegisterClass</span>(&amp;<span class="token variable">WindowClass</span>);
 </span></span></code></pre>
 </div></div>
 </div>
@@ -205,7 +205,7 @@ RegisterClass(&WindowClass);`; navigator.clipboard.writeText(c)">Copy</button>
 </span></span><span class="line"><span><span class="token variable">WindowClass</span>.<span class="token variable">hInstance</span>     = <span class="token function">GetModuleHandleW</span>(<span class="token macro">NULL</span>);
 </span></span><span class="line"><span><span class="token variable">WindowClass</span>.<span class="token variable">lpszClassName</span> = <span class="token string">L&quot;Main Window Class&quot;</span>;
 </span></span><span class="line"><span>
-</span></span><span class="line"><span><span class="token function">RegisterClassW</span>(&<span class="token variable">WindowClass</span>);
+</span></span><span class="line"><span><span class="token function">RegisterClassW</span>(&amp;<span class="token variable">WindowClass</span>);
 </span></span></code></pre>
 </div></div>
 </div>
@@ -243,7 +243,7 @@ HWND Window = CreateWindowW(
 );`; navigator.clipboard.writeText(c)">Copy</button>
 </div>
 <div class="code-block-content">
-<div class="highlight"><pre tabindex="0"><code class="language-C" data-lang="C"><span class="line"><span><span class="token function">RegisterClassW</span>(&<span class="token variable">WindowClass</span>);
+<div class="highlight"><pre tabindex="0"><code class="language-C" data-lang="C"><span class="line"><span><span class="token function">RegisterClassW</span>(&amp;<span class="token variable">WindowClass</span>);
 </span></span><span class="line"><span>
 </span></span><span class="line"><span><span class="token typename">HWND</span> <span class="token variable">Window</span> = <span class="token macro">CreateWindowW</span>(
 </span></span><span class="line"><span>	<span class="token variable">WindowClass</span>.<span class="token variable">lpszClassName</span>,	<span class="token comment">// The class name</span>
@@ -269,7 +269,7 @@ HWND Window = CreateWindowW(
 <h4>Showing the window</h4>
 
 <p>A window's visibility is part of its <em>style</em>. You can create a window so that it's immediately visible, or you can make it visible later.<br/>
-To make it visible from the start, modify our call to <code><span class="token macro">CreateWindowW</span></code> so that it uses the <code><span class="token macro">WS_VISIBLE</span></code> style.
+To make it visible from the start, modify the call to <code><span class="token macro">CreateWindowW</span></code> so that it uses the <code><span class="token macro">WS_VISIBLE</span></code> style.
 Since window styles are bit-flags, to combine styles is as simple as using a bitwise-or:</p>
 
 <div class="code-block">
@@ -284,6 +284,7 @@ Since window styles are bit-flags, to combine styles is as simple as using a bit
 </div>
 
 <p>To make it invisible later, call the <code><span class="token function"><a href="https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-showwindow">ShowWindow</a></span></code> function whenever you're ready:</p>
+<!-- TODO(ema): Note [1] about ShowWindow and nCmdShow: what is it exactly -->
 
 <div class="code-block">
 <div class="code-block-bar">
@@ -302,6 +303,52 @@ ShowWindow(Window, SW_SHOW);`; navigator.clipboard.writeText(c)">Copy</button>
 </div></div>
 </div>
 
+<p>More about visibility later. Now, if you compile and run the code, a window will briefly appear on the screen and then immediately disappear. This is expected: the program ends, and the Operating System destroys all the windows it created.</p>
+
+<h4>The message loop</h4>
+
+<p>When a thread creates a window, it also implicitly creates a <i>message queue</i>. The system pushes messages on this queue:
+<ul>
+<li>When the user interacts with the window, such as when they click on it with the mouse;</li>
+<li>When something happens in the system that a program might care about, such as when the monitor resolution changes.</li>
+</ul></p>
+
+<p>Each message has a numeric constant, and a macro in the windows headers that expands to that constant.
+For the two messages mentioned, they are <code><a title="WM_LBUTTONDOWN message on MSDN" href="https://learn.microsoft.com/en-us/windows/win32/inputdev/wm-lbuttondown">WM_LBUTTONDOWN</a></code> and <code title="WM_DISPLAYCHANGE message on MSDN"><a href="https://learn.microsoft.com/en-us/windows/win32/gdi/wm-displaychange">WM_DISPLAYCHANGE</a></code>.</p> <!-- TODO(ema): Note [1] saying there are too many messages to learn them all at once. If you are programming windows, be ready to google them often, and to look up "is there a message for when this happens?"; eventually you will learn the more common ones; Note [2] let's ignore the other parameters for now -->
+
+<p>The <code><a title="GetMessageW function on MSDN" href="https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-getmessagew">GetMessage*</a></code> functions remove the first message from the thread's queue, then fill a <code><span class="token typename"><a title="MSG structure on MSDN" href="https://learn.microsoft.com/en-us/windows/win32/api/winuser/ns-winuser-msg">MSG</a></span></code> structure with information about it.</p>
+
+<div class="code-block">
+<div class="code-block-bar">
+<span>C</span>
+<button type="button" class="code-block-copy-button" onclick="let c = `MSG Message;
+GetMessageW(&Message, NULL, 0, 0);`; navigator.clipboard.writeText(c)">Copy</button>
+</div>
+<div class="code-block-content">
+<div class="highlight"><pre tabindex="0"><code class="language-C" data-lang="C"><span class="line"><span><span class="token typename">MSG</span> <span class="token variable">Message</span>;
+</span></span><span class="line"><span><span class="token function">GetMessageW</span>(&amp;<span class="token variable">Message</span>, <span class="token macro">NULL</span>, <span class="token number">0</span>, <span class="token number">0</span>);
+</span></span></code></pre>
+</div></div>
+</div>
+
+<div class="code-block">
+<div class="code-block-bar">
+<span>C</span>
+<button type="button" class="code-block-copy-button" onclick="let c = `MSG Message;
+while (GetMessageW(&Message, NULL, 0, 0) > 0) {
+	TranslateMessage(&Message);
+	DispatchMessageW(&Message);
+}`; navigator.clipboard.writeText(c)">Copy</button>
+</div>
+<div class="code-block-content">
+<div class="highlight"><pre tabindex="0"><code class="language-C" data-lang="C"><span class="line"><span><span class="token typename">MSG</span> <span class="token variable">Message</span>;
+</span></span><span class="line"><span><span class="token keyword">while</span> (<span class="token function">GetMessageW</span>(&amp;<span class="token variable">Message</span>, <span class="token macro">NULL</span>, <span class="token number">0</span>, <span class="token number">0</span>) > <span class="token number">0</span>) {
+</span></span><span class="line"><span>	<span class="token function">TranslateMessage</span>(&amp;<span class="token variable">Message</span>);
+</span></span><span class="line"><span>	<span class="token function">DispatchMessageW</span>(&amp;<span class="token variable">Message</span>);
+</span></span><span class="line"><span>}
+</span></span></code></pre>
+</div></div>
+</div>
 
 <!-- TODO(ema): What to do it CreateWindow fails but doesn't set last error?
 What happens with narrow vs wide windows
