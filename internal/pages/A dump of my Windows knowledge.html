@@ -49,9 +49,14 @@
   <main>
     <article>
 
-<h3>Table of contents</h3>
+<p>The Windows Operating System has a long history. It has <em>tons</em> of features, many of which are hidden, deprecated, undocumented, or simply explained really poorly.
+This page is an attempt to collect all the things I've found out about the Windows programming interface through documentation, articles, videos, live streams, experimentation, open source code, conversations on Reddit, Stack Overflow and Discord.<br/>
+As of now, it is far from complete.
+I will update it as I have time to write, or as I find out new things.</p>
+
+<h2 id="toc"><a href="A dump of my Windows knowledge.html#toc">Table of contents</a></h2>
 <ul>
-<li>Exploring MSDN</li>
+<li><a href="A dump of my Windows knowledge.html#exploring-msdn">Exploring MSDN</a></li>
 <li>The Windows SDK headers</li>
 <li>Hungarian notation</li>
 <li>Narrow and wide strings</li>
@@ -60,7 +65,7 @@
 <li>Window creation</li>
 </ul>
 
-<h3>Exploring MSDN</h3>
+<h3 id="exploring-msdn"><a href="A dump of my Windows knowledge.html#exploring-msdn">Exploring MSDN</a></h3>
 <p>Microsoft has the extremely good habit of localizing all of its software to many languages. It also has the extremely <em>bad</em> habit of letting some of these translations be done by automatic tools, or recently even AI. Not only this is extremely noticeable and distracting as some of the sentences are <em>obviously wrong</em>; for technical information, such as compiler error messages and API documentation, it's also useless at best and confusing at worst, because some of the terminology only exists in english, and trying to forcefully translate it to other languages is impossible.</p>
 
 <p>Thankfully, <a title="AirLancer on GitHub" href="https://github.com/AirLancer">some very kind people</a> have thought about this and made a <a title="FFS MSDN in English on Chrome Web Store" href="https://chromewebstore.google.com/detail/ffs-msdn-in-english/ddaknggefjjgpnlhiejepbiplceedmfl/related?pli=1">Chrome</a> and <a title="FFS MSDN in English on Firefox Add-Ons" href="https://addons.mozilla.org/en-US/firefox/addon/ffs-msdn-in-english/">Firefox</a> extension called <em>“FFS MSDN in English”</em> that automatically redirects every non-english version of MSDN pages to their corresponding english version.</p>
