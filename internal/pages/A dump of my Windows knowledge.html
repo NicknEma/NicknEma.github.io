@@ -51,17 +51,24 @@
 
 <h3>Table of contents</h3>
 <ul>
+<li>Exploring MSDN</li>
 <li>The Windows SDK headers</li>
+<li>Hungarian notation</li>
 <li>Narrow and wide strings</li>
 <li>Entry points</li>
 <li>Compiling and linking</li>
 <li>Window creation</li>
 </ul>
 
+<h3>Exploring MSDN</h3>
+<p>Microsoft has the extremely good habit of localizing all of its software to many languages. It also has the extremely <em>bad</em> habit of letting some of these translations be done by automatic tools, or recently even AI. Not only this is extremely noticeable and distracting as some of the sentences are <em>obviously wrong</em>; for technical information, such as compiler error messages and API documentation, it's also useless at best and confusing at worst, because some of the terminology only exists in english, and trying to forcefully translate it to other languages is impossible.</p>
+
+<p>Thankfully, <a title="AirLancer on GitHub" href="https://github.com/AirLancer">some very kind people</a> have thought about this and made a <a title="FFS MSDN in English on Chrome Web Store" href="https://chromewebstore.google.com/detail/ffs-msdn-in-english/ddaknggefjjgpnlhiejepbiplceedmfl/related?pli=1">Chrome</a> and <a title="FFS MSDN in English on Firefox Add-Ons" href="https://addons.mozilla.org/en-US/firefox/addon/ffs-msdn-in-english/">Firefox</a> extension called <em>“FFS MSDN in English”</em> that automatically redirects every non-english version of MSDN pages to their corresponding english version.</p>
+
 <h3>The Windows SDK headers</h3>
 <p>A lot of the functionality that Windows offers is exposed in the glorious <code>windows.h</code> header. It is actually a collection of other headers, and macros that control how these other headers are included.<br/>
-For example, the <code>UNICODE</code> macro controls how some of the older string-related structs and functions are declared.</p> <!-- TODO(ema): Add a link "see the [unicode section](...)" -->
-<p>Because it contains so much stuff, to avoid polluting the global namespace and increasing compile times, some macros exist to exclude some of the declarations from the header. If you only want to use the most common stuff, define the <code>WIN32_LEAN_AND_MEAN</code> macro, like this:</p>
+For example, the <code><span class="token macro">UNICODE</span></code> macro controls how some of the older string-related structs and functions are declared.</p> <!-- TODO(ema): Add a link "see the [unicode section](...)" -->
+<p>Because it contains so much stuff, to avoid polluting the global namespace and increasing compile times, some macros exist to exclude some of the declarations from the header. If you only want to use the most common stuff, define the <code><span class="token macro">WIN32_LEAN_AND_MEAN</span></code> macro, like this:</p>
 
 <div class="code-block">
 <div class="code-block-bar">
@@ -70,7 +77,7 @@ For example, the <code>UNICODE</code> macro controls how some of the older strin
 #include <windows.h>`; navigator.clipboard.writeText(c)">Copy</button>
 </div>
 <div class="code-block-content">
-<div class="highlight"><pre tabindex="0"><code class="language-C" data-lang="C"><span class="line"><span><span class="token">#define</span> <span class="token">WIN32_LEAN_AND_MEAN</span>
+<div class="highlight"><pre tabindex="0"><code class="language-C" data-lang="C"><span class="line"><span><span class="token">#define</span> <span class="token macro">WIN32_LEAN_AND_MEAN</span>
 </span></span><span class="line"><span><span class="token">#include</span> <span class="token string">&lt;windows.h&gt;</span>
 </span></span></code></pre>
 </div></div>
@@ -79,44 +86,44 @@ For example, the <code>UNICODE</code> macro controls how some of the older strin
 <h3>Window creation</h3>
 <p>A window, the thing that Windows was named after, is rather weird to create. If you've never done it before, it will seem difficult, as there are many pieces that you need to connect. After a couple of times you'll change your mind, and think it's not so bad anymore. Then you'll change your mind again, realizing that you're experiencing weird behaviours that you don't want, and that in order to fix those you'll have to bend over backwards. Don't worry, not even official Microsoft programs get it right; not even the code samples that they give you in order to learn Windows. That's how bad it gets.</p>
 
-<p>The mere act of <em>creating</em> a Window isn't too difficult: just call the <code>CreateWindow</code> function (or rather, macro). But that won't get you anywhere; you need to understand the bigger picture:<br/>
-If you create a window with <code>CreateWindow</code>, you then need code that tells the compute what to do after the window was created: what to draw on it, what happens if the user interacts with it, and so on. Graphical programs are traditionally written using a loop: first the code checks if the user has done something, picks the appropriate response and communicates it to the user, then repeat forever (or until the user exits the program). This is usually called an <em>event loop</em> or a <em>message loop</em>. Imagine that your program will look something like this:</p>
+<p>The mere act of <em>creating</em> a Window isn't too difficult: just call the <code><span class="token macro"><a title="CreateWindowW macro on MSDN" href="https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-createwindoww">CreateWindow</a></span></code> function (or rather, macro). But that won't get you anywhere; you need to understand the bigger picture:<br/>
+If you create a window with <code><span class="token macro">CreateWindow</span></code>, you then need code that tells the compute what to do after the window was created: what to draw on it, what happens if the user interacts with it, and so on. Graphical programs are traditionally written using a loop: first the code checks if the user has done something, picks the appropriate response and communicates it to the user, then repeat forever (or until the user exits the program). This is usually called an <em>event loop</em> or a <em>message loop</em>. Imagine that your program will look something like this:</p>
 
 <div class="code-block">
 <div class="code-block-content">
-<pre tabindex="0">begin:
+<pre tabindex="0"><code>begin:
 	create window
 
-	until the user quits
+	until the user quits:
 		wait for a user interaction
-		process that interaction</pre>
+		process that interaction</code></pre>
 </div>
 </div>
 
 <div class="code-block">
 <div class="code-block-content">
-<pre tabindex="0">begin:
+<pre tabindex="0"><code>begin:
 	create window
 
-	until the user quits
+	until the user quits:
 		wait for a user interaction
 		call the event handler
 
 in the event handler:
-	process the interaction</pre>
+	process the interaction</code></pre>
 </div>
 </div>
 
 <h4>The window class</h4>
 
 <p>In Windows, each window has a <i>class</i>. In this case, the word "class" has nothing to do with the C++ construct. It is simply a way to group functionality between similar windows. You need to create a window class, even if you intend to only have 1 window of that class.<br/>
-To create a class, declare an instance of the <code>WNDCLASS</code> structure, fill in the members, then call <code>RegisterClass</code>:</p>
+To create a class, declare an instance of the <code><span class="token typename"><a title="WNDCLASSW structure on MSDN" href="https://learn.microsoft.com/en-us/windows/win32/api/winuser/ns-winuser-wndclassw">WNDCLASS</a></span></code> structure, fill in the members, then call <code><span class="token macro"><a title="RegisterClassW macro on MSDN" href="https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-registerclassw">RegisterClass</a></span></code>:</p>
 
 <div class="code-block">
 <div class="code-block-bar">
 <span>C</span>
 <button type="button" class="code-block-copy-button" onclick="let c = `WNDCLASS WindowClass;
-/* ... initialize ... */
+/* initialize */
 
 RegisterClass(&WindowClass);`; navigator.clipboard.writeText(c)">Copy</button>
 </div>
@@ -133,7 +140,7 @@ RegisterClass(&WindowClass);`; navigator.clipboard.writeText(c)">Copy</button>
 
 <p>The <code>WNDCLASS*</code> structures have a lot of fields, but don't worry: you only have to set 3 of them to have a valid class; the others can be set to 0, and they will take default values.</p>
 
-<p>The first field to set is <code>lpzsClassName</code> (<b>l</b>ong <b>p</b>ointer to <b>z</b>ero-terminated <b>s</b>tring ClassName).
+<p>The first field to set is <code>lpszClassName</code> (<b>l</b>ong <b>p</b>ointer to <b>s</b>tring <b>z</b>ero-terminated ClassName).
 It is the name that the system will register the class with.
 It needs to be unique for the entire process, and it is case-insensitive ("myclass", "MyClass" and "myClass" are equivalent).
 You also need to be aware of some system-defined names that are already registered at the start of your process, that are used for buttons and similar controls.</p>
@@ -141,10 +148,10 @@ You also need to be aware of some system-defined names that are already register
 <div class="code-block">
 <div class="code-block-bar">
 <span>C</span>
-<button type="button" class="code-block-copy-button" onclick="let c = `WindowClass.lpzsClassName = L"Main Window Class";`; navigator.clipboard.writeText(c)">Copy</button>
+<button type="button" class="code-block-copy-button" onclick="let c = `WindowClass.lpszClassName = L"Main Window Class";`; navigator.clipboard.writeText(c)">Copy</button>
 </div>
 <div class="code-block-content">
-<div class="highlight"><pre tabindex="0"><code class="language-C" data-lang="C"><span class="line"><span><span class="token variable">WindowClass</span>.<span class="token variable">lpzsClassName</span> = <span class="token string">L&quot;Main Window Class&quot;</span>;
+<div class="highlight"><pre tabindex="0"><code class="language-C" data-lang="C"><span class="line"><span><span class="token variable">WindowClass</span>.<span class="token variable">lpszClassName</span> = <span class="token string">L&quot;Main Window Class&quot;</span>;
 </span></span></code></pre>
 </div></div>
 </div>
@@ -175,7 +182,7 @@ It's the first parameter of the <code>WinMain</code> family of entry points, or,
 <button type="button" class="code-block-copy-button" onclick="let c = `WindowClass.hInstance = GetModuleHandleW(NULL);`; navigator.clipboard.writeText(c)">Copy</button>
 </div>
 <div class="code-block-content">
-<div class="highlight"><pre tabindex="0"><code class="language-C" data-lang="C"><span class="line"><span><span class="token variable">WindowClass</span>.<span class="token variable">hInstance</span> = <span class="token function">GetModuleHandleW</span>(<span class="token">NULL</span>);
+<div class="highlight"><pre tabindex="0"><code class="language-C" data-lang="C"><span class="line"><span><span class="token variable">WindowClass</span>.<span class="token variable">hInstance</span> = <span class="token function">GetModuleHandleW</span>(<span class="token macro">NULL</span>);
 </span></span></code></pre>
 </div></div>
 </div>
@@ -185,27 +192,36 @@ It's the first parameter of the <code>WinMain</code> family of entry points, or,
 <div class="code-block">
 <div class="code-block-bar">
 <span>C</span>
-<button type="button" class="code-block-copy-button" onclick="let c = `WNDCLASSW WindowClass = {0};
+<button type="button" class="code-block-copy-button" onclick="let c = `WNDCLASSW WindowClass = {0}; // Set everything to zero
 WindowClass.lpfnWndProc   = DefWindowProcW;
 WindowClass.hInstance     = GetModuleHandleW(NULL);
-WindowClass.lpzsClassName = L"Main Window Class";
+WindowClass.lpszClassName = L"Main Window Class";
 
 RegisterClass(&WindowClass);`; navigator.clipboard.writeText(c)">Copy</button>
 </div>
 <div class="code-block-content">
-<div class="highlight"><pre tabindex="0"><code class="language-C" data-lang="C"><span class="line"><span><span class="token typename">WNDCLASSW</span> <span class="token variable">WindowClass</span> = {<span class="token number">0</span>};
+<div class="highlight"><pre tabindex="0"><code class="language-C" data-lang="C"><span class="line"><span><span class="token typename">WNDCLASSW</span> <span class="token variable">WindowClass</span> = {<span class="token number">0</span>}; <span class="token comment">// Set everything to zero</span>
 </span></span><span class="line"><span><span class="token variable">WindowClass</span>.<span class="token variable">lpfnWndProc</span>   = <span class="token function">DefWindowProcW</span>;
-</span></span><span class="line"><span><span class="token variable">WindowClass</span>.<span class="token variable">hInstance</span>     = <span class="token function">GetModuleHandleW</span>(<span class="token">NULL</span>);
-</span></span><span class="line"><span><span class="token variable">WindowClass</span>.<span class="token variable">lpzsClassName</span> = <span class="token string">L&quot;Main Window Class&quot;</span>;
+</span></span><span class="line"><span><span class="token variable">WindowClass</span>.<span class="token variable">hInstance</span>     = <span class="token function">GetModuleHandleW</span>(<span class="token macro">NULL</span>);
+</span></span><span class="line"><span><span class="token variable">WindowClass</span>.<span class="token variable">lpszClassName</span> = <span class="token string">L&quot;Main Window Class&quot;</span>;
 </span></span><span class="line"><span>
-</span></span><span class="line"><span><span class="token function">RegisterClassW</span>(&<span>WindowClass</span>);
+</span></span><span class="line"><span><span class="token function">RegisterClassW</span>(&<span class="token variable">WindowClass</span>);
 </span></span></code></pre>
 </div></div>
 </div>
 
 <h4>The window</h4>
 
-<p>Now that the window class is registered, it's time to call <code>CreateWindowW</code>. It has quite a few parameters.</p>
+<p>Now that the window class is registered, it's time to call <code><a title="CreateWindowW macro on MSDN" href="https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-createwindoww">CreateWindowW</a></code>. It has quite a few parameters<!-- TODO(ema): Add a note [1] that mentions the Ex version-->. The most important are:</p>
+<ul>
+<li><code>lpClassName</code> &ndash; The name of the <em>class</em> that this window will belong to;</li>
+<li><code>lpWindowName</code> &ndash; The name of the <em>window</em> itself. The way this'll be used depends on how the window is displayed. For windows with a title bar, it'll be the title of the window;</li>
+<li><code>dwStyle</code> &ndash; The “style” of the window, or its graphical properties;</li>
+<li><code>x, y, nWidth, nHeight</code> &ndash; The initial position and size of the window;</li>
+<li><code>hInstance</code> &ndash; The handle to the process’ module</li>
+</ul>
+
+<p>Here's an example of how you might call it:</p>
 
 <div class="code-block">
 <div class="code-block-bar">
@@ -213,9 +229,9 @@ RegisterClass(&WindowClass);`; navigator.clipboard.writeText(c)">Copy</button>
 <button type="button" class="code-block-copy-button" onclick="let c = `RegisterClass(&WindowClass);
 
 HWND Window = CreateWindowW(
-	WindowClass.lpzsClassName,
-	L"Hello Windows",
-	WS_OVERLAPPEDWINDOW,
+	WindowClass.lpszClassName,	// The class name
+	L"Hello Windows",			// The title of the window
+	WS_OVERLAPPEDWINDOW,		// The "style" of the window
 	CW_USEDEFAULT,
 	CW_USEDEFAULT,
 	CW_USEDEFAULT,
@@ -227,24 +243,65 @@ HWND Window = CreateWindowW(
 );`; navigator.clipboard.writeText(c)">Copy</button>
 </div>
 <div class="code-block-content">
-<div class="highlight"><pre tabindex="0"><code class="language-C" data-lang="C"><span class="line"><span><span class="token function">RegisterClassW</span>(&<span>WindowClass</span>);
+<div class="highlight"><pre tabindex="0"><code class="language-C" data-lang="C"><span class="line"><span><span class="token function">RegisterClassW</span>(&<span class="token variable">WindowClass</span>);
 </span></span><span class="line"><span>
-</span></span><span class="line"><span>HWND Window = CreateWindowW(
-</span></span><span class="line"><span>	WindowClass.lpzsClassName,	// The class name
-</span></span><span class="line"><span>	L&quot;Hello Windows&quot;,			// Title of the window
-</span></span><span class="line"><span>	WS_OVERLAPPEDWINDOW,		// "Style" of the window
-</span></span><span class="line"><span>	CW_USEDEFAULT,				// Left edge
-</span></span><span class="line"><span>	CW_USEDEFAULT,				// Top edge
-</span></span><span class="line"><span>	CW_USEDEFAULT,				// Width
-</span></span><span class="line"><span>	CW_USEDEFAULT,				// Height
-</span></span><span class="line"><span>	NULL,						// Parent window
-</span></span><span class="line"><span>	WindowClass.hInstance,		// Module handle
-</span></span><span class="line"><span>	NULL,						// Menu
-</span></span><span class="line"><span>	NULL						// Additional data
+</span></span><span class="line"><span><span class="token typename">HWND</span> <span class="token variable">Window</span> = <span class="token macro">CreateWindowW</span>(
+</span></span><span class="line"><span>	<span class="token variable">WindowClass</span>.<span class="token variable">lpszClassName</span>,	<span class="token comment">// The class name</span>
+</span></span><span class="line"><span>	<span class="token string">L&quot;Hello Windows&quot;</span>,			<span class="token comment">// Title of the window</span>
+</span></span><span class="line"><span>	<span class="token macro">WS_OVERLAPPEDWINDOW</span>,		<span class="token comment">// The "style" of the window</span>
+</span></span><span class="line"><span>	<span class="token macro">CW_USEDEFAULT</span>,				<span class="token comment">// Left edge</span>
+</span></span><span class="line"><span>	<span class="token macro">CW_USEDEFAULT</span>,				<span class="token comment">// Top edge</span>
+</span></span><span class="line"><span>	<span class="token macro">CW_USEDEFAULT</span>,				<span class="token comment">// Width</span>
+</span></span><span class="line"><span>	<span class="token macro">CW_USEDEFAULT</span>,				<span class="token comment">// Height</span>
+</span></span><span class="line"><span>	<span class="token macro">NULL</span>,						<span class="token comment">// Parent window	(optional)</span>
+</span></span><span class="line"><span>	<span class="token variable">WindowClass</span>.<span class="token variable">hInstance</span>,		<span class="token comment">// Module handle</span>
+</span></span><span class="line"><span>	<span class="token macro">NULL</span>,						<span class="token comment">// Menu				(optional)</span>
+</span></span><span class="line"><span>	<span class="token macro">NULL</span>						<span class="token comment">// Additional data	(optional)</span>
 </span></span><span class="line"><span>);
 </span></span></code></pre>
 </div></div>
 </div>
+
+<p><code><span class="token macro">CreateWindow</span>*</code> returns a <i>handle</i> to the window that was created, or <code><span class="token macro">NULL</span></code> if it fails.</p>
+
+<p>If you compile and run your program now, you will see... nothing. Windows are <em>invisible</em> unless otherwise specified. The next step is to make the window <em>visible</em>.</p>
+
+<h4>Showing the window</h4>
+
+<p>A window's visibility is part of its <em>style</em>. You can create a window so that it's immediately visible, or you can make it visible later.<br/>
+To make it visible from the start, modify our call to <code><span class="token macro">CreateWindowW</span></code> so that it uses the <code><span class="token macro">WS_VISIBLE</span></code> style.
+Since window styles are bit-flags, to combine styles is as simple as using a bitwise-or:</p>
+
+<div class="code-block">
+<div class="code-block-bar">
+<span>C</span>
+<button type="button" class="code-block-copy-button" onclick="let c = `	WS_OVERLAPPEDWINDOW|WS_VISIBLE,`; navigator.clipboard.writeText(c)">Copy</button>
+</div>
+<div class="code-block-content">
+<div class="highlight"><pre tabindex="0"><code class="language-C" data-lang="C"><span class="line"><span>	<span class="token macro">WS_OVERLAPPEDWINDOW</span>|<span class="token macro">WS_VISIBLE</span>,
+</span></span></code></pre>
+</div></div>
+</div>
+
+<p>To make it invisible later, call the <code><span class="token function"><a href="https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-showwindow">ShowWindow</a></span></code> function whenever you're ready:</p>
+
+<div class="code-block">
+<div class="code-block-bar">
+<span>C</span>
+<button type="button" class="code-block-copy-button" onclick="let c = `HWND Window = CreateWindowW(...);
+/* Anything you want here */
+
+ShowWindow(Window, nCmdShow);`; navigator.clipboard.writeText(c)">Copy</button>
+</div>
+<div class="code-block-content">
+<div class="highlight"><pre tabindex="0"><code class="language-C" data-lang="C"><span class="line"><span><span class="token typename">HWND</span> <span class="token variable">Window</span> = <span class="token macro">CreateWindowW</span>(...);
+</span></span><span class="line"><span><span class="token comment">/* Anything you want here */</span>
+</span></span><span class="line"><span>
+</span></span><span class="line"><span><span class="token function">ShowWindow</span>(<span class="token variable">Window</span>, <span class="token variable">nCmdShow</span>);
+</span></span></code></pre>
+</div></div>
+</div>
+
 
 <!-- TODO(ema): What to do it CreateWindow fails but doesn't set last error?
 What happens with narrow vs wide windows
