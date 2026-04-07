@@ -223,7 +223,13 @@ RegisterClass(&WindowClass);`; navigator.clipboard.writeText(c)">Copy</button>
 
 <h4>The window</h4>
 
-<p>Now that the window class is registered, it's time to call <code><a title="CreateWindowW macro on MSDN" href="https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-createwindoww">CreateWindowW</a></code>. It has quite a few parameters<!-- TODO(ema): Add a note [1] that mentions the Ex version-->. The most important are:</p>
+<p>Now that the window class is registered, it's time to call <code><a title="CreateWindowW macro on MSDN" href="https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-createwindoww">CreateWindowW</a></code>
+<label for="CreateWindowEx" class="margin-toggle sidenote-number"></label>
+<input type="checkbox" id="CreateWindowEx" class="margin-toggle"></input>
+<span class="sidenote">It's actually a <em>macro</em> that expands to <code>CreateWindowEx</code>, which has even more parameters. We'll see that later.</span>
+.
+It has quite a few parameters.
+The most important are:</p>
 <ul>
 <li><code>lpClassName</code> &ndash; The name of the <em>class</em> that this window will belong to;</li>
 <li><code>lpWindowName</code> &ndash; The name of the <em>window</em> itself. The way this'll be used depends on how the window is displayed. For windows with a title bar, it'll be the title of the window;</li>
@@ -389,7 +395,11 @@ closes the window when the X button in the top-right is clicked (or when <kbd>Al
 </ul>
 
 <p>The function returns an <code>LRESULT</code>, which also has a different interpretation depending on the message code.
-<code>UINT</code>, <code>WPARAM</code>, <code>LPARAM</code> and <code>LRESULT</code> are all just 32-bit integers.</p>
+<code>UINT</code>, <code>WPARAM</code>, <code>LPARAM</code> and <code>LRESULT</code> are all just 32-bit integers
+<label for="wParam-lParam" class="margin-toggle sidenote-number"></label>
+<input type="checkbox" id="wParam-lParam" class="margin-toggle"></input>
+<span class="sidenote">The <code>w</code> and <code>l</code> here are for <em>wide</em> and <em>long</em> ints; which, in modern Windows, are the same thing.</span>
+.</p>
 
 <p>When you write your window procedure you can simply write code that only handles the messages you care about, and forward everything else to the default procedure.</p>
 
