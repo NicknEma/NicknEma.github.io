@@ -125,6 +125,10 @@ in the event handler:
 </div>
 </div>
 
+<h4>Preparation</h4>
+
+<p>When experimenting with window creation it is very easy to accidentally write a program that infinitely loops with no way to terminate it. Get yourself a debugger and run your experiments from there so you have an easy way to force the program to exit, or be ready to scroll through Task Manager's background processes list.</p>
+
 <h4>The window class</h4>
 
 <p>In Windows, each window has a <i>class</i>. In this case, the word "class" has nothing to do with the C++ construct. It is simply a way to group functionality between similar windows. You need to create a window class, even if you intend to only have 1 window of that class.<br/>
@@ -369,9 +373,9 @@ while (GetMessageW(&Message, NULL, 0, 0) > 0) {
 
 <h4>The window procedure</h4>
 
-<p>When you call <code>DispatchMessage</code> the system will use the message struct to figure out what the target window of that message is. It will then lookup the window's class, and from that call the <code>lpfnWndProc</code> function that is assigned to it.
+<p>When you call <code>DispatchMessageW</code> the system will use the message struct to figure out what the target window of that message is. It will then lookup the window's class, and from that call the <code>lpfnWndProc</code> function that is assigned to it.
 The role of a window procedure is to process each relevant message that is sent to the window.</p>
-<p>As one would expect, the <em>default procedure</em> <code>DefWindowProc</code> has standard responses for the most common messages:
+<p>As one would expect, the <em>default procedure</em> <code>DefWindowProcW</code> has standard responses for the most common messages:
 closes the window when the X button in the top-right is clicked (or when <kbd>Alt+F4</kbd> is pressed), paints the window with the chosen background color (which we haven't selected yed).</p>
 
 <p>The window procedure can be any function with the following signature:</p>
@@ -382,7 +386,7 @@ closes the window when the X button in the top-right is clicked (or when <kbd>Al
 <button type="button" class="code-block-copy-button" onclick="let c = `LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);`; navigator.clipboard.writeText(c)">Copy</button>
 </div>
 <div class="code-block-content">
-<div class="highlight"><pre tabindex="0"><code class="language-C" data-lang="C"><span class="line"><span>LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
+<div class="highlight"><pre tabindex="0"><code class="language-C" data-lang="C"><span class="line"><span><span class="token typename">LRESULT</span> <span class="token macro">CALLBACK</span> <span class="token function">WindowProc</span>(<span class="token typename">HWND</span> <span class="token variable">hwnd</span>, <span class="token typename">UINT</span> <span class="token variable">uMsg</span>, <span class="token typename">WPARAM</span> <span class="token variable">wParam</span>, <span class="token typename">LPARAM</span> <span class="token variable">lParam</span>);
 </span></span></code></pre>
 </div></div>
 </div>
@@ -391,14 +395,13 @@ closes the window when the X button in the top-right is clicked (or when <kbd>Al
 <ul>
 <li><code>hwnd</code> &ndash; a handle to the window that received the message</li>
 <li><code>uMsg</code> &ndash; the numeric code for the message, such as <code>WM_LBUTTONDOWN</code></li>
-<li><code>wParam</code> and <code>lParam</code> &ndash; additional information about the message. Their meaning depends on the message code</li> <!-- TODO(ema): Margin note [1] about the meaning of "w" and "l" here -->
+<li><code>wParam</code> and <code>lParam</code> &ndash; additional information about the message. Their meaning depends on the message code</li>
 </ul>
-
 <p>The function returns an <code>LRESULT</code>, which also has a different interpretation depending on the message code.
 <code>UINT</code>, <code>WPARAM</code>, <code>LPARAM</code> and <code>LRESULT</code> are all just 32-bit integers
 <label for="wParam-lParam" class="margin-toggle sidenote-number"></label>
 <input type="checkbox" id="wParam-lParam" class="margin-toggle"></input>
-<span class="sidenote">The <code>w</code> and <code>l</code> here are for <em>wide</em> and <em>long</em> ints; which, in modern Windows, are the same thing.</span>
+<span class="sidenote">The <code>w</code> and <code>l</code> prefixes here stand for <em>wide</em> and <em>long</em>; in the context of integers, on modern Windows, they are the same thing.</span>
 .</p>
 
 <p>When you write your window procedure you can simply write code that only handles the messages you care about, and forward everything else to the default procedure.</p>
