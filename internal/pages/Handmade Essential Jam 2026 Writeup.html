@@ -1,0 +1,30 @@
+# How NOT to take a screenshot
+
+
+
+
+# How to take a screenshot, I guess
+
+Let's talk about the *new* way to take screenshots. Or, what I could make of it in these few days.
+Content warning: what follows is not for the faint of heart. The code is about to become absolute Microsoft crazytown.
+
+Don't believe me? Let me give you a spoiler:
+
+__FITypedEventHandler_2_Windows__CGraphics__CCapture__CDirect3D11CaptureFramePool_IInspectable I;
+
+That should do it. If you're still here, let's go.
+Let's start by including this header:
+
+#include <windows.graphics.capture.h>
+
+If you're using C++, buckle up, because your compile times are about to explode.
+
+	get a d3d11 device -> dxgi device
+		create a capture device
+			create a capture item (target)
+				create a frame pool
+					create a session
+						set session options
+						register session events
+						start capture
+	wait for events
