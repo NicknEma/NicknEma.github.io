@@ -93,6 +93,34 @@ dl, ol, ul {
 	line-height: 1.5rem;
 }
 
+/*
+** BLOCKQUOTES
+*/
+
+div:has(> blockquote) {
+	margin: 10px auto;
+	padding: 5px 15px;
+	border-left: 0.3rem solid light-dark(#aaa, #555);
+}
+
+blockquote { margin: 0 }
+
+/* Automatic quote marks (") before and after the quote text */
+blockquote p::before { content: "\201C" }
+blockquote p::after  { content: "\201D" }
+
+blockquote + p { text-align: right }
+blockquote p { font-style: italic }
+
+blockquote p, blockquote + p {
+	margin-bottom: 0.4em;
+	margin-top:    0.4em
+}
+
+/*
+** CODE
+*/
+
 p code, li code {
 	line-height: 1;
 	padding: 1px 3px;
