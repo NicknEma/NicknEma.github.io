@@ -64,6 +64,7 @@ I will update it as I have time to write, or as I find out new things.</p>
 <li>Entry points</li>
 <li>Compiling and linking</li>
 <li>Window creation</li>
+<li><a href="A dump of my Windows knowledge.html#com">The Component Object Model (COM)</a></li>
 <li><a href="A dump of my Windows knowledge.html#windows-runtime">Windows Runtime</a></li>
 </ul>
 
@@ -478,6 +479,28 @@ stretchdibits, bitmap allocation & alignment-->
 
 
 
+
+<h3 id="com"><a href="A dump of my Windows knowledge.html#com">The Component Object Model (COM)</a></h3>
+
+<div>
+	<blockquote cite="https://books.google.co.uk/books?id=kfRWvKSePmAC&dq=essential+com&printsec=frontcover&source=bn&hl=en&sa=X&oi=book_result&resnum=6&ct=result#v=onepage&q&f=false">
+		<p>COM IDL is based on the Open Software Foundation Distributed Computing Environment Remote Procedure Call (OSF DCE RPC) IDL.</p>
+	</blockquote>
+	<p>&mdash;Don Box, <cite>Essential COM</cite></p>
+</div>
+
+<ul>
+	<li><a href="https://www.reddit.com/r/explainlikeimfive/comments/1gre9ag/eli5_software_developers_what_are_com_objects_in/">ELI5: Software Developers, What are COM Objects in Windows?</a></li>
+	<li><a href="https://books.google.co.uk/books?id=kfRWvKSePmAC&dq=essential+com&printsec=frontcover&source=bn&hl=en&sa=X&oi=book_result&resnum=6&ct=result#v=onepage&q&f=false">Essential COM, by Don Box</a></li>
+</ul>
+
+<p>Microsoft was not happy with the fact that if many applications link statically to a library, there will be a lot of duplicate code.
+It also wasn't happy with the fact that if many applications dynamically link to a library, now any change to the implementation of the library could cause one of such applications to break.
+And, of course, the solution couldn't be for applications to check the library version before using it, otherwise you would need multiple versions of the same library for different applications, which would kind of be like going back to static linking.
+It also <em>also</em> wasn't happy with the fact that, for different programming languages to interoperate, a programmer had to manually write interface definitions for each language.
+It also also <em>also</em> wasn't happy that </p>
+
+<p>COM was an attempt at solving these problems.</p>
 
 <h3 id="windows-runtime"><a href="A dump of my Windows knowledge.html#windows-runtime">Windows Runtime, C++/CX, WRL, C++/WinRT</a></h3>
 
