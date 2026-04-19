@@ -64,6 +64,7 @@ I will update it as I have time to write, or as I find out new things.</p>
 <li>Entry points</li>
 <li>Compiling and linking</li>
 <li>Window creation</li>
+<li><a href="A dump of my Windows knowledge.html#windows-runtime">Windows Runtime</a></li>
 </ul>
 
 <h3 id="exploring-msdn"><a href="A dump of my Windows knowledge.html#exploring-msdn">Exploring MSDN</a></h3>
@@ -454,6 +455,9 @@ int wWinMain(...) {
 </div></div>
 </div>
 
+<h4>Closing the window</h4>
+
+
 
 
 
@@ -471,6 +475,94 @@ the infamous WM_PAINT
 how to solve the problem: 1) if making a simple utility, lock the size of the window 2) if making a game, pick a handful of predefined resolutions
 3) otherwise 3a) WM_ENTERSIZEMOVE WM_EXITSIZEMOVE 3b) fibers 3c) threads 3d) custom window border
 stretchdibits, bitmap allocation & alignment-->
+
+
+
+
+<h3 id="windows-runtime"><a href="A dump of my Windows knowledge.html#windows-runtime">Windows Runtime, C++/CX, WRL, C++/WinRT</a></h3>
+
+<p>This is such a convoluted topic, and I really wish it was way way simpler. The documentation is sparse, and one has to rely on blog posts by random Windows developers. It can be necessary to know, as some Windows functionality is only accessible through this interface (like screen capture)</p>
+<p>In 2012 Microsoft released Windows 8, and with it came the Windows Runtime. They call it an “API delivery system”. Put simply, it is an application binary interface that allows communication between many programming languages, even across managed and unmanaged (garbage-collected) languages.</p>
+
+<p>The remaining terms are all just different ways to use the ABI from C++ code. In 2012, Microsoft provided two ways to call Windows Runtime functions from C++:</p>
+<ul>
+<li>C++/CX (<strong>C++</strong> <strong>C</strong>omponent <strong>E</strong>xtension) &ndash; an extension of the Visual C++ compiler which added new syntax;</li>
+<li>WRL (<strong>W</strong>indows <strong>R</strong>untime C++ Template <strong>L</strong>ibrary) &ndash; a standard-compliant header file library, which could be compiled by any C++11 compiler.</li>
+</ul>
+<p>Then, in 2019, they deprecated both in favor of C++/WinRT:</p>
+<ul>
+<li>C++/WinRT &ndash; another standard-compliant header file library, this time requiring a C++17 compiler.</li>
+</ul>
+
+<h4>Windows Namespaces</h4>
+
+<p>The Windows Runtime is divided into several nested namespaces. The following is a link to a list of these namespaces:</p>
+
+<ul>
+<li><a href="https://learn.microsoft.com/en-us/uwp/api/?view=winrt-28000">Windows Runtime (WinRT) namespaces</a></li>
+</ul>
+
+<p>See also:</p>
+
+<ul>
+<li><a href="https://learn.microsoft.com/en-us/windows/win32/api/_winrt/">Windows Runtime C++ reference</a> (<em>which has the link to <code>windows.graphics.capture.interop.h</code></em>)</li>
+<li><a href="https://learn.microsoft.com/en-us/windows-hardware/drivers/kernel/defining-and-exporting-new-guids">Defining and exporting new GUIDs</a></li>
+<li><a href="https://learn.microsoft.com/en-us/windows/win32/etw/obtaining-a-provider-and-class-guid">Obtaining a Provider and Class GUID</a></li>
+<li><a href="https://it.scribd.com/document/308049354/COM-in-Plain-C-CodeProject">COM in plain C</a></li>
+<li><a href="https://learn.microsoft.com/en-us/cpp/cppcx/visual-c-language-reference-c-cx?view=msvc-170">C++/CX Language Reference</a></li>
+<li><a href="https://learn.microsoft.com/en-us/cpp/cppcx/type-system-c-cx?view=msvc-170">Type system overview (C++/CX)</a></li>
+<li><a href="https://devblogs.microsoft.com/cppblog/ccx-part-0-of-n-an-introduction/">C++/CX Part 0 of [n]: An Introduction</a></li>
+<li><a href="https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-studio-2012/xey702bw(v=vs.110)">Component Extensions for Runtime Platforms</a></li>
+<li><a href="https://learn.microsoft.com/en-us/cpp/cppcx/wrl/windows-runtime-cpp-template-library-wrl?view=msvc-170">Windows Runtime C++ Template Library (WRL)</a></li>
+<li><a href="https://learn.microsoft.com/en-us/cpp/build/walkthrough-compiling-a-cpp-cx-program-on-the-command-line?view=msvc-170">Walkthrough: Compiling a C++/CX Program on the Command Line</a></li>
+</ul>
+
+<h4>The C++/WinRT library</h4>
+
+<ul>
+<li><a href="https://learn.microsoft.com/en-us/windows/uwp/cpp-and-winrt-apis/get-started">Get started with C++/WinRT</a></li>
+</ul>
+
+<div class="code-block">
+<div class="code-block-bar">
+<span>C++</span>
+<button type="button" class="code-block-copy-button" onclick="let c = `#include <winrt/Windows.Data.Html.h>
+
+int main(void) {
+}`; navigator.clipboard.writeText(c)">Copy</button>
+</div>
+<div class="code-block-content">
+<div class="highlight"><pre tabindex="0"><code class="language-C" data-lang="C"><span class="line"><span>#include &lt;winrt/Windows.Data.Html.h&gt;
+</span></span><span class="line"><span>
+</span></span><span class="line"><span>int main(void) {
+</span></span><span class="line"><span>}
+</span></span></code></pre>
+</div></div>
+</div>
+
+<figcaption>
+<div class="code-block">
+<div class="code-block-content">
+<pre tabindex="0"><samp>cl /nologo /EHsc /std:c++17 main.cpp
+</samp></pre>
+</div>
+</div>
+<caption>Example compiler invocation for the above program</caption>
+</figcaption>
+
+<p>By the way, no, you cannot use these headers from plain C. They contain a <code>#error</code> directive in case a C compiler is detected.</p>
+
+<figcaption>
+<div class="code-block">
+<div class="code-block-content">
+<pre tabindex="0"><samp>yvals_core.h(23): fatal error C1189: #error:  error STL1003: Unexpected compiler, expected C++ compiler.
+</samp></pre>
+</div>
+</div>
+<caption>This is what you get if you try to compile with a C compiler<br/>
+Output from Visual Studio version 19.44.35207.1</caption>
+</figcaption>
+
 
     </article>
   </main>
