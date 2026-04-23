@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en-gb">
+<head>
+	<title>Strings explained - NicknEma</title>
+
+	<!-- Metadata -->
+	<meta charset="utf-8" />
+	<meta name="author" content="Emanuele Rovini">
+	<meta name="description" content="On string storage and operations.">
+	<meta name="keywords" content="Programming Language, Compiler, Library, Binary">
+	<meta
+		name="theme-color"
+		content="lightgray"
+		media="(prefers-color-scheme: light)" />
+	<meta
+		name="theme-color"
+		content="darkgray"
+		media="(prefers-color-scheme: dark)" />
+	<meta name="color-scheme" content="dark light" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+	<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+	<script>
+MathJax = {
+	tex: {
+		displayMath: [['\\[', '\\]'], ['$$', '$$']],  
+		inlineMath: [['\\(', '\\)']]                  
+	}
+};
+	</script>
+
+	<link href="/styles/normal.css" rel="stylesheet">
+</head>
+
+<body>
+	<nav>
+		<h1><a id="home_button" href="/" style="cursor: pointer">NicknEma</a></h1>
+	</nav>
+
+	<header>
+		<h1><strong>Strings explained</strong></h1>
+		<p class="details">On string storage and operations.<br />
+		Last modified <time datetime="2026-04-23">23/04/2026</time></p>
+	</header>
+	<main>
+		<article>
+
+<p><span style="font-style:italic">Context: yesterday I saw a post on X saying that strings are “slow”, and provided some reasons for why that would be.
+Leaving aside the fact that those stated “facts” are wrong, I think knowing how things work is much better than memorizing some trivia that you will most likely forget in the future.</span></p>
+
+<h3 id="variables"><a href="Strings explained.html#variables">Variables and storage</a></h3>
+
+<p>Every piece of data takes up some space in memory.</p>
+
+<p>Many programming languages use <i>types</i>
+<label for="type-uses" class="margin-toggle sidenote-number"></label>
+<input type="checkbox" id="type-uses" class="margin-toggle"></input>
+<span class="sidenote">Types are used for other things too, but that is another story.</span>
+to define the amount of memory that a piece of data will take up.
+For example, in C and C++, one might say that they want a variable of type <code>int</code> and, on most computers, compilers will generate code to reserve 4 bytes of space for that variable.
+<label for="sizeof-int" class="margin-toggle sidenote-number"></label>
+<input type="checkbox" id="sizeof-int" class="margin-toggle"></input>
+<span class="sidenote">You can easily get this information through the <code>sizeof</code> operator.</span>
+</p>
+
+<div style="display: flex">
+<div style="flex: 1">
+<div class="code-block">
+<div class="code-block-bar">
+<span>C</span>
+<button type="button" class="code-block-copy-button" onclick="int a = 0x42;`; navigator.clipboard.writeText(c)">Copy</button>
+</div> <!-- code block bar -->
+<div class="code-block-content" data-code-block itemscope itemtype="https://schema.org/SoftwareSourceCode">
+<meta itemprop="codeSampleType" content="snippet" />
+<meta itemprop="programmingLanguage" content="C" />
+<meta data-code-id="evalOrder" itemprop="text" content="int a = 0x42;" />
+<pre tabindex="0"><code class="language-C" data-lang="C"><span class="line"><span><span class="token keyword">int</span> <span class="token variable">a</span> = <span class="token number">0x42</span>;
+</span></span></code></pre>
+</div> <!-- code block content -->
+</div> <!-- code block -->
+</div> <!-- side-by-side block -->
+<div style="flex: 1">
+<svg viewBox="0 0 400 100">
+	<line x1="50" y1="40" x2="350" y2="40" stroke="#eee" stroke-width="1" />
+	<line x1="50" y1="60" x2="350" y2="60" stroke="#eee" stroke-width="1" />
+</svg>
+</div> <!-- side-by-side block -->
+</div> <!-- container -->
+
+<p>If you want to be sure that the size is what you expect and the compiler supports it, you can include the <code>&lt;stdint.h&gt;</code> header and use <code>int32_t</code>.
+This way you explicitly say that you want the variable to be 32 bits (4 bytes) in size.</p>
+
+<div class="code-block">
+<div class="code-block-bar">
+<span>C</span>
+<button type="button" class="code-block-copy-button" onclick="int32_t a = 0x42;`; navigator.clipboard.writeText(c)">Copy</button>
+</div> <!-- code block bar -->
+<div class="code-block-content" data-code-block itemscope itemtype="https://schema.org/SoftwareSourceCode">
+<meta itemprop="codeSampleType" content="snippet" />
+<meta itemprop="programmingLanguage" content="C" />
+<meta data-code-id="evalOrder" itemprop="text" content="int32_t a = 0x42;" />
+<pre tabindex="0"><code class="language-C" data-lang="C"><span class="line"><span><span class="token typename">int32_t</span> <span class="token variable">a</span> = <span class="token number">0x42</span>;
+</span></span></code></pre>
+</div> <!-- code block content -->
+</div> <!-- code block -->
+
+<p>Of course this puts a limit to how many possible numbers can be represented by that variable.
+32 bits of storage means 2<sup>32</sup> (or 4’294’967’295) combinations of bits: the range of values that we can represent in a 32-bit variable is [0, 4’294’967’295], or [-2’147’483’648, 2’147’483’647] if we choose to reserve half of it for the negatives.</p>
+
+<p>For a beginner this may sound like a problem: <em>what if I need a bigger range?</em>
+Then, with practice and experience, you learn to worry about problems you have instead of the ones you <em>might</em> have.
+Depending on the domain of the problems you’re solving, you could even realize that you almost never need anything outside that range and, for the few cases where you do, there are solutions you can implement.</p>
+
+<h3 id="stack"><a href="Strings explained.html#stack">The compiler and the stack</a></h3>
+
+<p>What is the advantage of knowing the size of variables ahead of time? It’s so that the compiler can generate extremely efficient code.</p>
+
+<p>For starters, allocation (reserving the memory necessary to hold the variables) and deallocation (releasing the memory so that it can be reused later) can be reduced down to one instruction each.
+Imagine a big, invisible array of bytes living inside your program, called the <i>stack</i>; there’s also an index into this array, called the <i>stack pointer</i>.
+The <i>stack</i> is where all your local variables are stored.
+The <i>stack pointer</i> keeps track of which elements of the stack are considered “free”, so that new variables won’t overwrite the ones that already exist.</p>
+
+<svg viewBox="0 0 500 200">
+</svg>
+
+<p>For each function, the compiler computes the total sum of the sizes of all the local variables it has.
+Then, when generating the function’s code, it starts with an instruction that increments the stack pointer by that amount.
+At the end of the function, another instruction moves the stack pointer back to where it was.
+
+<figure>
+<div class="code-block">
+<div class="code-block-bar">
+<span>C</span>
+<button type="button" class="code-block-copy-button" onclick="void example(void) {
+	int v[6];
+	int x, y;
+	// ..rest of the code
+}`; navigator.clipboard.writeText(c)">Copy</button>
+</div> <!-- code block bar -->
+<div class="code-block-content" data-code-block itemscope itemtype="https://schema.org/SoftwareSourceCode">
+<meta itemprop="codeSampleType" content="snippet" />
+<meta itemprop="programmingLanguage" content="C" />
+<meta data-code-id="evalOrder" itemprop="text" content="void example(void) {
+	int v[6];
+	int x, y;
+	// ..rest of the code
+}" />
+<pre tabindex="0"><code class="language-C" data-lang="C"><span class="line"><span>void example(void) {
+</span></span><span class="line"><span>	int v[4];
+</span></span><span class="line"><span>	int x, y;
+</span></span><span class="line"><span>	// ..rest of the code
+</span></span><span class="line"><span>}
+</span></span></code></pre>
+</div> <!-- code block content -->
+</div> <!-- code block -->
+<figcaption>The size of the <i>stack frame</i> is 6 * 4 + 4 + 4 = 32 bytes. The stack pointer will move by 32 bytes at the start of the function, then move back at the end of it.</figcaption>
+</figure>
+
+<p>This is why some C compilers (and <em>all</em> C++ compilers!) don’t allow you to use a variable as the length of an array:
+you would make it impossible for it to predict the size of the allocation.</p>
+
+<h3 id="strings"><a href="Strings explained.html#strings">The complexity of strings</a></h3>
+
+<p>The reason that it makes sense to store numbers in fixed-size variables is because it is possible to define the concept of a <em>range</em>.
+Every value inside that range will get a dedicated combination of the N available bits for that variable size.
+As the program does operations on a numeric variable, only the <em>value</em> stored in the variable changes, not its <em>size</em>.</p>
+
+<figure>
+<div class="code-block">
+<div class="code-block-bar">
+<span>C</span>
+<button type="button" class="code-block-copy-button" onclick="int x = 0;
+x += 8;
+x *= 2;
+x = 1 - x;`; navigator.clipboard.writeText(c)">Copy</button>
+</div> <!-- code block bar -->
+<div class="code-block-content" data-code-block itemscope itemtype="https://schema.org/SoftwareSourceCode">
+<meta itemprop="codeSampleType" content="snippet" />
+<meta itemprop="programmingLanguage" content="C" />
+<meta data-code-id="evalOrder" itemprop="text" content="int x = 0;
+x += 8;
+x *= 2;
+x = 1 - x;" />
+<pre tabindex="0"><code class="language-C" data-lang="C"><span class="line"><span>int x = 0;
+</span></span><span class="line"><span>x += 8;
+</span></span><span class="line"><span>x *= 2;
+</span></span><span class="line"><span>x = 1 - x;
+</span></span></code></pre>
+</div> <!-- code block content -->
+</div> <!-- code block -->
+<figcaption>The size of <code>x</code> never changes.</figcaption>
+</figure>
+
+<p>Strings are complicated.
+You can’t define a <em>range of strings</em> in a way that makes sense for all applications.
+They necessarily have to be represented as an <em>ordered collection of smaller elements</em>.
+As the program operates on these collections, they will have to vary in size.</p>
+
+<p>For very specific use-cases, you can still choose to lock their size and put them on the stack like other variables.
+C allows you to do this:</p>
+
+<figure>
+<div class="code-block">
+<div class="code-block-bar">
+<span>C</span>
+<button type="button" class="code-block-copy-button" onclick="char msg1[20] = \"Hello\";
+char msg2[] = \"Goodbye\";`; navigator.clipboard.writeText(c)">Copy</button>
+</div> <!-- code block bar -->
+<div class="code-block-content" data-code-block itemscope itemtype="https://schema.org/SoftwareSourceCode">
+<meta itemprop="codeSampleType" content="snippet" />
+<meta itemprop="programmingLanguage" content="C" />
+<meta data-code-id="evalOrder" itemprop="text" content="char msg1[20] = \"Hello\";
+char msg2[] = \"Goodbye\";" />
+<pre tabindex="0"><code class="language-C" data-lang="C"><span class="line"><span>char msg1[20] = &quot;Hello&quot;;
+</span></span><span class="line"><span>char msg2[] = &quot;Goodbye&quot;;
+</span></span></code></pre>
+</div> <!-- code block content -->
+</div> <!-- code block -->
+<figcaption>The first line declares an array of 20 <code>char</code>s; everything after the first 5 characters is filled with zeros.<br />
+The second line infers the length from the string literal.</figcaption>
+</figure>
+
+
+		</article>
+	</main>
+	<footer>
+		<div>Emanuele Rovini, <time>2026</time> &ndash; Powered by <strong>plain HTML</strong></div>
+	</footer>
+</body>
+</html>

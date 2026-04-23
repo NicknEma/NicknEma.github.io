@@ -239,6 +239,10 @@ code ins { background-color: light-dark(#dfd, #252) }
 																					padding: 0
 																				}
 																				
+																				figure {
+																					margin: 0;
+																				}
+																				
 																				figcaption {
 																					text-align: center;
 																					font-size: 0.9rem;
