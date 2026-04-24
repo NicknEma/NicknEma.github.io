@@ -529,6 +529,24 @@ All that just to call the <code>length</code> method, to get the length <em>agai
 </div> <!-- code block content -->
 </div> <!-- code block -->
 
+<h4>Case-insensitive comparison</h4>
+
+<div class="code-block">
+<div class="code-block-bar">
+<span>C++</span>
+<button type="button" class="code-block-copy-button" onclick="std::string str = \"Hello, kid\";`; navigator.clipboard.writeText(c)">Copy</button>
+</div> <!-- code block bar -->
+<div class="code-block-content" data-code-block itemscope itemtype="https://schema.org/SoftwareSourceCode">
+<meta itemprop="codeSampleType" content="snippet" />
+<meta itemprop="programmingLanguage" content="C" />
+<meta data-code-id="evalOrder" itemprop="text" content="std::string str = \"Hello, kid\";" />
+<pre tabindex="0"><code class="language-C++" data-lang="C"><span class="line"><span>bool compare_insensitive(std::string a, std::string b) {
+</span></span><span class="line"><span>	return std::tolower(a) == std::tolower(b);
+</span></span><span class="line"><span>}
+</span></span></code></pre>
+</div> <!-- code block content -->
+</div> <!-- code block -->
+
 		</article>
 	</main>
 	<footer>
