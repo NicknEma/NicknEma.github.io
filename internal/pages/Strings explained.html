@@ -244,7 +244,11 @@ It depends.
 Some languages choose that for you; other languages let you control it.</p>
 
 <p>In C (and probabily many other languages) string <i>literals</i> are placed in a read-only section of the executable.
-That is, if you try to modify their contents you'll likely crash.</p>
+That is, if you try to modify their contents you'll likely crash.
+<label for="modify-string-literal" class="margin-toggle sidenote-number"></label>
+<input type="checkbox" id="modify-string-literal" class="margin-toggle"></input>
+<span class="sidenote">Attempting to modify the contents of a string literal is technically <i>undefined behaviour</i> in C and C++. Either way, bad things will happen.</span>
+</p>
 
 <div class="code-block">
 <div class="code-block-bar">
@@ -279,7 +283,7 @@ the_story_so_far[0] = 'i';" />
 </div> <!-- code block content -->
 </div> <!-- code block -->
 
-<p>Ok, maybe not like this.</p>
+<p>Ok, maybe not like that.</p>
 
 <div class="code-block">
 <div class="code-block-bar">
@@ -337,7 +341,7 @@ We use the <i>null character</i> (<code>'\0'</code>, or simply <code>0</code>) a
 <meta itemprop="codeSampleType" content="snippet" />
 <meta itemprop="programmingLanguage" content="C" />
 <meta data-code-id="evalOrder" itemprop="text" content="char *msg = \"Hello\";" />
-<pre tabindex="0"><code class="language-C" data-lang="C"><span class="line"><span>char *msg = &quot;Hello&quot;;
+<pre tabindex="0"><code class="language-C" data-lang="C"><span class="line"><span><span class="token keyword">char</span> *<span class="token variable">msg</span> = <span class="token string">&quot;Hello&quot;</span>;
 </span></span></code></pre>
 </div> <!-- code block content -->
 </div> <!-- code block -->
@@ -425,7 +429,55 @@ Another one is that you don't need to pass an extra argument to functions, which
 
 <h3 id="building"><a href="Strings explained.html#building">Building a string</a></h3>
 
+<p>A common string operation is <i>concatenation</i>.
+It's what turns the strings <code>&quot;night&quot;</code> and <code>&quot;mare&quot;</code> into <code>&quot;nightmare&quot;</code>.</p>
 
+<p>The most obvious way to concatenate <code>&quot;night&quot;</code> and <code>&quot;mare&quot;</code> is the following:
+<ol>
+	<li>Find the length of <code>&quot;night&quot;</code> (5)</li>
+	<li>Find the length of <code>&quot;mare&quot;</code> (4)</li>
+	<li>Compute the length of the new string (5 + 4 = 9)</li>
+	<li>Allocate memory for the new string</li>
+	<li>Copy the contents of <code>&quot;night&quot;</code> into the first part of the new string</li>
+	<li>Copy the contents of <code>&quot;mare&quot;</code> into the second part of the new string</li>
+</ol>
+</p>
+
+<p>In code:</p>
+
+<figure>
+<div class="code-block">
+<div class="code-block-content" data-code-block>
+<pre tabindex="0"><code><span class="line"><span>concatenate(A, B) {
+</span></span><span class="line"><span>	LenA = length of A
+</span></span><span class="line"><span>	LenB = length of B
+</span></span><span class="line"><span>	LenC = LenA + LenB
+</span></span><span class="line"><span>	C = allocate LenC bytes
+</span></span><span class="line"><span>	copy A into C starting at 0
+</span></span><span class="line"><span>	copy B into C starting at LenA
+</span></span><span class="line"><span>}
+</span></span></code></pre>
+</div> <!-- code block content -->
+</div> <!-- code block -->
+<figcaption>Pseudocode for string concatenation.</figcaption>
+</figure>
+
+<p>The most obvious way to concatenate <em>three</em> strings is to just do it associatively:
+concatenate the first two, then concatenate the result with the third.</p>
+
+<div class="code-block">
+<div class="code-block-content" data-code-block>
+<pre tabindex="0"><code><span class="line"><span>concat(A, B, C) == concat(concat(A, B), C)
+</span></span></code></pre>
+</div> <!-- code block content -->
+</div> <!-- code block -->
+
+<p>This works.
+However, it's doing an extra allocation (the temporary result of A + B) and two extra copies (copy both A and B into the temporary result).
+The allocation may or may not matter, depending on your allocation strategy.
+The extra copies <em>do</em> matter, and they add up really quickly
+
+<h3 id="war-crimes"><a href="Strings explained.html#war-crimes">String war crimes</a></h3>
 
 		</article>
 	</main>
