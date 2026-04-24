@@ -307,7 +307,7 @@ its constructor will dynamically allocate the right amount of memory and copy ov
 <figure>
 <div class="code-block">
 <div class="code-block-bar">
-<span>C</span>
+<span>C++</span>
 <button type="button" class="code-block-copy-button" onclick="std::string str = \"Hello, kid\";`; navigator.clipboard.writeText(c)">Copy</button>
 </div> <!-- code block bar -->
 <div class="code-block-content" data-code-block itemscope itemtype="https://schema.org/SoftwareSourceCode">
@@ -478,6 +478,56 @@ The allocation may or may not matter, depending on your allocation strategy.
 The extra copies <em>do</em> matter, and they add up really quickly
 
 <h3 id="war-crimes"><a href="Strings explained.html#war-crimes">String war crimes</a></h3>
+
+<p>In light of these discoveries, I'd like to look at some string war crimes.</p>
+
+<h4>I just need the length</h4>
+
+<div class="code-block">
+<div class="code-block-bar">
+<span>C++</span>
+<button type="button" class="code-block-copy-button" onclick="std::string str = \"Hello, kid\";`; navigator.clipboard.writeText(c)">Copy</button>
+</div> <!-- code block bar -->
+<div class="code-block-content" data-code-block itemscope itemtype="https://schema.org/SoftwareSourceCode">
+<meta itemprop="codeSampleType" content="snippet" />
+<meta itemprop="programmingLanguage" content="C" />
+<meta data-code-id="evalOrder" itemprop="text" content="std::string str = \"Hello, kid\";" />
+<pre tabindex="0"><code class="language-C++" data-lang="C"><span class="line"><span>void example(void) {
+</span></span><span class="line"><span>	std::string str = &quot;A really, really long string that contains many characters&quot;;
+</span></span><span class="line"><span>	std::cout &lt;&lt; &quot;length = &quot; &lt;&lt; str.length() &lt;&lt; std::endl;
+</span></span><span class="line"><span>}
+</span></span></code></pre>
+</div> <!-- code block content -->
+</div> <!-- code block -->
+
+<p>Somebody said they saw code like this in production.
+I've definitely <em>written</em> code like this when I was in high school and didn't know what I was doing.</p>
+
+<p>If you paid attention so far, it shouldn't take long to see why this is bad.
+It's taking a string literal, stored in read-only memory and null-terminated;
+it's scanning it all the way to the end to find the null terminator and determine its length;
+it's allocating space for a copy, then copying it into a <code>std::string</code> object.
+All that just to call the <code>length</code> method, to get the length <em>again</em>, then destroy the string as it goes out of scope.</p>
+
+<p>If you just want the length of a string literal, use <code>sizeof</code>:</p>
+
+<div class="code-block">
+<div class="code-block-bar">
+<span>C++</span>
+<button type="button" class="code-block-copy-button" onclick="std::string str = \"Hello, kid\";`; navigator.clipboard.writeText(c)">Copy</button>
+</div> <!-- code block bar -->
+<div class="code-block-content" data-code-block itemscope itemtype="https://schema.org/SoftwareSourceCode">
+<meta itemprop="codeSampleType" content="snippet" />
+<meta itemprop="programmingLanguage" content="C" />
+<meta data-code-id="evalOrder" itemprop="text" content="std::string str = \"Hello, kid\";" />
+<pre tabindex="0"><code class="language-C++" data-lang="C"><span class="line"><span>void example(void) {
+</span></span><span class="line"><span>	size_t str_length = sizeof(&quot;A really, really long string that &quot;
+</span></span><span class="line"><span>							   &quot;contains many characters&quot;) / sizeof(char);
+</span></span><span class="line"><span>	std::cout &lt;&lt; &quot;length = &quot; &lt;&lt; str_length &lt;&lt; std::endl;
+</span></span><span class="line"><span>}
+</span></span></code></pre>
+</div> <!-- code block content -->
+</div> <!-- code block -->
 
 		</article>
 	</main>
