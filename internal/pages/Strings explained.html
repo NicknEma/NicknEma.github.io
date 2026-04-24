@@ -194,7 +194,7 @@ x = 1 - x;" />
 <p>Strings are complicated.
 You can’t define a <em>range of strings</em> in a way that makes sense for all applications.
 They necessarily have to be represented as an <em>ordered collection of smaller elements</em>.
-As the program operates on these collections, they will have to vary in size.</p>
+As the program operates on them, these collections will have to vary in size.</p>
 
 <p>For very specific use-cases, you can still choose to lock their size and put them on the stack like other variables.
 C allows you to do this:</p>
@@ -220,6 +220,103 @@ char msg2[] = \"Goodbye\";" />
 The second line infers the length from the string literal.</figcaption>
 </figure>
 
+<p>Usually, though, strings are stored somewhere else.
+Your variables do not contain the string contents, but only a <i>pointer</i> to it; the memory address of the character array.
+When you move your variables around, you don't always copy the entire string contents:
+you can also choose to only copy the pointer, which will be much smaller most of the time.</p>
+
+<div class="code-block">
+<div class="code-block-bar">
+<span>C</span>
+<button type="button" class="code-block-copy-button" onclick="char *the_story_so_far = \"In the beginning, the universe was created.\";`; navigator.clipboard.writeText(c)">Copy</button>
+</div> <!-- code block bar -->
+<div class="code-block-content" data-code-block itemscope itemtype="https://schema.org/SoftwareSourceCode">
+<meta itemprop="codeSampleType" content="snippet" />
+<meta itemprop="programmingLanguage" content="C" />
+<meta data-code-id="evalOrder" itemprop="text" content="char *the_story_so_far = \"In the beginning, the universe was created.\";" />
+<pre tabindex="0"><code class="language-C" data-lang="C"><span class="line"><span>char *the_story_so_far = &quot;In the beginning, the universe was created.&quot;;
+</span></span></code></pre>
+</div> <!-- code block content -->
+</div> <!-- code block -->
+
+<p>Where are they stored, if not on the stack?
+It depends.
+Some languages choose that for you; other languages let you control it.</p>
+
+<p>In C (and probabily many other languages) string <i>literals</i> are placed in a read-only section of the executable.
+That is, if you try to modify their contents you'll likely crash.</p>
+
+<div class="code-block">
+<div class="code-block-bar">
+<span>C</span>
+<button type="button" class="code-block-copy-button" onclick="char *the_story_so_far = \"In the beginning, the universe was created.\";
+the_story_so_far[0] = 'i';`; navigator.clipboard.writeText(c)">Copy</button>
+</div> <!-- code block bar -->
+<div class="code-block-content" data-code-block itemscope itemtype="https://schema.org/SoftwareSourceCode">
+<meta itemprop="codeSampleType" content="snippet" />
+<meta itemprop="programmingLanguage" content="C" />
+<meta data-code-id="evalOrder" itemprop="text" content="char *the_story_so_far = \"In the beginning, the universe was created.\";
+the_story_so_far[0] = 'i';" />
+<pre tabindex="0"><code class="language-C" data-lang="C"><span class="line"><span>char *the_story_so_far = &quot;In the beginning, the universe was created.&quot;;
+</span></span><span class="line"><span>the_story_so_far[0] = 'i'; // This line will probabily crash
+</span></span></code></pre>
+</div> <!-- code block content -->
+</div> <!-- code block -->
+
+<p>Strings are just bytes, though, just like anything else. You can point to any place in memory and call that a string.</p>
+
+<div class="code-block">
+<div class="code-block-bar">
+<span>C</span>
+<button type="button" class="code-block-copy-button" onclick="char *str = 0x42FD5601;`; navigator.clipboard.writeText(c)">Copy</button>
+</div> <!-- code block bar -->
+<div class="code-block-content" data-code-block itemscope itemtype="https://schema.org/SoftwareSourceCode">
+<meta itemprop="codeSampleType" content="snippet" />
+<meta itemprop="programmingLanguage" content="C" />
+<meta data-code-id="evalOrder" itemprop="text" content="char *str = 0x42FD5601;" />
+<pre tabindex="0"><code class="language-C" data-lang="C"><span class="line"><span>char *str = 0x42FD5601;
+</span></span></code></pre>
+</div> <!-- code block content -->
+</div> <!-- code block -->
+
+<p>Ok, maybe not like this.</p>
+
+<div class="code-block">
+<div class="code-block-bar">
+<span>C</span>
+<button type="button" class="code-block-copy-button" onclick="char *str = malloc(sizeof(char) * 20);`; navigator.clipboard.writeText(c)">Copy</button>
+</div> <!-- code block bar -->
+<div class="code-block-content" data-code-block itemscope itemtype="https://schema.org/SoftwareSourceCode">
+<meta itemprop="codeSampleType" content="snippet" />
+<meta itemprop="programmingLanguage" content="C" />
+<meta data-code-id="evalOrder" itemprop="text" content="char *str = malloc(sizeof(char) * 20" />
+<pre tabindex="0"><code class="language-C" data-lang="C"><span class="line"><span>char *str = malloc(sizeof(char) * 20);
+</span></span></code></pre>
+</div> <!-- code block content -->
+</div> <!-- code block -->
+
+<p>Better.</p>
+
+<p>If you're using C++ you can use a <code>std::string</code>;
+its constructor will dynamically allocate the right amount of memory and copy over the string contents.</p>
+
+<div class="code-block">
+<div class="code-block-bar">
+<span>C</span>
+<button type="button" class="code-block-copy-button" onclick="std::string str = \"Hello, kid\";`; navigator.clipboard.writeText(c)">Copy</button>
+</div> <!-- code block bar -->
+<div class="code-block-content" data-code-block itemscope itemtype="https://schema.org/SoftwareSourceCode">
+<meta itemprop="codeSampleType" content="snippet" />
+<meta itemprop="programmingLanguage" content="C" />
+<meta data-code-id="evalOrder" itemprop="text" content="std::string str = \"Hello, kid\";" />
+<pre tabindex="0"><code class="language-C" data-lang="C"><span class="line"><span>std::string str = &quot;Hello, kid&quot;;
+</span></span></code></pre>
+</div> <!-- code block content -->
+</div> <!-- code block -->
+
+<p>In short, a string is not tied to a particular type of storage. Strings are a convention.</P>
+
+<p>TODO</p>
 
 		</article>
 	</main>
