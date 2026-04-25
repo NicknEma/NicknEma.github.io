@@ -29,20 +29,20 @@ body {
 	font-family: "Inter var", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
 	
 	line-height: 1.5;
-	-webkit-tap-highlight-color:transparent;
+	-webkit-tap-highlight-color: transparent;
 	
 	/* These make sure text isn't arbitrarily resized on small devices such as iOS */
 	-webkit-text-size-adjust: 100%;
-	-moz-text-size-adjust: 100%;
-	-ms-text-size-adjust: 100%;
-	text-size-adjust: 100%;
+	-moz-text-size-adjust:    100%;
+	-ms-text-size-adjust:     100%;
+	text-size-adjust:         100%;
 	
-	-moz-osx-font-smoothing: grayscale;
+	-moz-osx-font-smoothing:  grayscale;
 	-webkit-font-smoothing: antialiased;
 	
 	-moz-tab-size: 4;
-	-o-tab-size: 4;
-	tab-size: 4;
+	-o-tab-size:   4;
+	tab-size:      4;
 	
 	word-break: break-word;
 	
@@ -141,7 +141,7 @@ p code, li code {
 	border: 1px solid light-dark(#ccc, #333);
 								 border-radius: 4px;
 								 color: light-dark(#333, #ccc);
-												   background-color: light-dark(#f7f7f7, #151515);    
+												   background-color: light-dark(#f7f7f7, #151515);
 }
 
 .code-block-bar {
@@ -447,7 +447,7 @@ code ins { background-color: light-dark(#dfd, #252) }
 																					height:auto
 																				}
 																				
-																				::-webkit-search-decoration{
+																				::-webkit-search-decoration {
 																					-webkit-appearance:none
 																				}
 																				
@@ -456,7 +456,7 @@ code ins { background-color: light-dark(#dfd, #252) }
 																					font:inherit
 																				}
 																				
-																				summary{
+																				summary {
 																					display:list-item
 																				}
 																				
