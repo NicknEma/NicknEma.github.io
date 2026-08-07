@@ -52,6 +52,125 @@
 <p><em>This book is not complete.
 You may not want to take a link to this page, as the url may change.</em></p>
 
+<h2 id="toc"><a href="Interpreters Book.html#toc">Table of contents</a></h2>
+<ul>
+<li>The simplest interpreter</a></li>
+</ul>
+
+<h2>The simplest interpreter</h2>
+
+<pre>print(&quot;First number: &quot;)
+a = read_number()
+print(&quot;Second number: &quot;)
+b = read_number()
+
+c = a + b
+print(&quot;Result: &quot;, c)</pre>
+
+<p>Despite it looking simple, it gives us the possibility to talk about many things.</p>
+
+<h2>Representing expressions</h2>
+
+<p>Try to ignore for a moment that the <em>input method</em> of this interpreter &ndash;
+typing numbers in the terminal &ndash;
+isn't great.
+One thing that <em>is</em> great is the way that the input is stored in memory.
+The program is composed of two numbers, so we store each number in a separate variable.</p>
+<p>A way worse representation would be, for example, a single variable containing the string &quot;12 + 25&quot;.
+A slightly better, but still not great, representation would be two variables, one containing the string &quot;12&quot;, the other containing the string &quot;25&quot;.</p>
+<p>Why? Because adding the string representation of two numbers isn't as easy as directly adding the numbers.
+You would need to either <em>convert the strings to numbers</em> and then add them, or have a special algorithm to add strings containing numbers.</p>
+<p>Even worse, if you had a single string, you would first <em>need to figure out what are the substrings containing the numbers</em>, then proceed as above.
+In other words, you would need to <em>parse</em> the input program.</p>
+
+<p></p>
+
+<p>Imagine that we want to improve our interpreter to now allow not only addition, but also subtraction and multiplication (let's ignore division for now).
+If we try to keep the same focus as before (make the in-memory representation easy to work with, and don't care about the input method), the most obvious thing to do is to add another variable:</p>
+
+<pre>...
+print(&quot;The operation: &quot;)
+o = read_operator()
+
+/* compute c based on a, b and o */
+...</pre>
+
+<p>The computation would then look something like this:</p>
+
+<pre>switch o
+	case +: c = a + b
+	case -: c = a - b
+	case *: c = a * b
+</pre>
+
+<p>Super easy, barely an inconvenience.</p>
+
+<p>Let's make our interpreter do more work. Let's have it take an arbitrary amount of numbers and combine them with arbitrary operations.
+We want to compute an expression like 12 + 25 - 7 * 2 + 34.
+Still thinking about how to represent things in memory to make computation easier, the natural extension of our current interpreter is a pair of arrays:</p>
+
+<pre>numbers: [N]Number
+operators: [N-1]Operator</pre>
+
+<p>After the arrays are filled, it's just a simple loop to finally compute the result:</p>
+
+<pre>c = numbers[0]
+for i = 1; i < N; i += 1
+	a = c
+	b = numbers[i]
+	o = operators[i - 1]
+	/* compute c based on a, b and o */</pre>
+
+<p>Then print the result. For our example expression, this prints 94. That's great!</p>
+
+<p>But wait, the result is wrong. The <em>actual</em> result is 57, not 94. What happened?</p>
+
+<p>The problem is that if you do that by hand, the first operation you would do is 7 * 2
+(because the convention we humans agreed on is to do multiplication before addition and subtraction).
+That's called operator precedence.
+If you try to input that expression in a <em>real</em> programming language, you would get 57.
+But our interpreter doesn't know about operator precedence &ndash;
+operators are stored in a linear collection, without any way to model their relationship.</p>
+
+<p>There are two ways to proceed:<br/>
+the first: keep a linear data structure, but reorder the numbers and operators as you read them so that walking the array linearly will produce the collect result;
+the second: trash the linear data structure, and store the input program in a way that models the order of operations.</p>
+
+<p>In other words:<br/>
+the first: keep the array;
+the second: ditch the array and use a tree.</p>
+
+<p>Both ways are possible, and I will explain both of them. Later.</p>
+
+<p>However, I will now give you a bit of a spoiler into where and when each representation is used.
+Without it, this book will have to contain duplicate sections for every part related to interpreting expressions.
+Not only it would be a waste of time for me to write, but it would be a waste of time for you to read, and a waste of digital space.</p>
+<p>Instead, I will now simply choose one way that I'll use for the rest of the book, and then tell you what would need to change if you ever wanted to try the other approach.</p>
+<p>The spoiler is the following:
+Usually a programming language isn't made of <em>just</em> expressions, but of other things too.
+These other things are better modeled with trees.
+To keep some internal consistency between the various parts of the interpreter, we will use trees for expressions too.
+If you want to write this part of the interpreter with a linear data structure, you can consider this your &quot;exercise for the reader&quot;.</p>
+
+<!-- in the case of a compiler there is a secret third way of storing a program: not storing it.
+You can convert the source text directly to instructions without an intermediate representation.
+It is not worse than these two ways; in fact, in many ways it's better:
+no tree stored in memory means lower memory footprint and fewer cache misses,
+and the quality of the generated code isn't necessarily worse.
+You cannot do stuff like serialize the AST, because there is no AST :) -->
+
+<p>Both of these methods are &quot;solved&quot; problems. However, I would like you to think about something:
+just because parsing a language is easy, it doesn't mean that text is the best way to store and share source code.
+This is one of the reasons why this book does not start with parsing:
+you need to know that an interpreter isn't its parser.
+The interesting and important parts of interpreting a program come <em>after</em> the parsing,
+as the parser is simply a way to get source code from text into a form that is easy to work with.
+You need to understand what are the problems caused by storing things as text,
+and how much better it would be if code was stored in a different format.
+This book will not provide a solution to the problem of code stored as text.
+That is way out of scope, and possibly the subject of research for the years to come.
+Who knows, after you finish reading this book, you may want to give it a shot and free us from the constrictions of text.</p>
+
     </article>
   </main>
 
