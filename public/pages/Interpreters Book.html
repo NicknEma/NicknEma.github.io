@@ -69,7 +69,7 @@ print(&quot;Result: &quot;, c)</pre>
 
 <p>Despite it looking simple, it gives us the possibility to talk about many things.</p>
 
-<h2>Representing expressions</h2>
+<h2>Text, memory and representing expressions</h2>
 
 <p>Try to ignore for a moment that the <em>input method</em> of this interpreter &ndash;
 typing numbers in the terminal &ndash;
@@ -170,6 +170,239 @@ and how much better it would be if code was stored in a different format.
 This book will not provide a solution to the problem of code stored as text.
 That is way out of scope, and possibly the subject of research for the years to come.
 Who knows, after you finish reading this book, you may want to give it a shot and free us from the constrictions of text.</p>
+
+<h2>Expression trees</h2>
+
+<p>So, as we agreed, we skip parsing for now and imagine that the source code is simply handed to us in the right format.
+And, as we agreed (if you trust me) the &quot;right&quot; format for an expression is a tree.</p>
+
+<p>What kind of tree? Binary? N-ary?</p>
+
+<p>All the expression in our examples so far can be composed by two kinds of nodes: the literal and the binary expression.</p>
+
+<p>In programming languages, <em>literals</em> are values that are written directly in the source code.
+For example: 12. In the expression 12 + 25, '12' and '25' are literals.
+Each literal could be its own individual expression without any children.</p>
+
+<svg viewBox="0 0 800 40" xmlns="http://www.w3.org/2000/svg">
+ <circle r="15" cx="400" cy="20" fill="black" stroke="white" stroke-width="1"/>
+ <text
+  font-size="16"
+  text-anchor="middle"
+  dominant-baseline="middle"
+  x="400" y="20"
+  fill="white">12</text>
+</svg>
+
+<p><em>Binary expressions</em> are anything that has two sub-expressions and an operator that combines them.
+'12 + 25' is a binary expression.
+'+' is the root of the expression tree, and '12' and '25' are its sub-expressions.</p>
+
+<svg viewBox="0 0 800 100" xmlns="http://www.w3.org/2000/svg">
+ <circle r="15" cx="400" cy="20" fill="black" stroke="white" stroke-width="1"/>
+ <circle r="15" cx="380" cy="80" fill="black" stroke="white" stroke-width="1"/>
+ <circle r="15" cx="420" cy="80" fill="black" stroke="white" stroke-width="1"/>
+ <text
+  font-size="16"
+  text-anchor="middle"
+  dominant-baseline="middle"
+  x="400" y="20"
+  fill="white">+</text>
+ <text
+  font-size="16"
+  text-anchor="middle"
+  dominant-baseline="middle"
+  x="380" y="80"
+  fill="white">12</text>
+ <text
+  font-size="16"
+  text-anchor="middle"
+  dominant-baseline="middle"
+  x="420" y="80"
+  fill="white">25</text>
+</svg>
+
+<p>We can model this directly in the code by allowing an expression to be either a Literal or a Binary_Expression.</p>
+
+<pre>Expression :: union {
+	Literal,			// Not defined yet
+	Binary_Expression,	// Not defined yet
+}</pre>
+
+<p>(NOTE: If you like inheritance, fat structs or other forms of abstraction, the union is simply the most
+obvious way to explain and understand this concept. If, after you wrote the code this way, you think you
+can improve it then go ahead. But for the remainder of the book, I'll stick with union, and you should too
+if you want to follow along. Remember that code can change.)</p>
+
+<p>We can then define its variants:</p>
+
+<pre>Literal :: struct {
+	value: Number
+}
+
+Binary_Expression :: struct {
+	operator: Operator,
+	sub_1: ^Expression,
+	sub_2: ^Expression
+}
+</pre>
+
+<p>We can now represent literals and binary expressions.
+We don't yet have a way to generate instances of expressions,
+but we can hard-code some examples in the interprete to test things out:</p>
+
+<pre>main :: () {
+	a: Expression = Literal { 12 }
+	b: Expression = Literal { 25 }
+	root: Expression = Binary_Expression { +, &a, &b }
+	
+	c: Number = eval_expression(root)
+	print(c)
+}</pre>
+
+<!-- Note that the definition is recursive, make an example of a more complicated expression -->
+
+<p>How do we evaluate an expression? Depends on the kind.
+The evaluation function just switches on the variant and picks the appropriate evaluation method.</p>
+
+<pre>eval_expression :: (ast: Expression) -> Number {
+	result: Number
+	switch type_of(ast) {
+		case Literal:           result = eval_literal(ast) // Not defined yet
+		case Binary_Expression: result = eval_binary_expression(ast) // Not defined yet
+	}
+	return result
+}</pre>
+
+<p>NOTE: I made separate functions for each variant of the expression so that the snippet is more digestible inside a book.
+In a real codebase, you might want to inline them and have eval_expression be your only function.
+I would probabily do that if I weren't writing a book, but this is a book.</p>
+
+<p>Evaluating a literal is as simple as returning its value:</p>
+
+<pre>eval_literal :: (ast: Literal) -> Number {
+	return ast.value
+}</pre>
+
+<p>The binary expression is slightly more involved, but nothing we can't handle.
+We just need to compute the result differently based on the operator:</p>
+
+<pre>eval_binary_expression :: (ast: Binary_Expression) -> Number {
+	a := eval_expression(ast.sub_1)
+	b := eval_expression(ast.sub_2)
+	result: Number
+	switch ast.operator {
+		case +: result = a + b
+		case -: result = a - b
+		case *: result = a * b
+	}
+	return result
+}</pre>
+
+<p>We can now run the interpreter and see the result!
+If you run it now, with the 'main' defined as above, it should correctly print 37.</p>
+
+<!-- Leave unary operators as an exercise to the reader, then explain -->
+
+<h3>Division and errors</h3>
+
+<p>There is one binary operator that we voluntarily left out: the division.
+Division requires special handling because it is not mathematically defined if the divisor is 0.
+This is the perfect opportunity to talk a bit about language design and error handling.</p>
+
+<p>If you divide a number by zero in your implementation language, what happens?
+Each language is different, and it may have different answers depending on the data type of your numbers and other factors.
+If your language has floating-point numbers, and you're doing floating-point division, dividing by zero yields infinity (check).</p>
+
+<p>If you're doing integer division, then the language might panic, yield 0, yield 1,
+yield a special sentinel value or something completely different like invoke undefined behaviour.</p>
+
+<p>What should <em>your</em> interpreter do?
+This is your opportunity to wear your language designer hat and take a decision.
+There is simply no &quot;right&quot; answer, there is only your answer.
+Sure, some choices are saner than others, but it's ultimately you who decides.
+Keep in mind that, whatever you choose, your users will have to remember that choice when they write divisions.</p>
+
+<p>Let's say you want it to return infinity:</p>
+
+<pre>switch ast.operator {
+	...
+	case /:
+		if b != 0  result = a / b
+		else       result = math.sign(a) * math.INFINITY
+}</pre>
+
+<p>Let's try something else: we want to instead panic the program.
+In other words, we want to genrate a <strong>runtime error</strong>.</p>
+
+<p>Read that carefully: we want to panic the <em>program that is being interpreted</em>, not the interpreter itself.
+Those are two very different things.
+A panic/assert that fires in a program indicates that the program has a bug.
+Whenever you write code <em>in general</em>, you want to eliminate as many bugs as possible.
+We don't want the interpreter to have bugs, but we do want to account for the possibility of a bug in the interpreted code.</p>
+
+<p>This is different than, say, handling the case where the operator isn't any of the four cases that we expect.
+If 'operator' isn't any of +, -, * or /, then that's a bug in the <em>interpreter</em>.
+It means that whoever gave us the expression tree (the parser) gave us an incorrect tree, which should not have happened.
+In THAT case, we do want to stop the interpreter:</p>
+
+<pre>switch ast.operator {
+	case +: ...
+	case -: ...
+	case *: ...
+	case /: ...
+	case: internal_error(&quot;Invalid operator.&quot;)
+}</pre>
+
+<p>(or, first introduce errors in the interpreter, then errors in the target language.
+explain why you don't like to call errors 'errors'.
+Differentiate between asserts, internal_error() and returning a status code.
+Let's say you want to call the interpreter from a graphical, interactive program:
+you don't want to trap, but just abort interpretation.
+A case like this is not an assert, but a runtime_error() which sets a flag in the interpreter.)</p>
+
+<pre>eval_binary_expression :: (ast: Binary_Expression) -> Number, Error {
+	result, error: Number, Error
+	...
+			case /:
+				if b != 0  result = a / b
+				else       result, error = 0, Error { &quot;Division by zero.&quot; }
+	...
+	return result, error
+}</pre>
+
+<p>Wait, but then we would need to update eval_expression to also aknowledge the possibility of errors:</p>
+
+<pre>eval_expression :: (ast: Expression) -> Number, Error {
+	result, error: Result, Error
+	switch type_of(ast) {
+		case Literal:			result = eval_literal(ast)
+		case Binary_Expression:	result, error = eval_binary_expression(ast)
+		case: internal_error(&quot;Invalid expression variant.&quot;)
+	}
+	return result, error
+}</pre>
+
+<p>Wait, but then eval_binary_expression needs to account for the possibility of either of its
+sub-expressions returning errors.</p>
+
+<pre>eval_binary_expression :: (ast: Binary_Expression) -> Number, Error {
+	result, error: Number, Error
+	a, error_a := eval_expression(ast.sub_1)
+	b, error_b := eval_expression(ast.sub_2)
+	if error_a == nil and error_b == nil {
+		switch ast.operator {
+			...
+		}
+	} else {
+		error = error_a
+	}
+	return result, error
+}</pre>
+
+<p>Now you might think, if you like exceptions, this might be a good time to use exceptions.
+(explain simple control flow. This code is not complicated at all, exceptions aren't worth it.
+Use them if you really want, but look at the example code and see if it all that bad without them.)</p>
 
     </article>
   </main>
