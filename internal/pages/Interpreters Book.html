@@ -69,7 +69,7 @@ print(&quot;Result: &quot;, c)</pre>
 
 <p>Despite it looking simple, it gives us the possibility to talk about many things.</p>
 
-<h2>Representing expressions</h2>
+<h2>Text, memory and representing expressions</h2>
 
 <p>Try to ignore for a moment that the <em>input method</em> of this interpreter &ndash;
 typing numbers in the terminal &ndash;
@@ -171,25 +171,139 @@ This book will not provide a solution to the problem of code stored as text.
 That is way out of scope, and possibly the subject of research for the years to come.
 Who knows, after you finish reading this book, you may want to give it a shot and free us from the constrictions of text.</p>
 
-<h2>Interpreting an arithmetic expression</h2>
+<h2>Expression trees</h2>
 
 <p>So, as we agreed, we skip parsing for now and imagine that the source code is simply handed to us in the right format.
 And, as we agreed (if you trust me) the &quot;right&quot; format for an expression is a tree.</p>
 
 <p>What kind of tree? Binary? N-ary?</p>
 
-<p>In programming language parlance, an expression is anything that yields a value.
-With this in mind, let's say that the simplest non-empty well-formed tree that we can have is a single node that contains a value.
-For example:<br/>
-[Drawing of 12 in a circle]</p>
+<p>All the expression in our examples so far can be composed by two kinds of nodes: the literal and the binary expression.</p>
 
-<!-- it's not a value but a literal: literals are concepts related to source code, values only exist at runtime.
-When do you explain this? When does this become meaningful? -->
+<p>In programming languages, <em>literals</em> are values that are written directly in the source code.
+For example: 12. In the expression 12 + 25, '12' and '25' are literals.
+Each literal could be its own individual expression without any children.</p>
 
-<p>What I just said is slightly incorrect, but let's move on for now.</p>
+<svg viewBox="0 0 800 40" xmlns="http://www.w3.org/2000/svg">
+ <circle r="15" cx="400" cy="20" fill="black" stroke="white" stroke-width="1"/>
+ <text
+  font-size="16"
+  text-anchor="middle"
+  dominant-baseline="middle"
+  x="400" y="20"
+  fill="white">12</text>
+</svg>
 
-<p>A slightly more complex expression is a unary operator applied to another expression.
-That sub-expression could be anything: a leaf node or a complex expression with many children.</p>
+<p><em>Binary expressions</em> are anything that has two sub-expressions and an operator that combines them.
+'12 + 25' is a binary expression.
+'+' is the root of the expression tree, and '12' and '25' are its sub-expressions.</p>
+
+<svg viewBox="0 0 800 100" xmlns="http://www.w3.org/2000/svg">
+ <circle r="15" cx="400" cy="20" fill="black" stroke="white" stroke-width="1"/>
+ <circle r="15" cx="380" cy="80" fill="black" stroke="white" stroke-width="1"/>
+ <circle r="15" cx="420" cy="80" fill="black" stroke="white" stroke-width="1"/>
+ <text
+  font-size="16"
+  text-anchor="middle"
+  dominant-baseline="middle"
+  x="400" y="20"
+  fill="white">+</text>
+ <text
+  font-size="16"
+  text-anchor="middle"
+  dominant-baseline="middle"
+  x="380" y="80"
+  fill="white">12</text>
+ <text
+  font-size="16"
+  text-anchor="middle"
+  dominant-baseline="middle"
+  x="420" y="80"
+  fill="white">25</text>
+</svg>
+
+<p>We can model this directly in the code by allowing an expression to be either a Literal or a Binary_Expression.</p>
+
+<pre>Expression :: union {
+	Literal,			// Not defined yet
+	Binary_Expression,	// Not defined yet
+}</pre>
+
+<p>(NOTE: If you like inheritance, fat structs or other forms of abstraction, the union is simply the most
+obvious way to explain and understand this concept. If, after you wrote the code this way, you think you
+can improve it then go ahead. But for the remainder of the book, I'll stick with union, and you should too
+if you want to follow along. Remember that code can change.)</p>
+
+<p>We can then define its variants:</p>
+
+<pre>Literal :: struct {
+	value: Number
+}
+
+Binary_Expression :: struct {
+	operator: Operator,
+	sub_1: ^Expression,
+	sub_2: ^Expression
+}
+</pre>
+
+<p>We can now represent literals and binary expressions.
+We don't yet have a way to generate instances of expressions,
+but we can hard-code some examples in the interprete to test things out:</p>
+
+<pre>main :: () {
+	a: Expression = Literal { 12 }
+	b: Expression = Literal { 25 }
+	root: Expression = Binary_Expression { +, &a, &b }
+	
+	c: Number = eval_expression(root)
+	print(c)
+}</pre>
+
+<!-- Note that the definition is recursive, make an example of a more complicated expression -->
+
+<p>How do we evaluate an expression? Depends on the kind.
+The evaluation function just switches on the variant and picks the appropriate evaluation method.</p>
+
+<pre>eval_expression :: (ast: Expression) -> Number {
+	result: Number
+	switch type_of(ast) {
+		case Literal:           result = eval_literal(ast) // Not defined yet
+		case Binary_Expression: result = eval_binary_expression(ast) // Not defined yet
+	}
+	return result
+}</pre>
+
+<p>NOTE: I made separate functions for each variant of the expression so that the snippet is more digestible inside a book.
+In a real codebase, you might want to inline them and have eval_expression be your only function.
+I would probabily do that if I weren't writing a book, but this is a book.</p>
+
+<p>Evaluating a literal is as simple as returning its value:</p>
+
+<pre>eval_literal :: (ast: Literal) -> Number {
+	return ast.value
+}</pre>
+
+<p>The binary expression is slightly more involved, but nothing we can't handle.
+We just need to compute the result differently based on the operator:</p>
+
+<pre>eval_binary_expression :: (ast: Binary_Expression) -> Number {
+	a := eval_expression(ast.sub_1)
+	b := eval_expression(ast.sub_2)
+	result: Number
+	switch ast.operator {
+		case +: result = a + b
+		case -: result = a - b
+		case *: result = a * b
+	}
+	return result
+}</pre>
+
+<p>We can now run the interpreter and see the result!
+If you run it now, with the 'main' defined as above, it should correctly print 37.</p>
+
+<!-- Leave unary operators as an exercise to the reader, then explain -->
+
 
     </article>
   </main>
