@@ -171,6 +171,26 @@ This book will not provide a solution to the problem of code stored as text.
 That is way out of scope, and possibly the subject of research for the years to come.
 Who knows, after you finish reading this book, you may want to give it a shot and free us from the constrictions of text.</p>
 
+<h2>Interpreting an arithmetic expression</h2>
+
+<p>So, as we agreed, we skip parsing for now and imagine that the source code is simply handed to us in the right format.
+And, as we agreed (if you trust me) the &quot;right&quot; format for an expression is a tree.</p>
+
+<p>What kind of tree? Binary? N-ary?</p>
+
+<p>In programming language parlance, an expression is anything that yields a value.
+With this in mind, let's say that the simplest non-empty well-formed tree that we can have is a single node that contains a value.
+For example:<br/>
+[Drawing of 12 in a circle]</p>
+
+<!-- it's not a value but a literal: literals are concepts related to source code, values only exist at runtime.
+When do you explain this? When does this become meaningful? -->
+
+<p>What I just said is slightly incorrect, but let's move on for now.</p>
+
+<p>A slightly more complex expression is a unary operator applied to another expression.
+That sub-expression could be anything: a leaf node or a complex expression with many children.</p>
+
     </article>
   </main>
 
