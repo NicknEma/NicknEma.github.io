@@ -404,6 +404,101 @@ sub-expressions returning errors.</p>
 (explain simple control flow. This code is not complicated at all, exceptions aren't worth it.
 Use them if you really want, but look at the example code and see if it all that bad without them.)</p>
 
+<h3>Adding booleans</h3>
+
+<p>Programming languages don't just have numbers.
+Even if a language doesn't have distinction between integers and floating-point numbers,
+or it doesn't have different types for each size of number (8 bits, 16 bits, 32 bits etc.),
+it still supports different data types.
+This is another case where you'll have to make your design skills shine.
+How many types do you support, and which ones?
+Leave aside user-defined data types for now.
+Think strings, booleans, nil, arrays, pointers.
+Are booleans just integers, or are they a separate thing?
+How big is a number?
+How is a string stored?</p>
+
+<p>Another question: what happens when an operator is applied to the incorrect type?
+Is it a runtime error, or the value is converted implicitly?
+Is there a type-checking phase before execution, or are types checked during execution?
+What are the implications of this?</p>
+
+<p>Let's do baby steps and add booleans as a single distinct type.
+There will be no distinct type-checking phase, all types are checked as expressions are evaluated (at least for now).
+There are no implicit conversions, type mismatches result in a runtime error.
+We have to modify all the places where our interpreter returns a Number, and make it return a generic Value.</p>
+
+<pre>Literal :: struct {
+	value: Value // not defined yet
+}
+
+eval_literal :: (ast: Literal) -> Value {
+	return ast.value
+}
+
+eval_expression :: (ast: Expression) -> Value, Error {
+	result, error: Value, Error
+	switch type_of(ast) {
+		...
+	}
+	return result, error
+}</pre>
+
+<p>And then we define our Value type:</p>
+
+<pre>Value :: union {
+	Boolean,
+	Number,
+}</pre>
+
+<p>These ones were easy. What about unary and binary expressions?
+What about when we have to actually <em>use</em> the values?</p>
+
+<p>First we want to check if the operator can act on the type,
+then extract the value of the correct type and use it.</p>
+
+<pre>eval_unary_expression :: (ast: Unary_Expression) -> Value, Error {
+	result, error: Value, Error
+	a, error_a := eval_expression(ast.sub)
+	if error_a == nil {
+		switch ast.operator {
+			case +:
+				error = expect_unary_operator_types(+, a, {Number})
+				if error == nil
+					value = a
+			case -:
+				error = expect_unary_operator_types(-, a, {Number})
+				if error == nil
+					value = Value { -a.(Number) }
+			case !:
+				error = expect_unary_operator_types(!, a, {Boolean, Number})
+				if error == nil
+					value = Value { !a.(Boolean) }
+		}
+	} else {
+		error = error_a
+	}
+	return result, error
+}</pre>
+
+<p>Same thing with binary.</p>
+
+<pre>eval_binary_expression :: (ast: Binary_Expression) -> Value, Error {
+	result, error: Value, Error
+	...
+		case +: 
+	return result, error
+}</pre>
+
+<p>With booleans finally in the language, we can add other operators such as
+equality, inequality, and, or, comparisons.</p>
+
+<h3>Adding strings</h3>
+
+<h3>Nil</h3>
+
+<h3>Different types of numbers</h3>
+
     </article>
   </main>
 
