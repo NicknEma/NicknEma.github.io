@@ -304,6 +304,105 @@ If you run it now, with the 'main' defined as above, it should correctly print 3
 
 <!-- Leave unary operators as an exercise to the reader, then explain -->
 
+<h3>Division and errors</h3>
+
+<p>There is one binary operator that we voluntarily left out: the division.
+Division requires special handling because it is not mathematically defined if the divisor is 0.
+This is the perfect opportunity to talk a bit about language design and error handling.</p>
+
+<p>If you divide a number by zero in your implementation language, what happens?
+Each language is different, and it may have different answers depending on the data type of your numbers and other factors.
+If your language has floating-point numbers, and you're doing floating-point division, dividing by zero yields infinity (check).</p>
+
+<p>If you're doing integer division, then the language might panic, yield 0, yield 1,
+yield a special sentinel value or something completely different like invoke undefined behaviour.</p>
+
+<p>What should <em>your</em> interpreter do?
+This is your opportunity to wear your language designer hat and take a decision.
+There is simply no &quot;right&quot; answer, there is only your answer.
+Sure, some choices are saner than others, but it's ultimately you who decides.
+Keep in mind that, whatever you choose, your users will have to remember that choice when they write divisions.</p>
+
+<p>Let's say you want it to return infinity:</p>
+
+<pre>switch ast.operator {
+	...
+	case /:
+		if b != 0  result = a / b
+		else       result = math.sign(a) * math.INFINITY
+}</pre>
+
+<p>Let's try something else: we want to instead panic the program.
+In other words, we want to genrate a <strong>runtime error</strong>.</p>
+
+<p>Read that carefully: we want to panic the <em>program that is being interpreted</em>, not the interpreter itself.
+Those are two very different things.
+A panic/assert that fires in a program indicates that the program has a bug.
+Whenever you write code <em>in general</em>, you want to eliminate as many bugs as possible.
+We don't want the interpreter to have bugs, but we do want to account for the possibility of a bug in the interpreted code.</p>
+
+<p>This is different than, say, handling the case where the operator isn't any of the four cases that we expect.
+If 'operator' isn't any of +, -, * or /, then that's a bug in the <em>interpreter</em>.
+It means that whoever gave us the expression tree (the parser) gave us an incorrect tree, which should not have happened.
+In THAT case, we do want to stop the interpreter:</p>
+
+<pre>switch ast.operator {
+	case +: ...
+	case -: ...
+	case *: ...
+	case /: ...
+	case: internal_error(&quot;Invalid operator.&quot;)
+}</pre>
+
+<p>(or, first introduce errors in the interpreter, then errors in the target language.
+explain why you don't like to call errors 'errors'.
+Differentiate between asserts, internal_error() and returning a status code.
+Let's say you want to call the interpreter from a graphical, interactive program:
+you don't want to trap, but just abort interpretation.
+A case like this is not an assert, but a runtime_error() which sets a flag in the interpreter.)</p>
+
+<pre>eval_binary_expression :: (ast: Binary_Expression) -> Number, Error {
+	result, error: Number, Error
+	...
+			case /:
+				if b != 0  result = a / b
+				else       result, error = 0, Error { &quot;Division by zero.&quot; }
+	...
+	return result, error
+}</pre>
+
+<p>Wait, but then we would need to update eval_expression to also aknowledge the possibility of errors:</p>
+
+<pre>eval_expression :: (ast: Expression) -> Number, Error {
+	result, error: Result, Error
+	switch type_of(ast) {
+		case Literal:			result = eval_literal(ast)
+		case Binary_Expression:	result, error = eval_binary_expression(ast)
+		case: internal_error(&quot;Invalid expression variant.&quot;)
+	}
+	return result, error
+}</pre>
+
+<p>Wait, but then eval_binary_expression needs to account for the possibility of either of its
+sub-expressions returning errors.</p>
+
+<pre>eval_binary_expression :: (ast: Binary_Expression) -> Number, Error {
+	result, error: Number, Error
+	a, error_a := eval_expression(ast.sub_1)
+	b, error_b := eval_expression(ast.sub_2)
+	if error_a == nil and error_b == nil {
+		switch ast.operator {
+			...
+		}
+	} else {
+		error = error_a
+	}
+	return result, error
+}</pre>
+
+<p>Now you might think, if you like exceptions, this might be a good time to use exceptions.
+(explain simple control flow. This code is not complicated at all, exceptions aren't worth it.
+Use them if you really want, but look at the example code and see if it all that bad without them.)</p>
 
     </article>
   </main>
