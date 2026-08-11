@@ -54,10 +54,22 @@ You may not want to take a link to this page, as the url may change.</em></p>
 
 <h2 id="toc"><a href="Interpreters Book.html#toc">Table of contents</a></h2>
 <ul>
-<li>The simplest interpreter</a></li>
+<li>Introduction</li>
+<li>The simplest interpreter</li>
 </ul>
 
+<p>We're gonna be very loose at the beginning, then tighten up every part once we have a working base.
+While we prototype our interpreter we're not gonna worry about errors, memory layout, any kind of optimization or user-friendliness.
+'Course that doesn't mean that our code will be bad.
+It won't even be good.
+It will just do what it needs to do in the simplest way possible, so that is both easy to understand (as we are trying to learn) and easy to improve (if we later decide to do that).</p>
+
 <h2>The simplest interpreter</h2>
+
+<p>You already know how to write an interpreter.
+In fact, you probabily already have written one.
+If you learned to program in school, one of the first exercises that they make you do is to write a calculator.
+When you're just starting out, it's going to come out something like this:</p>
 
 <pre>print(&quot;First number: &quot;)
 a = read_number()
@@ -66,6 +78,11 @@ b = read_number()
 
 c = a + b
 print(&quot;Result: &quot;, c)</pre>
+
+<p>The goal of this book is to show that an interpreter for a programming language is just an advanced version of that very program.
+It uses slightly more complex data structure, has a friendlier interface, but it mostly follows the same structure.</p>
+
+<p>[In fact it's so similar I recommend you fire up your text editor and write that very program, 'cause we're gonna start with that]</p>
 
 <p>Despite it looking simple, it gives us the possibility to talk about many things.</p>
 
@@ -498,6 +515,8 @@ equality, inequality, and, or, comparisons.</p>
 <h3>Nil</h3>
 
 <h3>Different types of numbers</h3>
+
+<h2>Statement trees</h2>
 
     </article>
   </main>
