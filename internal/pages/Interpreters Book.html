@@ -50,7 +50,8 @@
     <article>
 
 <p><em>This book is not complete.
-You may not want to take a link to this page, as the url may change.</em></p>
+You may not want to take a link to this page, as the url may change.
+None of the code samples have been compiled not tested, yet.</em></p>
 
 <h2 id="toc"><a href="Interpreters Book.html#toc">Table of contents</a></h2>
 <ul>
@@ -59,10 +60,18 @@ You may not want to take a link to this page, as the url may change.</em></p>
 </ul>
 
 <p>We're gonna be very loose at the beginning, then tighten up every part once we have a working base.
-While we prototype our interpreter we're not gonna worry about errors, memory layout, any kind of optimization or user-friendliness.
+While we prototype our interpreter we're not gonna worry about errors
+<label for="what_are_errors_anyway" class="margin-toggle sidenote-number"></label>
+<input type="checkbox" id="what_are_errors_anyway" class="margin-toggle"></input>
+<span class="sidenote">Hello.</span>
+, memory layout, any kind of optimization or user-friendliness.
 'Course that doesn't mean that our code will be bad.
 It won't even be good.
 It will just do what it needs to do in the simplest way possible, so that is both easy to understand (as we are trying to learn) and easy to improve (if we later decide to do that).</p>
+
+
+
+
 
 <h2>The simplest interpreter</h2>
 
@@ -86,6 +95,62 @@ It uses slightly more complex data structure, has a friendlier interface, but it
 
 <p>Despite it looking simple, it gives us the possibility to talk about many things.</p>
 
+<h3>Language design</h3>
+
+<p>This book also touches on language design.
+It's useful if you want to make an interpreter for a new language, but even if you're making an interpreter for a language that already exists it can still be a good thing to know.</p>
+
+<p>Look at your basic interpreter.
+It's obviously written in a language that already exists.
+Let's say that you're using C.
+Let's also give a name to the language you're writing the interpreter for, say, L.</p>
+
+<p>How are the two numbers stored, in the language you're using?
+Are they integers, or floating-point, or something else?
+How many bits are used for each number, and what is their range?
+What if you want L to use a different representation than C?
+What if C can't store numbers outside the 2^64 range, but you want L to be able to do it?</p>
+
+<p>What happens when numbers become too big?
+What if both numbers are small enough to be represented by C, but their sum isn't?
+What does the result become in that case?
+Maybe you want it to overflow.
+Maybe you want it to saturate.
+Maybe you want to change the underlying type, so that the result fits.
+Maybe you want to stop the program.
+Maybe you want to assume it never happens.</p>
+
+<p>If you're a beginner, or know only a couple of programming languages, you might think that 'language design' is about designing the <em>syntax</em>.
+It's certainly what I believed, when I only knew bits of C++ and bits of C#.
+Instead, <em>these</em> are (some of) the questions that language designers worry about.
+Decisions not about how the language <em>looks</em> (syntax), but about how it <em>behaves</em> (semantics).</p>
+
+<figure>
+<pre>#define N 10
+int a[N];
+void do_something() {
+	for (int i = 0; i < N; i++)
+		a[i] = rand() % N
+}
+</pre>
+<pre>int[] a = new int[10];
+pubic void do_something() {
+	for (int i = 0; i < a.Length; i++)
+		a[i] = Random.Range(0, a.Length)
+}</pre>
+<figcaption>They're basically the same thing, right?</figcaption>
+</figure>
+
+<p>Our little interpreter doesn't even <em>have</em> a syntax, and we can already start to think about its semantics.</p>
+
+<p>Don't worry, we're not gonna answer all those questions immediately.
+First, we'll make the interpreter more useful by extending the language.
+Then we'll nail down all the details.</p>
+
+
+
+
+
 <h2>Text, memory and representing expressions</h2>
 
 <p>Try to ignore for a moment that the <em>input method</em> of this interpreter &ndash;
@@ -103,6 +168,7 @@ In other words, you would need to <em>parse</em> the input program.</p>
 <p></p>
 
 <p>Imagine that we want to improve our interpreter to now allow not only addition, but also subtraction and multiplication (let's ignore division for now).
+[Let's actually not skip it, simply mention that we'll worry about division by zero later].
 If we try to keep the same focus as before (make the in-memory representation easy to work with, and don't care about the input method), the most obvious thing to do is to add another variable:</p>
 
 <pre>...
@@ -187,6 +253,10 @@ and how much better it would be if code was stored in a different format.
 This book will not provide a solution to the problem of code stored as text.
 That is way out of scope, and possibly the subject of research for the years to come.
 Who knows, after you finish reading this book, you may want to give it a shot and free us from the constrictions of text.</p>
+
+
+
+
 
 <h2>Expression trees</h2>
 
@@ -321,7 +391,31 @@ If you run it now, with the 'main' defined as above, it should correctly print 3
 
 <!-- Leave unary operators as an exercise to the reader, then explain -->
 
-<h3>Division and errors</h3>
+<p>(Side note: you can go wild here and implement all the binary operators you want:
+modulus, remainder, power.
+However, in a toy interpreter like this, it will only slow you down.
+You can go back later and add them, but keep it simple for now, as the code will become more complicated)</p>
+
+
+
+
+
+<h3>Strings and booleans</h3>
+
+<p>[Note about string interning]</p>
+
+<h3>Identifiers and the environment</h3>
+
+
+
+
+
+<h3>Errors in the target program</h3>
+
+<p>[This section was titles 'division and errors' and was near the start of the book.
+I probabily want to put it later, after the base interpreter is done, and only introduce errors now.
+Then, the next section will be called 'Errors in our program (bugs)'.
+The section after can be 'Type checking and other errors', and can be about actually implementing runtime errors in the interpreter.]</p>
 
 <p>There is one binary operator that we voluntarily left out: the division.
 Division requires special handling because it is not mathematically defined if the divisor is 0.
