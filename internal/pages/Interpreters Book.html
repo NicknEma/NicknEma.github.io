@@ -382,6 +382,7 @@ We just need to compute the result differently based on the operator:</p>
 		case +: result = a + b
 		case -: result = a - b
 		case *: result = a * b
+		case /: result = a / b
 	}
 	return result
 }</pre>
@@ -401,6 +402,55 @@ You can go back later and add them, but keep it simple for now, as the code will
 
 
 <h3>Strings and booleans</h3>
+
+<pre><code>Literal :: struct {
+	value: Value // Not defined yet
+}</code></pre>
+
+<pre><code>eval_literal :: (expr: Literal) -> Value { ... }
+eval_unary_expression :: (expr: Unary_Expression) -> Value { ... }
+eval_binary_expression :: (expr: Binary_Expression) -> Value { ... }</code></pre>
+
+<pre><code>eval_binary_expression :: (expr: Binary_Expression) -> Value {
+	a := eval_expression(ast.sub_1)
+	b := eval_expression(ast.sub_2)
+	result: Value
+	switch ast.operator {
+		case +: result.n = a.n + b.n
+		case -: result.n = a.n - b.n
+		case *: result.n = a.n * b.n
+		case /: result.n = a.n / b.n
+		
+		// Notice how these operators produce a boolean, but still take numbers as inputs.
+		// You can't ask if true is less than false!
+		// Also notice how we aren't doing any type-checking for now.
+		// Type-checking is important, we're just postponing it!
+		case <: result.b = a.n < b.n
+		case <=: result.b = a.n <= b.n
+		case >: result.b = a.n > b.n
+		case >=: result.b = a.n >= b.n
+		
+		// For these other two operators, the output is a boolean, but the inputs
+		// can be of any type (as long as they're of the same type, which we
+		// aren't checking yet).
+		// We need to have 2 separate cases for each.
+		case ==:
+			if type_of(ast.sub_1) == Number
+				result.b = a.n == b.n
+			else
+				result.b = a.b == b.b
+		case !=:
+			if type_of(ast.sub_1) == Number
+				result.b = a.n != b.n
+			else
+				result.b = a.b != b.b
+	}
+	return result
+}</code></pre>
+
+<p>Note how we still haven't implemented logical-and and logical-or.
+Those two operators need special treatment, as you'll see later.
+You can still choose to implement them right now like we did with the others as an exercise, but you'll likely need to change them as we find out why they're special.</p>
 
 <p>[Note about string interning]</p>
 
