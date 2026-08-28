@@ -260,8 +260,8 @@ HWND Window = CreateWindowW(
 	CW_USEDEFAULT,
 	CW_USEDEFAULT,
 	NULL,
-	WindowClass.hInstance,
 	NULL,
+	WindowClass.hInstance,
 	NULL
 );`; navigator.clipboard.writeText(c)">Copy</button>
 </div>
@@ -276,8 +276,8 @@ HWND Window = CreateWindowW(
 </span></span><span class="line"><span>	<span class="token macro">CW_USEDEFAULT</span>,				<span class="token comment">// Top edge</span>
 </span></span><span class="line"><span>	<span class="token macro">CW_USEDEFAULT</span>,				<span class="token comment">// Width</span>
 </span></span><span class="line"><span>	<span class="token macro">CW_USEDEFAULT</span>,				<span class="token comment">// Height</span>
-</span></span><span class="line"><span>	<span class="token macro">NULL</span>,						<span class="token comment">// Parent window	(optional)</span>
 </span></span><span class="line"><span>	<span class="token variable">WindowClass</span>.<span class="token variable">hInstance</span>,		<span class="token comment">// Module handle</span>
+</span></span><span class="line"><span>	<span class="token macro">NULL</span>,						<span class="token comment">// Parent window	(optional)</span>
 </span></span><span class="line"><span>	<span class="token macro">NULL</span>,						<span class="token comment">// Menu				(optional)</span>
 </span></span><span class="line"><span>	<span class="token macro">NULL</span>						<span class="token comment">// Additional data	(optional)</span>
 </span></span><span class="line"><span>);
@@ -477,8 +477,84 @@ how to solve the problem: 1) if making a simple utility, lock the size of the wi
 3) otherwise 3a) WM_ENTERSIZEMOVE WM_EXITSIZEMOVE 3b) fibers 3c) threads 3d) custom window border
 stretchdibits, bitmap allocation & alignment-->
 
+<h4>Child and parent windows</h4>
 
+<h4>Predefined window classes</h4>
 
+<p>When a program starts, the system predefines some window classes for it. These are not <em>actual</em> windows, instead they are controls that you can use to build UI.</p>
+
+<h5>The static class</h5>
+
+<p>A window of the <code>static</code> class can be used to display text or an image.</p>
+
+<p>Here is the simplest static control you can create:</p>
+<div class="code-block">
+<div class="code-block-bar">
+<span>C</span>
+</div>
+<div class="code-block-content">
+<div class="highlight"><pre tabindex="0"><code class="language-C" data-lang="C"><span class="line"><span><span class="token typename">HWND</span> <span class="token variable">Control</span> = <span class="token function">CreateWindowW</span>(
+</span></span><span class="line"><span>	<span class="token string">L"Static"</span>,
+</span></span><span class="line"><span>	<span class="token string">L"Hello"</span>,
+</span></span><span class="line"><span>	<span class="token macro">WS_CHILD</span>|<span class="token macro">WS_VISIBLE</span>,
+</span></span><span class="line"><span>	5, 5, 100, 100,
+</span></span><span class="line"><span>	<span class="token variable">Window</span>,
+</span></span><span class="line"><span>	<span class="token macro">NULL</span>,
+</span></span><span class="line"><span>	<span class="token function">GetModuleHandleW</span>(<span class="token macro">NULL</span>),
+</span></span><span class="line"><span>	<span class="token macro">NULL</span>
+</span></span><span class="line"><span>);
+</span></span></code></pre>
+</div></div>
+</div>
+
+<p><em>Note how we create this window as a child of another window.
+The parent window is the window where the static control should appear.
+We are passing the <code>WS_CHILD</code> style and the <code>Window</code> handle as its parent.</em></p>
+
+<img src="a_dump_of_my_windows_knowledge\predefined_window_classes_static.png" width=186 height=93>
+
+<p>There are a lot of ways to change the appearence of a static control, and they can also be configured to send notifications to their parent when they are interacted with.</p>
+
+<p>See the <a href="https://learn.microsoft.com/en-us/windows/win32/controls/static-controls">static control on MSDN</a>.</p>
+
+<h5>The button class</h5>
+
+<p>A window of the <code>button</code> class can be used to draw a button containing text or an image, and to receive notifications about interactions.</p>
+
+<img src="a_dump_of_my_windows_knowledge\predefined_window_classes_button.png" width=186 height=93>
+
+<h6>How to create a button</h6>
+
+<p>The following code creates a button that closes the window.</p>
+
+<div class="code-block">
+<div class="code-block-bar">
+<span>C</span>
+</div>
+<div class="code-block-content">
+<div class="highlight"><pre tabindex="0"><code class="language-C" data-lang="C">#define MY_CONTROL 2001
+
+// In the window procedure:
+case WM_CREATE: {
+	HWND Control = CreateWindowW(
+		L"Button",
+		L"Hello",
+		WS_CHILD|WS_VISIBLE,
+		Left, Top, Width, Height,
+		Window,
+		(HMENU)MY_CONTROL,
+		GetModuleHandleW(NULL),
+		NULL
+	);
+} break;
+
+case WM_COMMAND:
+{
+	if (LOWORD(WParam) == MY_CONTROL)
+		PostQuitMessage(0);
+} break;</code></pre>
+</div></div>
+</div>
 
 <h3 id="com"><a href="A dump of my Windows knowledge.html#com">The Component Object Model (COM)</a></h3>
 
