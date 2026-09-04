@@ -30,15 +30,15 @@ load_paths = {
 
 commands = {
 	.build = { .out = "*compilation*", .footer_panel = true, .save_dirty_files = true,
-		.win   = "hugo",
-		.linux = "hugo",
-		.mac   = "hugo",
+		.win   = "",
+		.linux = "",
+		.mac   = "",
 	},
 	
 	.serve = { .out = "*compilation*", .footer_panel = true, .save_dirty_files = true,
-		.win   = "hugo server -noHTTPCache -D",
-		.linux = "hugo server -noHTTPCache -D",
-		.mac   = "hugo server -noHTTPCache -D",
+		.win   = "python_server_internal.bat",
+		.linux = "",
+		.mac   = "",
 	},
 };
 
